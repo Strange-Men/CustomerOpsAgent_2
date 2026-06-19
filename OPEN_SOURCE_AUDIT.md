@@ -1236,9 +1236,65 @@ npm run dev
 
 ---
 
+## 21. Phase 1 Plan Lock (v0.3-phase1-plan)
+
+> **Plan date**: 2026-06-19
+> **Status**: ✅ Phase 1 plan locked
+
+### 21.1 Phase 1 Plan Summary
+
+| 字段 | 内容 |
+|---|---|
+| **Phase 1 名称** | RAG Evaluation Harness + Demo Data |
+| **计划文档** | `PHASE1_PLAN.md` |
+| **计划状态** | ✅ 已锁定 |
+| **是否修改源码** | ❌ 否，纯计划 |
+| **是否进入 v1** | ❌ 否，仍在 v0 阶段 |
+
+### 21.2 Phase 1 范围确认
+
+**RAG Evaluation Harness**：
+- 新增 `tests/rag_eval/` — RAG 质量评估测试框架
+- 覆盖：检索精度、无答案 fallback、evidence/citation、幻觉风险
+- 至少 8-10 个 eval cases
+- 支持 mock mode（不需要真实 API Key）
+
+**Demo Data**：
+- 新增 `scripts/demo_data/` — 预配置 demo 数据
+- 包含：demo agent、知识库文档、问答对、bad cases
+- 新增 `scripts/seed_demo_data.py` — 一键填充脚本
+
+**Eval Report**：
+- 新增 `backend/reports/` — 评估报告目录
+- 生成 JSON + Markdown 格式报告
+- 包含量化指标：precision@k, recall@k, MRR, faithfulness, hallucination rate
+
+### 21.3 验收标准
+
+1. ✅ 不需要真实 API Key 也能运行基础 RAG eval harness
+2. ✅ 至少包含 8-10 个 eval cases
+3. ✅ 覆盖：正常命中、多文档检索、无答案 fallback、低相关度拒答、evidence/citation、幻觉风险、中文、英文
+4. ✅ pytest 能运行新增 harness
+5. ✅ 原有核心测试不被破坏
+6. ✅ 能生成 eval report
+7. ✅ demo data 能被 seed 或作为 fixtures 使用
+8. ✅ 文档说明如何运行
+
+### 21.4 下一步
+
+**进入 v1.0-rag-eval-harness**：
+1. 创建分支：`git checkout -b phase1-rag-eval-harness`
+2. 创建目录：`mkdir -p tests/rag_eval/fixtures scripts/demo_data reports docs`
+3. 开始实现 RAG eval harness
+
+**预计时间**：7 天
+
+---
+
 *Report updated: 2026-06-19*
 *Phase 0 preparation confirmed*
 *Fork baseline: v0.1-fork-baseline (2026-06-19)*
 *Setup verified: v0.2-setup-verified (2026-06-19)*
+*Phase 1 plan locked: v0.3-phase1-plan (2026-06-19)*
 *Deep audit by: Claude Code*
 *Workspace: D:\Claude_workfile\CustomerOpsAgent_2*

@@ -210,5 +210,30 @@ CustomerOpsAgent_2/
 
 ---
 
+## 当前状态
+
+**当前阶段**：v0.3-phase1-plan（Phase 1 计划锁定）
+
+**已完成**：
+- ✅ v0.1-audit：选型审查完成
+- ✅ v0.2-deep-audit：深度审查完成
+- ✅ v0.3-phase0-prep：二开准备完成
+- ✅ v0.1-fork-baseline：Fork 基线建立
+- ✅ v0.2-setup-verified：Setup 验证完成
+- ✅ v0.2.5-product-walkthrough：产品体验完成
+- ✅ v0.3-phase1-plan：Phase 1 计划锁定
+
+**下一步**：
+- ⬜ v1.0-rag-eval-harness：实现 RAG eval harness
+- ⬜ v1.1-demo-data：实现 demo data
+- ⬜ v1.2-docs-and-report：文档与评估报告
+- ⬜ v1.3-phase1-complete：Phase 1 完整验收
+
+**Phase 1 任务**：RAG Evaluation Harness + Demo Data
+
+详见 `PHASE1_PLAN.md`。
+
+---
+
 *Created: 2026-06-19*
-*Last updated: 2026-06-19 (setup verified: v0.2-setup-verified)*
+*Last updated: 2026-06-19 (phase1 plan locked: v0.3-phase1-plan)*
