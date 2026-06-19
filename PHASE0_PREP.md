@@ -518,8 +518,350 @@ chore:      构建/工具变更
 
 ---
 
+## 11. Product Walkthrough (v0.2.5)
+
+> **验证日期**: 2026-06-19
+> **Basjoo commit**: 6939926
+> **启动方式**: 本地 Python + Node.js (无 Docker)
+
+### 11.1 启动方式
+
+| 服务 | 启动命令 | 端口 | 状态 |
+|---|---|---|---|
+| **Backend** | `cd backend && PYTHONIOENCODING=utf-8 ./venv/Scripts/python.exe main.py` | 8000 | ✅ 运行成功 |
+| **Frontend** | `cd frontend-nextjs && npm run dev` | 3000 | ✅ 运行成功 |
+| **Redis** | 不可用 | 6379 | ⚠️ 自动 fallback 到内存限流 |
+| **Qdrant** | 不可用 | 6333 | ⚠️ RAG 功能不可用 |
+| **PostgreSQL** | 不可用 | 5432 | ⚠️ 使用 SQLite |
+
+**关键发现**:
+- Backend 可以在没有 Redis/Qdrant/PostgreSQL 的情况下启动
+- Redis 不可用时自动 fallback 到内存限流
+- 使用 SQLite 作为数据库
+- Windows 需要设置 `PYTHONIOENCODING=utf-8` 解决中文编码问题
+
+### 11.2 首页 / Dashboard
+
+**访问地址**: http://localhost:3000
+
+**页面流程**:
+1. 访问 `/` → 重定向到 `/login` (需要登录)
+2. 访问 `/login` → 显示登录页面
+3. 首次访问 `/register` → 检查 `registration-settings` API
+4. 如果 `bootstrap_required=true` → 显示注册页面
+5. 如果 `bootstrap_required=false` → 重定向到 `/login`
+
+**登录页面元素**:
+- Logo + "Basjoo" 标题 (渐变色)
+- "登录您的管理账号" 副标题
+- 邮箱输入框
+- 密码输入框
+- 登录按钮
+- 语言切换器 (中文/English)
+
+**注册页面元素**:
+- "初始设置" 标题
+- "创建第一个超级管理员账号" 副标题
+- 姓名、邮箱、密码、确认密码输入框
+- "创建超级管理员" 按钮
+
+### 11.3 Agent 管理
+
+**路由**: `/agents`
+
+**功能**:
+- 创建 Agent (需要超级管理员权限)
+- Agent 类型: website_support, ai_clone, sales_outreach, custom
+- Agent 渠道: web_widget, whatsapp, email, custom
+- Agent 名称、描述、类型、渠道配置
+- Agent 激活/停用
+- Agent 自动删除倒计时 (30天不活跃)
+
+**创建流程**:
+1. 点击 "创建 Agent"
+2. 填写名称、描述
+3. 选择 Agent 类型
+4. 选择渠道模式
+5. 创建成功后触发 KB Setup Wizard
+
+### 11.4 Agent Settings
+
+**路由**: `/agents/{agentId}/settings/agent`
+
+**配置项**:
+- Widget 标题、颜色、欢迎消息
+- 历史记录保留天数 (默认30天)
+- 允许的 Widget 来源白名单
+- 每分钟对话限制
+- 受限回复消息
+- 嵌入代码生成
+
+**嵌入代码示例**:
+```html
+<script src="http://localhost:8000/sdk.js"></script>
+<script>
+  new BasjooWidget({
+    agentId: 'agt_xxxxxxxxxxxx',
+    apiBase: 'http://localhost:8000',
+    themeColor: '#06B6D4',
+    title: 'AI客服助手',
+    welcomeMessage: '您好！我是AI助手，有什么可以帮助您的吗？',
+    language: 'zh-CN',
+    position: 'right'
+  }).init();
+</script>
+```
+
+### 11.5 Knowledge Base
+
+**路由**: `/agents/{agentId}/knowledge`
+
+**功能**:
+- KB 初始化向导
+- Embedding 提供商选择: Jina, SiliconFlow, Custom
+- Embedding API Key 配置
+- KB 状态检查
+- KB 重置
+
+**初始化流程**:
+1. 选择 Embedding 提供商
+2. 输入 API Key
+3. 测试连接
+4. 初始化 KB
+5. 配置锁定 (只能重置)
+
+**关键发现**:
+- 没有 Embedding API Key 时无法使用知识库功能
+- KB 初始化后配置锁定，只能重置
+- 支持 Jina, SiliconFlow, Custom OpenAI Compatible
+
+### 11.6 URL 管理
+
+**路由**: `/agents/{agentId}/urls`
+
+**功能**:
+- 添加 URL 知识源
+- 单页面爬取
+- 站点爬取 (深度、最大页面数)
+- URL 列表管理
+- 自动抓取设置
+- 重新抓取
+- 清除所有
+
+**爬取流程**:
+1. 输入 URL
+2. 选择爬取方式 (单页面/站点)
+3. 开始爬取
+4. 爬取完成后需要重建索引
+
+**关键发现**:
+- 需要 Scrapling 微服务
+- 支持静态 HTML 页面
+- 自动提取主要内容
+- 最多50个 URL 源
+
+### 11.7 文件管理
+
+**路由**: `/agents/{agentId}/files`
+
+**功能**:
+- 文件上传 (拖拽/点击)
+- 支持格式: PDF, TXT, MD, HTML, DOCX, XLSX
+- 文件列表管理
+- 文件状态: pending, processing, ready, error
+- 清除所有
+
+**上传流程**:
+1. 拖拽或选择文件
+2. 文件上传到后端
+3. 后端解析文件内容
+4. 分块并生成 embedding
+5. 存储到 Qdrant
+
+**关键发现**:
+- 需要 Embedding API Key
+- 支持多种文档格式
+- 最大20MB文件大小
+- 最多5个文件同时上传
+
+### 11.8 Playground
+
+**路由**: `/agents/{agentId}/playground`
+
+**功能**:
+- AI 对话测试
+- 设置预览
+- 调试信息
+- 重建索引
+- 清除对话
+
+**对话流程**:
+1. 输入问题
+2. 发送到后端
+3. 后端检索知识库
+4. 生成回答
+5. 流式返回
+
+**关键发现**:
+- 需要配置 LLM API Key
+- 需要配置 Embedding API Key (用于知识库检索)
+- 支持流式响应
+- 显示引用来源
+
+### 11.9 Sessions / Human Handoff
+
+**路由**: `/agents/{agentId}/sessions`
+
+**功能**:
+- 会话列表
+- 会话状态: active, taken_over, closed
+- 会话详情
+- 人工接管
+- 释放会话
+- 搜索访客ID或消息内容
+
+**会话流程**:
+1. 访客通过 Widget 发起对话
+2. AI 自动回复
+3. 管理员查看会话列表
+4. 管理员接管会话
+5. 管理员手动回复
+6. 释放会话恢复 AI 回复
+
+**关键发现**:
+- 支持 WebSocket 实时通信
+- 支持人工接管
+- 会话状态管理
+- 访客信息 (国家、城市)
+
+### 11.10 User Management
+
+**路由**: `/agents/{agentId}/users`
+
+**功能**:
+- 用户列表
+- 添加用户
+- 编辑用户
+- 删除用户
+- 角色管理: super_admin, admin, support
+
+**角色权限**:
+- super_admin: 完全访问权限
+- admin: Agent 管理权限
+- support: 只能访问 sessions/chat
+
+### 11.11 Widget
+
+**访问地址**: http://localhost:8000/widget-demo
+
+**功能**:
+- 可嵌入的聊天组件
+- 自动检测 API Base
+- 流式响应
+- 引用来源显示
+- 多语言支持
+- 响应式设计
+
+**嵌入方式**:
+```html
+<script src="http://localhost:8000/sdk.js"></script>
+<script>
+  new BasjooWidget({
+    agentId: 'agt_xxxxxxxxxxxx',
+    apiBase: 'http://localhost:8000'
+  }).init();
+</script>
+```
+
+**关键发现**:
+- 自动从 script src 检测 API Base
+- 支持 localStorage 持久化会话
+- 支持流式响应
+- 支持引用来源显示
+- 支持多语言
+
+### 11.12 无 API Key 时的表现
+
+| 功能 | 无 API Key 时 | 说明 |
+|---|---|---|
+| **登录/注册** | ✅ 可用 | 不需要 API Key |
+| **Agent 创建** | ✅ 可用 | 不需要 API Key |
+| **Agent Settings** | ✅ 可用 | 不需要 API Key |
+| **User Management** | ✅ 可用 | 不需要 API Key |
+| **Knowledge Base** | ❌ 不可用 | 需要 Embedding API Key |
+| **URL 管理** | ⚠️ 部分可用 | 可以添加 URL，但爬取需要 Scrapling |
+| **文件管理** | ❌ 不可用 | 需要 Embedding API Key |
+| **Playground** | ❌ 不可用 | 需要 LLM API Key |
+| **Sessions** | ⚠️ 部分可用 | 可以查看列表，但无法对话 |
+| **Widget** | ❌ 不可用 | 需要 LLM API Key |
+
+### 11.13 RAG / Knowledge Base 体验结论
+
+**RAG 管道**:
+1. URL/File → 内容提取
+2. 内容 → 分块 (chunking)
+3. 分块 → Embedding (Jina/SiliconFlow/Custom)
+4. Embedding → Qdrant 存储
+5. 查询 → Embedding → Qdrant 检索 → 相似度排序
+6. 检索结果 + 查询 → LLM 生成回答
+
+**关键发现**:
+- RAG 管道完整，支持 URL 和文件
+- 需要 Embedding API Key 才能使用
+- 支持多种 Embedding 提供商
+- 支持相似度阈值配置
+- 支持 Top-K 结果数量配置
+
+### 11.14 Sessions / Human Handoff 体验结论
+
+**会话管理**:
+- 会话状态: active, taken_over, closed
+- 会话详情: 访客ID、国家、城市、消息数
+- 会话操作: 接管、释放、查看历史
+
+**人工接管**:
+- 管理员可以接管会话
+- 接管后 AI 停止回复
+- 管理员可以手动回复
+- 释放后恢复 AI 回复
+
+**关键发现**:
+- 支持 WebSocket 实时通信
+- 支持人工接管
+- 会话状态管理完善
+- 访客信息丰富
+
+### 11.15 后续 Harness 机会
+
+| 机会 | 页面/API | 说明 |
+|---|---|---|
+| **RAG Eval Harness** | `/api/v1/chat/stream` | 测试检索精度、回答忠实度、幻觉检测 |
+| **Demo Data** | Agent + KB + Sessions | 预配置 agent + 知识库 + 对话示例 |
+| **No-API-Key Fallback** | 所有页面 | 测试无 API Key 时的表现 |
+| **Bad Case Report** | Playground | 生成评估报告 |
+| **截图展示** | Dashboard + Playground + Widget | 作品集展示 |
+
+### 11.16 Phase 1 是否仍然推荐 RAG Eval Harness + Demo Data
+
+**✅ 仍然推荐**
+
+**理由**:
+1. RAG 管道完整，适合做 eval harness
+2. 需要 Embedding API Key 才能测试 RAG
+3. Demo Data 可以预配置 agent + 知识库
+4. 评估报告可以展示 RAG 质量
+5. 适合作品集展示
+
+**建议**:
+1. Phase 1: RAG Eval Harness + Demo Data (MockLLMService)
+2. Phase 2: 真实 API Key 验证
+3. Phase 3: Bad Case Dashboard
+
+---
+
 *Document created: 2026-06-19*
 *Phase 0 preparation confirmed*
 *Fork baseline: v0.1-fork-baseline (2026-06-19)*
 *Setup verified: v0.2-setup-verified (2026-06-19)*
+*Product walkthrough: v0.2.5-product-walkthrough (2026-06-19)*
 *Next step: v0.3-phase1-plan — Phase 1 plan lock*
