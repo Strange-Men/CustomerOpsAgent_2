@@ -1027,22 +1027,22 @@ Copyright (c) 2026 haoyiyin
 |---|---|---|---|
 | **外层仓库** | `D:\Claude_workfile\CustomerOpsAgent_2` | https://github.com/Strange-Men/CustomerOpsAgent_2.git | ✅ 正常 |
 | **原项目副本** | `D:\Claude_workfile\CustomerOpsAgent_2\candidates\basjoo` | https://github.com/haoyiyin/basjoo.git | ✅ 已下载 |
-| **Fork 项目** | `D:\Claude_workfile\CustomerOpsAgent_2\selected\basjoo` | https://github.com/Strange-Men/basjoo.git | ❌ 未创建 |
+| **Fork 项目** | `D:\Claude_workfile\CustomerOpsAgent_2\selected\basjoo` | https://github.com/Strange-Men/basjoo.git | ✅ 已 clone (commit 6939926) |
 
 ### 19.2 Fork 状态
 
 | 检查项 | 状态 | 说明 |
 |---|---|---|
 | **原项目可访问** | ✅ | https://github.com/haoyiyin/basjoo 可访问 |
-| **Fork 存在** | ❌ | https://github.com/Strange-Men/basjoo 不存在 |
-| **selected/basjoo 已 clone** | ❌ | 目录不存在 |
-| **upstream 已设置** | ❌ | 未设置 |
+| **Fork 存在** | ✅ | https://github.com/Strange-Men/basjoo 已创建 |
+| **selected/basjoo 已 clone** | ✅ | 已 clone，commit 6939926 |
+| **upstream 已设置** | ✅ | upstream → haoyiyin/basjoo |
+| **v0.1-fork-baseline tag** | ✅ | 已创建 (local, not pushed) |
 
-**⚠️ 需要手动 Fork**:
-1. 访问 https://github.com/haoyiyin/basjoo
-2. 点击 "Fork" 按钮
-3. 选择 Strange-Men 账号
-4. 等待 fork 完成
+**Fork baseline 建立于 2026-06-19**:
+- origin → Strange-Men/basjoo
+- upstream → haoyiyin/basjoo
+- 当前分支: main, commit 6939926
 
 ### 19.3 Phase 0 准备结论
 
@@ -1058,7 +1058,7 @@ Copyright (c) 2026 haoyiyin
 8. ✅ 文件结构规划 — tests/rag_eval/ + scripts/
 9. ✅ 验收流程规划 — pytest + eval report + seed demo
 
-**阻塞项**: Fork 未创建
+**Fork baseline**: ✅ 已建立 (v0.1-fork-baseline, 2026-06-19)
 
 ### 19.4 版本规则
 
@@ -1087,5 +1087,6 @@ Copyright (c) 2026 haoyiyin
 
 *Report updated: 2026-06-19*
 *Phase 0 preparation confirmed*
+*Fork baseline: v0.1-fork-baseline (2026-06-19)*
 *Deep audit by: Claude Code*
 *Workspace: D:\Claude_workfile\CustomerOpsAgent_2*

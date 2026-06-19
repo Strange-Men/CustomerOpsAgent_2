@@ -35,8 +35,13 @@
 | 字段 | 值 |
 |---|---|
 | **路径** | `D:\Claude_workfile\CustomerOpsAgent_2\selected\basjoo` |
-| **状态** | ❌ 不存在 |
-| **原因** | Strange-Men/basjoo fork 尚未创建 |
+| **状态** | ✅ 已 clone |
+| **origin** | https://github.com/Strange-Men/basjoo.git |
+| **upstream** | https://github.com/haoyiyin/basjoo.git |
+| **分支** | main |
+| **最新 commit** | 6939926 (chore: add SILICONFLOW_API_KEY to docker-compose services) |
+| **Working Tree** | ✅ clean |
+| **Tag** | v0.1-fork-baseline (local, not pushed) |
 
 ---
 
@@ -77,33 +82,27 @@
 | 检查项 | 状态 | 说明 |
 |---|---|---|
 | **原项目可访问** | ✅ | https://github.com/haoyiyin/basjoo 可访问 |
-| **Fork 存在** | ❌ | https://github.com/Strange-Men/basjoo 不存在 |
-| **selected/basjoo 已 clone** | ❌ | 目录不存在 |
-| **upstream 已设置** | ❌ | 未设置 |
+| **Fork 存在** | ✅ | https://github.com/Strange-Men/basjoo 已创建 |
+| **selected/basjoo 已 clone** | ✅ | 已 clone 到 selected/basjoo |
+| **upstream 已设置** | ✅ | upstream → haoyiyin/basjoo |
+| **v0.1-fork-baseline tag** | ✅ | 已创建 (local, not pushed) |
 
-### 3.2 ⚠️ 需要手动 Fork
+### 3.2 当前 Remote 配置
 
-**下一步操作**：请在 GitHub 上手动 fork 原项目。
+| Remote | URL | 用途 |
+|---|---|---|
+| `origin` | https://github.com/Strange-Men/basjoo.git | 我的 fork，正式二开 |
+| `upstream` | https://github.com/haoyiyin/basjoo.git | 原项目，定期 merge |
 
-1. 访问 https://github.com/haoyiyin/basjoo
-2. 点击右上角 "Fork" 按钮
-3. 选择你的 GitHub 账号 (Strange-Men)
-4. 保持默认设置，点击 "Create fork"
-5. 等待 fork 完成
-
-### 3.3 Fork 后的预期结构
+### 3.3 当前目录结构
 
 ```
 D:\Claude_workfile\CustomerOpsAgent_2\
   candidates\
     basjoo\          # 原项目审查副本，只读 (已存在)
   selected\
-    basjoo\          # 我的 fork，正式二开 (待创建)
+    basjoo\          # 我的 fork，正式二开 (已 clone, main branch, commit 6939926)
 ```
-
-**Remote 配置**：
-- `origin` → https://github.com/Strange-Men/basjoo (你的 fork)
-- `upstream` → https://github.com/haoyiyin/basjoo (原项目)
 
 ---
 
@@ -232,7 +231,7 @@ D:\Claude_workfile\CustomerOpsAgent_2\
 
 | 版本 | 任务 | 状态 |
 |---|---|---|
-| v0.1-fork-baseline | fork 后原始基线 | ⬜ 待完成 |
+| v0.1-fork-baseline | fork 后原始基线 | ✅ 已完成 (local tag) |
 | v0.2-setup-verified | 本地运行和测试验证完成 | ⬜ 待完成 |
 | v0.3-phase1-plan | Phase 1 计划锁定 | ✅ 已完成 |
 | v1.0-rag-eval-harness | 实现 RAG eval harness | ⬜ 待完成 |
@@ -424,59 +423,40 @@ chore:      构建/工具变更
 | **文件结构规划** | ✅ | tests/rag_eval/ + scripts/ |
 | **验收流程规划** | ✅ | pytest + eval report + seed demo |
 | **版本规则锁定** | ✅ | v0 准备、v1 开发 |
-| **Fork 已创建** | ❌ | **需要先手动 fork** |
-| **selected/basjoo 已 clone** | ❌ | **需要 fork 后 clone** |
+| **Fork 已创建** | ✅ | Strange-Men/basjoo 已创建 |
+| **selected/basjoo 已 clone** | ✅ | 已 clone，origin/upstream 已配置 |
 
 ### 9.2 结论
 
-**⚠️ 准备基本完成，但 Fork 未创建**
+**✅ Fork baseline 已建立**
 
-**阻塞项**:
-1. Strange-Men/basjoo fork 不存在
-2. selected/basjoo 目录不存在
+**已完成**:
+1. ✅ Strange-Men/basjoo fork 已创建
+2. ✅ 已 clone 到 selected/basjoo
+3. ✅ origin → Strange-Men/basjoo, upstream → haoyiyin/basjoo
+4. ✅ v0.1-fork-baseline tag 已创建 (local)
 
 **下一步**:
-1. 在 GitHub 上手动 fork haoyiyin/basjoo → Strange-Men/basjoo
-2. Clone fork 到 selected/basjoo
-3. 设置 upstream
-4. 运行本地测试验证
-5. 进入 v1 开发阶段
+1. 运行本地测试验证 (v0.2-setup-verified)
+2. 进入 v1 开发阶段
 
 ---
 
 ## 10. Next Step Prompt
 
-### 10.1 立即执行
+### 10.1 Fork Baseline ✅ 已完成
 
-**手动 Fork**:
-1. 访问 https://github.com/haoyiyin/basjoo
-2. 点击 "Fork" 按钮
-3. 选择 Strange-Men 账号
-4. 等待 fork 完成
+- ✅ Fork 已创建: Strange-Men/basjoo
+- ✅ 已 clone 到 selected/basjoo
+- ✅ origin → Strange-Men/basjoo
+- ✅ upstream → haoyiyin/basjoo
+- ✅ v0.1-fork-baseline tag 已创建
 
-### 10.2 Fork 后执行
-
-**Clone 并设置**:
-```bash
-# Clone fork
-git clone https://github.com/Strange-Men/basjoo.git "D:\Claude_workfile\CustomerOpsAgent_2\selected\basjoo"
-
-# 进入目录
-cd "D:\Claude_workfile\CustomerOpsAgent_2\selected\basjoo"
-
-# 设置 upstream
-git remote add upstream https://github.com/haoyiyin/basjoo.git
-
-# 验证 remote
-git remote -v
-```
-
-### 10.3 验证后执行
+### 10.2 下一步: v0.2-setup-verified
 
 **本地测试验证**:
 ```bash
-# 进入后端目录
-cd backend
+cd "D:\Claude_workfile\CustomerOpsAgent_2\selected\basjoo\backend"
 
 # 创建虚拟环境
 python3 -m venv venv
@@ -489,7 +469,7 @@ pip install -r requirements.txt
 pytest tests/ --ignore=tests/integration/ -v
 ```
 
-### 10.4 验证通过后
+### 10.3 验证通过后
 
 **进入 v1 开发**:
 1. 创建分支: `git checkout -b phase1-rag-eval-harness`
@@ -500,4 +480,5 @@ pytest tests/ --ignore=tests/integration/ -v
 
 *Document created: 2026-06-19*
 *Phase 0 preparation confirmed*
-*Next step: Manual fork on GitHub*
+*Fork baseline: v0.1-fork-baseline (2026-06-19)*
+*Next step: v0.2-setup-verified — local run and test verification*

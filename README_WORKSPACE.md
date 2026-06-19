@@ -16,7 +16,7 @@ CustomerOpsAgent_2/
 ├── candidates/                  # 候选开源项目（git clone）
 │   ├── tgo/                     # TGO — AI Agent Customer Service Platform
 │   └── basjoo/                  # Basjoo — AI Customer Support Platform
-└── selected/                    # 最终选定的二开项目（待确定）
+└── selected/                    # 二开项目（基于 fork）
 ```
 
 ## 命名规范
@@ -78,7 +78,7 @@ v1.3-phase1-complete # Phase 1 完整验收
 - 不允许在 v0 阶段写功能代码
 - v1 之后每个版本必须有可运行验收结果
 
-当前阶段：`v0.3-phase0-prep`（本轮不打 tag，除非明确允许）
+当前阶段：`v0.1-fork-baseline`（fork baseline 已建立，tag 已创建但未 push）
 
 ## Git 规范
 
@@ -94,6 +94,7 @@ v1.3-phase1-complete # Phase 1 完整验收
 本轮只允许提交：
 - `README_WORKSPACE.md`
 - `OPEN_SOURCE_AUDIT.md`
+- `PHASE0_PREP.md`
 - `.gitignore`
 
 禁止提交：
@@ -120,8 +121,8 @@ v1.3-phase1-complete # Phase 1 完整验收
 4. 确定二开方向和第一阶段任务 ✅
 5. 深度审查最终推荐项目 (Basjoo) ✅
 6. Phase 0 准备确认 ✅
-7. Fork 原项目到 Strange-Men/basjoo ⬜ (下一步)
-8. Clone fork 到 selected/basjoo ⬜
+7. Fork 原项目到 Strange-Men/basjoo ✅
+8. Clone fork 到 selected/basjoo ✅
 9. 在 fork 分支 phase1-rag-eval-harness 上开始二开 ⬜
 
 ## 选定项目
@@ -147,11 +148,12 @@ v1.3-phase1-complete # Phase 1 完整验收
 
 ### 二开仓库 (fork)
 
-- Fork haoyiyin/basjoo → Strange-Men/basjoo
-- origin: https://github.com/Strange-Men/basjoo
-- upstream: https://github.com/haoyiyin/basjoo
-- 分支: phase1-rag-eval-harness
-- 版本: v0.1-fork-baseline → v1.0-rag-eval-harness → v1.3-phase1-complete
+- Fork haoyiyin/basjoo → Strange-Men/basjoo ✅
+- origin: https://github.com/Strange-Men/basjoo ✅
+- upstream: https://github.com/haoyiyin/basjoo ✅
+- 当前分支: main (commit 6939926)
+- 分支: phase1-rag-eval-harness (待创建)
+- 版本: v0.1-fork-baseline ✅ → v0.2-setup-verified → v1.0-rag-eval-harness → v1.3-phase1-complete
 
 ### 目录结构说明
 
@@ -162,9 +164,9 @@ CustomerOpsAgent_2/
 ├── PHASE0_PREP.md          # Phase 0 准备确认
 ├── .gitignore              # Git 忽略规则
 ├── candidates/             # 候选开源项目（只读，不提交）
-│   └── basjoo/             # 原项目审查副本
+│   └── basjoo/             # 原项目审查副本 (commit 6939926)
 └── selected/               # 二开项目（不提交）
-    └── basjoo/             # 我的 fork，正式二开发
+    └── basjoo/             # 我的 fork，正式二开发 (origin: Strange-Men/basjoo, upstream: haoyiyin/basjoo)
 ```
 
 **重要**:
@@ -194,4 +196,4 @@ CustomerOpsAgent_2/
 ---
 
 *Created: 2026-06-19*
-*Last updated: 2026-06-19 (deep audit complete)*
+*Last updated: 2026-06-19 (fork baseline established)*
