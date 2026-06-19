@@ -53,14 +53,32 @@ docs: audit open source customer support agent projects
 
 ### 版本 Tag 规范
 
+**外层 CustomerOpsAgent_2 文档仓库**:
 ```
-v0.1-audit       # 选型审查完成
-v0.2-setup       # 环境搭建完成
-v0.3-enhancement # 二开增强完成
-v1.0-demo        # 作品集 demo 完成
+v0.1-audit       # 选型审查完成 ✅
+v0.2-deep-audit  # 深度审查完成 ✅
+v0.3-phase0-prep # 二开准备完成 ✅
+```
+不进入 v1，因为外层仓库不承载二开代码。
+
+**Basjoo fork 仓库**:
+```
+v0.1-fork-baseline   # fork 后原始基线
+v0.2-setup-verified  # 本地运行和测试验证完成
+v0.3-phase1-plan     # Phase 1 计划锁定
+v1.0-rag-eval-harness # RAG eval harness 实现完成
+v1.1-demo-data       # demo data 完成
+v1.2-docs-and-report # 文档与评估报告完成
+v1.3-phase1-complete # Phase 1 完整验收
 ```
 
-当前阶段：`v0.1-audit`（本轮不打 tag，除非明确允许）
+**规则**:
+- 准备阶段全部 v0
+- 第一行代码二开开始进入 v1
+- 不允许在 v0 阶段写功能代码
+- v1 之后每个版本必须有可运行验收结果
+
+当前阶段：`v0.3-phase0-prep`（本轮不打 tag，除非明确允许）
 
 ## Git 规范
 
@@ -101,8 +119,10 @@ v1.0-demo        # 作品集 demo 完成
 3. 审查项目架构、RAG、Memory、测试、前端 ✅
 4. 确定二开方向和第一阶段任务 ✅
 5. 深度审查最终推荐项目 (Basjoo) ✅
-6. Fork 原项目到 Strange-Men/basjoo ⬜ (下一步)
-7. 在 fork 分支 phase1-rag-eval-harness 上开始二开 ⬜
+6. Phase 0 准备确认 ✅
+7. Fork 原项目到 Strange-Men/basjoo ⬜ (下一步)
+8. Clone fork 到 selected/basjoo ⬜
+9. 在 fork 分支 phase1-rag-eval-harness 上开始二开 ⬜
 
 ## 选定项目
 
@@ -123,6 +143,7 @@ v1.0-demo        # 作品集 demo 完成
 - 只管理审查文档和二开规划
 - 不包含任何候选项目源码
 - candidates/ 和 selected/ 被 .gitignore 忽略
+- 版本: v0.1-audit → v0.2-deep-audit → v0.3-phase0-prep (不进入 v1)
 
 ### 二开仓库 (fork)
 
@@ -130,6 +151,26 @@ v1.0-demo        # 作品集 demo 完成
 - origin: https://github.com/Strange-Men/basjoo
 - upstream: https://github.com/haoyiyin/basjoo
 - 分支: phase1-rag-eval-harness
+- 版本: v0.1-fork-baseline → v1.0-rag-eval-harness → v1.3-phase1-complete
+
+### 目录结构说明
+
+```
+CustomerOpsAgent_2/
+├── README_WORKSPACE.md     # 工作区说明
+├── OPEN_SOURCE_AUDIT.md    # 选型审查报告
+├── PHASE0_PREP.md          # Phase 0 准备确认
+├── .gitignore              # Git 忽略规则
+├── candidates/             # 候选开源项目（只读，不提交）
+│   └── basjoo/             # 原项目审查副本
+└── selected/               # 二开项目（不提交）
+    └── basjoo/             # 我的 fork，正式二开发
+```
+
+**重要**:
+- candidates/ 只用于审查，不修改
+- selected/ 用于正式二开，基于 fork
+- 不提交 candidates/ 或 selected/ 到外层仓库
 
 ## Phase 1 二开任务
 

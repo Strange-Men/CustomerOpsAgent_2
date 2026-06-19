@@ -1019,6 +1019,73 @@ Copyright (c) 2026 haoyiyin
 
 ---
 
+## 19. Phase 0 Preparation Status
+
+### 19.1 Source Code Status
+
+| 项目 | 路径 | Remote | 状态 |
+|---|---|---|---|
+| **外层仓库** | `D:\Claude_workfile\CustomerOpsAgent_2` | https://github.com/Strange-Men/CustomerOpsAgent_2.git | ✅ 正常 |
+| **原项目副本** | `D:\Claude_workfile\CustomerOpsAgent_2\candidates\basjoo` | https://github.com/haoyiyin/basjoo.git | ✅ 已下载 |
+| **Fork 项目** | `D:\Claude_workfile\CustomerOpsAgent_2\selected\basjoo` | https://github.com/Strange-Men/basjoo.git | ❌ 未创建 |
+
+### 19.2 Fork 状态
+
+| 检查项 | 状态 | 说明 |
+|---|---|---|
+| **原项目可访问** | ✅ | https://github.com/haoyiyin/basjoo 可访问 |
+| **Fork 存在** | ❌ | https://github.com/Strange-Men/basjoo 不存在 |
+| **selected/basjoo 已 clone** | ❌ | 目录不存在 |
+| **upstream 已设置** | ❌ | 未设置 |
+
+**⚠️ 需要手动 Fork**:
+1. 访问 https://github.com/haoyiyin/basjoo
+2. 点击 "Fork" 按钮
+3. 选择 Strange-Men 账号
+4. 等待 fork 完成
+
+### 19.3 Phase 0 准备结论
+
+**9-Step Preparation Checklist**: ✅ 全部通过
+
+1. ✅ 明确原始想法 — 基于 Basjoo 做 RAG Eval Harness
+2. ✅ 想法压力测试 — 真实有价值、短期可完成、适合简历
+3. ✅ 想法判断结论 — 非常值得做
+4. ✅ 初版二开 PRD — RAG Eval Harness + Demo Data
+5. ✅ PRD 追问对齐 — 范围合理、不破坏原项目
+6. ✅ 最终 PRD 固化 — Phase 1 范围明确
+7. ✅ 设计基调确定 — 纯新增、不改 UI/架构
+8. ✅ 文件结构规划 — tests/rag_eval/ + scripts/
+9. ✅ 验收流程规划 — pytest + eval report + seed demo
+
+**阻塞项**: Fork 未创建
+
+### 19.4 版本规则
+
+**外层 CustomerOpsAgent_2 文档仓库**:
+- v0.1-audit：选型审查 ✅
+- v0.2-deep-audit：深度审查 ✅
+- v0.3-phase0-prep：二开准备完成 ✅
+- 不进入 v1 (外层仓库不承载二开代码)
+
+**Basjoo fork 仓库**:
+- v0.1-fork-baseline：fork 后原始基线
+- v0.2-setup-verified：本地运行和测试验证完成
+- v0.3-phase1-plan：Phase 1 计划锁定
+- v1.0-rag-eval-harness：RAG eval harness 实现完成
+- v1.1-demo-data：demo data 完成
+- v1.2-docs-and-report：文档与评估报告完成
+- v1.3-phase1-complete：Phase 1 完整验收
+
+**规则**:
+- 准备阶段全部 v0
+- 第一行代码二开开始进入 v1
+- 不允许在 v0 阶段写功能代码
+- v1 之后每个版本必须有可运行验收结果
+
+---
+
 *Report updated: 2026-06-19*
+*Phase 0 preparation confirmed*
 *Deep audit by: Claude Code*
 *Workspace: D:\Claude_workfile\CustomerOpsAgent_2*
