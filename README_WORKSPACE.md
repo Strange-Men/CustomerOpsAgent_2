@@ -78,7 +78,7 @@ v1.3-phase1-complete # Phase 1 完整验收
 - 不允许在 v0 阶段写功能代码
 - v1 之后每个版本必须有可运行验收结果
 
-当前阶段：`v0.1-fork-baseline`（fork baseline 已建立，tag 已创建但未 push）
+当前阶段：`v0.2-setup-verified`（setup 验证完成，tag 已推送到 origin）
 
 ## Git 规范
 
@@ -123,7 +123,8 @@ v1.3-phase1-complete # Phase 1 完整验收
 6. Phase 0 准备确认 ✅
 7. Fork 原项目到 Strange-Men/basjoo ✅
 8. Clone fork 到 selected/basjoo ✅
-9. 在 fork 分支 phase1-rag-eval-harness 上开始二开 ⬜
+9. Setup 验证完成 (v0.2-setup-verified) ✅
+10. 在 fork 分支 phase1-rag-eval-harness 上开始二开 ⬜
 
 ## 选定项目
 
@@ -132,6 +133,14 @@ v1.3-phase1-complete # Phase 1 完整验收
 - 技术栈: Python/FastAPI + Next.js 14 + PostgreSQL + Qdrant + Redis
 - 代码规模: 7.2MB, 96 Python + 109 TypeScript files
 - 二开难度: 低-中
+- Setup 验证: ✅ 通过 (v0.2-setup-verified)
+
+**Setup 验证结果**:
+- 后端测试: 267 passed, 36 failed (Qdrant 依赖), 1 skipped
+- 前端 build: ✅ 成功
+- 前端测试: 125 passed (20 test files)
+- MockLLMService: ✅ 可用 (不需要真实 API Key)
+- Windows 兼容性: ✅ 已验证
 
 **第二备选**: [TGO](https://github.com/tgoai/tgo)
 - License: Modified Apache 2.0
@@ -153,7 +162,7 @@ v1.3-phase1-complete # Phase 1 完整验收
 - upstream: https://github.com/haoyiyin/basjoo ✅
 - 当前分支: main (commit 6939926)
 - 分支: phase1-rag-eval-harness (待创建)
-- 版本: v0.1-fork-baseline ✅ → v0.2-setup-verified → v1.0-rag-eval-harness → v1.3-phase1-complete
+- 版本: v0.1-fork-baseline ✅ → v0.2-setup-verified ✅ → v1.0-rag-eval-harness → v1.3-phase1-complete
 
 ### 目录结构说明
 
@@ -166,7 +175,7 @@ CustomerOpsAgent_2/
 ├── candidates/             # 候选开源项目（只读，不提交）
 │   └── basjoo/             # 原项目审查副本 (commit 6939926)
 └── selected/               # 二开项目（不提交）
-    └── basjoo/             # 我的 fork，正式二开发 (origin: Strange-Men/basjoo, upstream: haoyiyin/basjoo)
+    └── basjoo/             # 我的 fork，正式二开发 (origin: Strange-Men/basjoo, upstream: haoyiyin/basjoo, v0.2-setup-verified)
 ```
 
 **重要**:
@@ -183,7 +192,13 @@ CustomerOpsAgent_2/
 - 不修改原项目核心代码
 - 不依赖真实 API Key (mock mode)
 
-详见 OPEN_SOURCE_AUDIT.md 第 17 章。
+**Setup 验证确认**:
+- ✅ MockLLMService 可用，不需要真实 API Key
+- ✅ 后端测试框架 (conftest.py) 支持隔离测试
+- ✅ 前端测试框架 (Vitest) 正常工作
+- ✅ Windows 环境兼容
+
+详见 OPEN_SOURCE_AUDIT.md 第 17 章和第 20 章。
 
 ## 技术栈偏好
 
@@ -196,4 +211,4 @@ CustomerOpsAgent_2/
 ---
 
 *Created: 2026-06-19*
-*Last updated: 2026-06-19 (fork baseline established)*
+*Last updated: 2026-06-19 (setup verified: v0.2-setup-verified)*

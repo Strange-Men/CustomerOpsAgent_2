@@ -41,7 +41,7 @@
 | **分支** | main |
 | **最新 commit** | 6939926 (chore: add SILICONFLOW_API_KEY to docker-compose services) |
 | **Working Tree** | ✅ clean |
-| **Tag** | v0.1-fork-baseline (local, not pushed) |
+| **Tag** | v0.1-fork-baseline ✅ pushed, v0.2-setup-verified ✅ pushed |
 
 ---
 
@@ -85,7 +85,8 @@
 | **Fork 存在** | ✅ | https://github.com/Strange-Men/basjoo 已创建 |
 | **selected/basjoo 已 clone** | ✅ | 已 clone 到 selected/basjoo |
 | **upstream 已设置** | ✅ | upstream → haoyiyin/basjoo |
-| **v0.1-fork-baseline tag** | ✅ | 已创建 (local, not pushed) |
+| **v0.1-fork-baseline tag** | ✅ | 已创建并推送到 origin |
+| **v0.2-setup-verified tag** | ✅ | 已创建并推送到 origin |
 
 ### 3.2 当前 Remote 配置
 
@@ -231,8 +232,8 @@ D:\Claude_workfile\CustomerOpsAgent_2\
 
 | 版本 | 任务 | 状态 |
 |---|---|---|
-| v0.1-fork-baseline | fork 后原始基线 | ✅ 已完成 (local tag) |
-| v0.2-setup-verified | 本地运行和测试验证完成 | ⬜ 待完成 |
+| v0.1-fork-baseline | fork 后原始基线 | ✅ 已完成 (pushed) |
+| v0.2-setup-verified | 本地运行和测试验证完成 | ✅ 已完成 (pushed) |
 | v0.3-phase1-plan | Phase 1 计划锁定 | ✅ 已完成 |
 | v1.0-rag-eval-harness | 实现 RAG eval harness | ⬜ 待完成 |
 | v1.1-demo-data | 实现 demo seed | ⬜ 待完成 |
@@ -410,9 +411,51 @@ chore:      构建/工具变更
 
 ---
 
-## 9. Ready / Not Ready Verdict
+## 9. Setup 验证结果 (v0.2)
 
-### 9.1 准备状态总览
+> **验证日期**: 2026-06-19
+> **Basjoo commit**: 6939926
+
+### 9.0.1 后端验证
+
+| 项目 | 结果 |
+|---|---|
+| **Python** | 3.11.5 |
+| **venv** | ✅ 创建成功 |
+| **pip install** | ✅ 依赖安装成功 |
+| **pytest** | ✅ 267 passed, 36 failed (Qdrant 依赖), 1 skipped |
+
+### 9.0.2 前端验证
+
+| 项目 | 结果 |
+|---|---|
+| **npm install** | ✅ 538 packages |
+| **npm run build** | ✅ 17 pages generated |
+| **npm run test** | ✅ 125 passed (20 test files) |
+
+### 9.0.3 Docker / 服务审查
+
+| 服务 | 本地测试 | 说明 |
+|---|---|---|
+| **Redis** | 可选 | 测试自动 fallback |
+| **PostgreSQL** | 可选 | 测试使用 SQLite |
+| **Qdrant** | 需要 | RAG 功能依赖 |
+| **Scrapling** | 需要 | URL 爬取依赖 |
+| **nginx** | 不需要 | 开发环境不需要 |
+
+### 9.0.4 风险总结
+
+| 风险 | 级别 | 缓解 |
+|---|---|---|
+| Qdrant 不可用导致 36 个测试失败 | 低 | Docker Compose 启动 Qdrant |
+| Windows 路径兼容性 | 低 | 已验证 venv 正常工作 |
+| 缓存位置 | 低 | 已配置 .cache/ 目录 |
+
+---
+
+## 10. Ready / Not Ready Verdict
+
+### 10.1 准备状态总览 (更新于 v0.2)
 
 | 准备项 | 状态 | 说明 |
 |---|---|---|
@@ -426,50 +469,47 @@ chore:      构建/工具变更
 | **Fork 已创建** | ✅ | Strange-Men/basjoo 已创建 |
 | **selected/basjoo 已 clone** | ✅ | 已 clone，origin/upstream 已配置 |
 
-### 9.2 结论
+### 10.2 结论
 
-**✅ Fork baseline 已建立**
+**✅ Fork baseline 已建立，Setup 验证已完成**
 
 **已完成**:
 1. ✅ Strange-Men/basjoo fork 已创建
 2. ✅ 已 clone 到 selected/basjoo
 3. ✅ origin → Strange-Men/basjoo, upstream → haoyiyin/basjoo
-4. ✅ v0.1-fork-baseline tag 已创建 (local)
+4. ✅ v0.1-fork-baseline tag 已创建并推送
+5. ✅ 后端依赖安装 + 测试运行 (267 passed, 36 failed, 1 skipped)
+6. ✅ 前端依赖安装 + build 成功 + 测试全通过 (125 tests)
+7. ✅ v0.2-setup-verified tag 已创建并推送
 
 **下一步**:
-1. 运行本地测试验证 (v0.2-setup-verified)
-2. 进入 v1 开发阶段
+1. 进入 v0.3-phase1-plan — Phase 1 计划锁定
+2. 然后进入 v1 开发阶段
 
 ---
 
 ## 10. Next Step Prompt
 
-### 10.1 Fork Baseline ✅ 已完成
+### 10.1 Fork Baseline + Setup Verified ✅ 已完成
 
 - ✅ Fork 已创建: Strange-Men/basjoo
 - ✅ 已 clone 到 selected/basjoo
 - ✅ origin → Strange-Men/basjoo
 - ✅ upstream → haoyiyin/basjoo
-- ✅ v0.1-fork-baseline tag 已创建
+- ✅ v0.1-fork-baseline tag 已创建并推送
+- ✅ v0.2-setup-verified tag 已创建并推送
+- ✅ 后端测试: 267 passed, 36 failed (Qdrant 依赖), 1 skipped
+- ✅ 前端 build: 成功
+- ✅ 前端测试: 125 passed
 
-### 10.2 下一步: v0.2-setup-verified
+### 10.2 下一步: v0.3-phase1-plan
 
-**本地测试验证**:
-```bash
-cd "D:\Claude_workfile\CustomerOpsAgent_2\selected\basjoo\backend"
+**Phase 1 计划锁定**:
+1. 确认 Phase 1 范围: RAG eval harness + demo data
+2. 确认文件结构: tests/rag_eval/ + scripts/
+3. 确认验收标准: pytest 通过 + eval report 生成
 
-# 创建虚拟环境
-python3 -m venv venv
-source venv/Scripts/activate  # Windows
-
-# 安装依赖
-pip install -r requirements.txt
-
-# 运行测试
-pytest tests/ --ignore=tests/integration/ -v
-```
-
-### 10.3 验证通过后
+### 10.3 计划锁定后
 
 **进入 v1 开发**:
 1. 创建分支: `git checkout -b phase1-rag-eval-harness`
@@ -481,4 +521,5 @@ pytest tests/ --ignore=tests/integration/ -v
 *Document created: 2026-06-19*
 *Phase 0 preparation confirmed*
 *Fork baseline: v0.1-fork-baseline (2026-06-19)*
-*Next step: v0.2-setup-verified — local run and test verification*
+*Setup verified: v0.2-setup-verified (2026-06-19)*
+*Next step: v0.3-phase1-plan — Phase 1 plan lock*
