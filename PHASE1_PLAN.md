@@ -923,3 +923,73 @@ git push origin v1.0-rag-eval-harness
 *Document created: 2026-06-19*
 *Phase 1 plan locked: v0.3-phase1-plan*
 *Next step: v1.0-rag-eval-harness — 实现 RAG eval harness*
+
+---
+
+## 19. v1.0 Implementation Results
+
+> **Implemented**: 2026-06-19
+> **Branch**: `phase1-rag-eval-harness`
+> **Commit**: `4a40ae1`
+> **Tag**: `v1.0-rag-eval-harness` ✅ pushed
+
+### 19.1 New Files
+
+| File | Description |
+|---|---|
+| `backend/tests/rag_eval/__init__.py` | Package marker |
+| `backend/tests/rag_eval/conftest.py` | Mock embedding, retriever, RAG pipeline fixtures |
+| `backend/tests/rag_eval/fixtures/rag_eval_cases.json` | 15 eval cases (EN + ZH) |
+| `backend/tests/rag_eval/fixtures/demo_knowledge_base.json` | 3 demo documents, 13 chunks |
+| `backend/tests/rag_eval/test_retrieval_precision.py` | Precision@k, recall@k, MRR tests |
+| `backend/tests/rag_eval/test_no_answer_fallback.py` | No-answer and low-relevance tests |
+| `backend/tests/rag_eval/test_evidence_citation.py` | Citation and source attribution tests |
+| `backend/tests/rag_eval/test_hallucination_risk.py` | Hallucination detection tests |
+| `backend/scripts/run_rag_eval.py` | Standalone eval runner (mock mode) |
+| `backend/reports/rag_eval_report.json` | JSON evaluation report |
+| `backend/reports/rag_eval_report.md` | Markdown evaluation report |
+| `backend/docs/rag-evaluation.md` | Usage documentation |
+
+### 19.2 Test Results
+
+**RAG eval harness (23 tests)**:
+```
+tests/rag_eval/ — 23 passed in 0.20s
+```
+
+**Eval runner**:
+```
+Total cases:      15
+Passed:           15
+Failed:           0
+Precision@3:      0.567
+Recall@3:         0.978
+Precision@5:      0.527
+Recall@5:         1.000
+MRR:              0.600
+No-Answer Acc:    100.0%
+Citation Acc:     88.9%
+Hallucination:    0 cases
+```
+
+**Regression check (existing tests)**:
+```
+267 passed, 36 failed, 1 skipped — matches v0.2 baseline exactly
+```
+
+### 19.3 Mock / No-API-Key Approach
+
+- **Mock embedding**: Word-level bag-of-words with deterministic hash (256-dim), no API key
+- **Mock retriever**: Hybrid scoring (70% keyword overlap + 30% vector similarity), in-memory
+- **Mock RAG pipeline**: Synthesises answers from retrieved chunks, no LLM call
+- **No Qdrant**: All retrieval is in-memory
+- **No Docker**: Pure Python, runs in existing venv
+
+### 19.4 What Was Not Done (v1.0 scope)
+
+- ❌ Demo data seed (deferred to v1.1)
+- ❌ Frontend UI changes
+- ❌ Core architecture changes
+- ❌ Real API key integration
+- ❌ Docker / Qdrant dependency
+- ❌ Heavy eval frameworks (RAGAS, DeepEval, LangChain)

@@ -78,7 +78,7 @@ v1.3-phase1-complete # Phase 1 完整验收
 - 不允许在 v0 阶段写功能代码
 - v1 之后每个版本必须有可运行验收结果
 
-当前阶段：`v0.2-setup-verified`（setup 验证完成，tag 已推送到 origin）
+当前阶段：`v1.0-rag-eval-harness`（RAG eval harness 实现完成，tag 已推送到 origin）
 
 ## Git 规范
 
@@ -124,7 +124,8 @@ v1.3-phase1-complete # Phase 1 完整验收
 7. Fork 原项目到 Strange-Men/basjoo ✅
 8. Clone fork 到 selected/basjoo ✅
 9. Setup 验证完成 (v0.2-setup-verified) ✅
-10. 在 fork 分支 phase1-rag-eval-harness 上开始二开 ⬜
+10. 在 fork 分支 phase1-rag-eval-harness 上开始二开 ✅
+11. v1.0-rag-eval-harness：RAG eval harness 实现完成 ✅
 
 ## 选定项目
 
@@ -161,8 +162,8 @@ v1.3-phase1-complete # Phase 1 完整验收
 - origin: https://github.com/Strange-Men/basjoo ✅
 - upstream: https://github.com/haoyiyin/basjoo ✅
 - 当前分支: main (commit 6939926)
-- 分支: phase1-rag-eval-harness (待创建)
-- 版本: v0.1-fork-baseline ✅ → v0.2-setup-verified ✅ → v1.0-rag-eval-harness → v1.3-phase1-complete
+- 开发分支: phase1-rag-eval-harness (commit 4a40ae1)
+- 版本: v0.1-fork-baseline ✅ → v0.2-setup-verified ✅ → v0.2.5-product-walkthrough ✅ → v0.3-phase1-plan ✅ → v1.0-rag-eval-harness ✅ → v1.3-phase1-complete
 
 ### 目录结构说明
 
@@ -187,18 +188,22 @@ CustomerOpsAgent_2/
 
 **RAG Evaluation Harness + Demo Data**
 
-- 新增 `tests/rag_eval/` — RAG 质量评估测试框架
-- 新增 `scripts/seed_demo.py` — Demo 数据种子脚本
-- 不修改原项目核心代码
-- 不依赖真实 API Key (mock mode)
+### v1.0 已完成 — RAG Eval Harness
 
-**Setup 验证确认**:
-- ✅ MockLLMService 可用，不需要真实 API Key
-- ✅ 后端测试框架 (conftest.py) 支持隔离测试
-- ✅ 前端测试框架 (Vitest) 正常工作
-- ✅ Windows 环境兼容
+- ✅ `backend/tests/rag_eval/` — 23 pytest tests 全部通过
+- ✅ `backend/scripts/run_rag_eval.py` — eval runner，生成报告
+- ✅ `backend/reports/rag_eval_report.json` + `.md` — 评估报告
+- ✅ `backend/docs/rag-evaluation.md` — 使用文档
+- ✅ 不修改原项目核心代码
+- ✅ 不依赖真实 API Key (mock mode)
+- ✅ 原有测试 baseline 不变：267 passed, 36 failed, 1 skipped
 
-详见 OPEN_SOURCE_AUDIT.md 第 17 章和第 20 章。
+### v1.1 待做 — Demo Data
+
+- ⬜ `scripts/demo_data/` — Demo 数据种子脚本
+- ⬜ `scripts/seed_demo_data.py` — 一键填充
+
+详见 OPEN_SOURCE_AUDIT.md 和 PHASE1_PLAN.md。
 
 ## 技术栈偏好
 
@@ -212,7 +217,7 @@ CustomerOpsAgent_2/
 
 ## 当前状态
 
-**当前阶段**：v0.3-phase1-plan（Phase 1 计划锁定）
+**当前阶段**：v1.0-rag-eval-harness（RAG eval harness 实现完成）
 
 **已完成**：
 - ✅ v0.1-audit：选型审查完成
@@ -222,9 +227,16 @@ CustomerOpsAgent_2/
 - ✅ v0.2-setup-verified：Setup 验证完成
 - ✅ v0.2.5-product-walkthrough：产品体验完成
 - ✅ v0.3-phase1-plan：Phase 1 计划锁定
+- ✅ v1.0-rag-eval-harness：RAG eval harness 实现完成
+
+**v1.0 实现内容**：
+- 15 eval cases（正常命中、多文档检索、无答案 fallback、低相关度拒答、evidence/citation、幻觉风险，中英文）
+- 23 pytest tests 全部通过
+- eval runner 生成 JSON + Markdown 报告
+- 不需要真实 API Key、不需要 Qdrant、不需要 Docker
+- 原有测试 baseline 不变：267 passed, 36 failed, 1 skipped
 
 **下一步**：
-- ⬜ v1.0-rag-eval-harness：实现 RAG eval harness
 - ⬜ v1.1-demo-data：实现 demo data
 - ⬜ v1.2-docs-and-report：文档与评估报告
 - ⬜ v1.3-phase1-complete：Phase 1 完整验收
@@ -236,4 +248,4 @@ CustomerOpsAgent_2/
 ---
 
 *Created: 2026-06-19*
-*Last updated: 2026-06-19 (phase1 plan locked: v0.3-phase1-plan)*
+*Last updated: 2026-06-19 (v1.0-rag-eval-harness implemented)*

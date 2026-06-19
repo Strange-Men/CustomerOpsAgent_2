@@ -35,13 +35,13 @@
 | 字段 | 值 |
 |---|---|
 | **路径** | `D:\Claude_workfile\CustomerOpsAgent_2\selected\basjoo` |
-| **状态** | ✅ 已 clone |
+| **状态** | ✅ 已 clone，v1.0 开发完成 |
 | **origin** | https://github.com/Strange-Men/basjoo.git |
 | **upstream** | https://github.com/haoyiyin/basjoo.git |
-| **分支** | main |
-| **最新 commit** | 6939926 (chore: add SILICONFLOW_API_KEY to docker-compose services) |
+| **主分支** | main (commit 6939926) |
+| **开发分支** | phase1-rag-eval-harness (commit 4a40ae1) |
 | **Working Tree** | ✅ clean |
-| **Tag** | v0.1-fork-baseline ✅ pushed, v0.2-setup-verified ✅ pushed |
+| **Tag** | v0.1-fork-baseline ✅, v0.2-setup-verified ✅, v0.2.5-product-walkthrough ✅, v0.3-phase1-plan ✅, v1.0-rag-eval-harness ✅ |
 
 ---
 

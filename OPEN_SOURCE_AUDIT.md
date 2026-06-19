@@ -1296,5 +1296,62 @@ npm run dev
 *Fork baseline: v0.1-fork-baseline (2026-06-19)*
 *Setup verified: v0.2-setup-verified (2026-06-19)*
 *Phase 1 plan locked: v0.3-phase1-plan (2026-06-19)*
+*v1.0 implemented: v1.0-rag-eval-harness (2026-06-19)*
 *Deep audit by: Claude Code*
+
+---
+
+## 22. v1.0-rag-eval-harness Implementation Record
+
+> **Date**: 2026-06-19
+> **Branch**: `phase1-rag-eval-harness`
+> **Commit**: `4a40ae1`
+> **Tag**: `v1.0-rag-eval-harness` ✅
+
+### 22.1 Implementation Summary
+
+Successfully implemented RAG Evaluation Harness MVP — the first code contribution to the Basjoo fork.
+
+**Key constraint respected**: No modifications to any existing Basjoo core code. All 12 new files are pure additions.
+
+### 22.2 Files Added (12 files, 1428 lines)
+
+| Category | Files |
+|---|---|
+| **Test fixtures** | `tests/rag_eval/fixtures/rag_eval_cases.json` (15 cases), `demo_knowledge_base.json` (3 docs, 13 chunks) |
+| **Test infra** | `tests/rag_eval/conftest.py` (MockEmbeddingProvider, MockRetriever, MockRAGPipeline) |
+| **Test suites** | `test_retrieval_precision.py`, `test_no_answer_fallback.py`, `test_evidence_citation.py`, `test_hallucination_risk.py` |
+| **Runner** | `scripts/run_rag_eval.py` (standalone, --mock mode) |
+| **Reports** | `reports/rag_eval_report.json`, `reports/rag_eval_report.md` |
+| **Docs** | `docs/rag-evaluation.md` |
+
+### 22.3 Test Results
+
+**pytest tests/rag_eval/**: 23/23 passed (0.20s)
+
+**Eval runner (mock mode)**:
+- 15/15 cases passed
+- Precision@3: 0.567, Recall@3: 0.978
+- Precision@5: 0.527, Recall@5: 1.000
+- MRR: 0.600
+- No-Answer Accuracy: 100%
+- Citation Accuracy: 88.9%
+- Hallucination Risk: 0 cases
+
+**Regression**: 267 passed, 36 failed, 1 skipped — identical to v0.2 baseline
+
+### 22.4 Mock Architecture
+
+- **Embedding**: 256-dim word-level bag-of-words with deterministic DJB2 hash, 3 positions per token
+- **Retriever**: Hybrid scoring (70% keyword overlap with Chinese bigram support + 30% vector cosine similarity)
+- **Pipeline**: Threshold-based no-answer detection, faithfulness-preserving answer synthesis from chunks
+- **Zero dependencies**: No API keys, no Qdrant, no Docker, no external services
+
+### 22.5 Non-Goals Respected
+
+- ❌ No demo data (deferred to v1.1)
+- ❌ No UI changes
+- ❌ No core architecture changes
+- ❌ No heavy eval frameworks
+- ❌ No production database modifications
 *Workspace: D:\Claude_workfile\CustomerOpsAgent_2*
