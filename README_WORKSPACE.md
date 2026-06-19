@@ -100,7 +100,47 @@ v1.0-demo        # 作品集 demo 完成
 2. Clone 候选项目到 `candidates/` ✅
 3. 审查项目架构、RAG、Memory、测试、前端 ✅
 4. 确定二开方向和第一阶段任务 ✅
-5. 将选定项目移到 `selected/` 并开始二开（下一步）
+5. 深度审查最终推荐项目 (Basjoo) ✅
+6. Fork 原项目到 Strange-Men/basjoo ⬜ (下一步)
+7. 在 fork 分支 phase1-rag-eval-harness 上开始二开 ⬜
+
+## 选定项目
+
+**最终推荐**: [Basjoo](https://github.com/haoyiyin/basjoo)
+- License: MIT
+- 技术栈: Python/FastAPI + Next.js 14 + PostgreSQL + Qdrant + Redis
+- 代码规模: 7.2MB, 96 Python + 109 TypeScript files
+- 二开难度: 低-中
+
+**第二备选**: [TGO](https://github.com/tgoai/tgo)
+- License: Modified Apache 2.0
+- 二开难度: 中 (微服务架构较复杂)
+
+## Git 策略
+
+### 外层仓库 (CustomerOpsAgent_2)
+
+- 只管理审查文档和二开规划
+- 不包含任何候选项目源码
+- candidates/ 和 selected/ 被 .gitignore 忽略
+
+### 二开仓库 (fork)
+
+- Fork haoyiyin/basjoo → Strange-Men/basjoo
+- origin: https://github.com/Strange-Men/basjoo
+- upstream: https://github.com/haoyiyin/basjoo
+- 分支: phase1-rag-eval-harness
+
+## Phase 1 二开任务
+
+**RAG Evaluation Harness + Demo Data**
+
+- 新增 `tests/rag_eval/` — RAG 质量评估测试框架
+- 新增 `scripts/seed_demo.py` — Demo 数据种子脚本
+- 不修改原项目核心代码
+- 不依赖真实 API Key (mock mode)
+
+详见 OPEN_SOURCE_AUDIT.md 第 17 章。
 
 ## 技术栈偏好
 
@@ -113,4 +153,4 @@ v1.0-demo        # 作品集 demo 完成
 ---
 
 *Created: 2026-06-19*
-*Last updated: 2026-06-19*
+*Last updated: 2026-06-19 (deep audit complete)*

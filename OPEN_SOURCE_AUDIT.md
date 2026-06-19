@@ -696,6 +696,329 @@ Modified Apache License 2.0 with additional conditions:
 
 ---
 
-*Report generated: 2026-06-19*
-*Auditor: Claude Code*
+## 16. Selected Project Deep Audit
+
+> **Audit date**: 2026-06-19
+> **Audited by**: Claude Code (deep code review)
+> **Project**: Basjoo (haoyiyin/basjoo)
+> **Clone type**: Shallow clone (1 commit visible)
+
+### 16.1 Final Selected Project
+
+| 字段 | 值 |
+|---|---|
+| **项目名** | Basjoo |
+| **GitHub** | https://github.com/haoyiyin/basjoo |
+| **License** | MIT (Copyright (c) 2026 haoyiyin) |
+| **技术栈** | Python 3.11+ / FastAPI + TypeScript / Next.js 14 + PostgreSQL + Qdrant + Redis |
+| **代码规模** | 7.2MB, 96 Python files, 109 TS/TSX files |
+| **最近更新** | 2026-06-16 (shallow clone, commit 6939926) |
+| **维护状态** | ✅ 活跃维护 |
+| **二开适合度** | ⭐⭐⭐⭐⭐ 非常适合 |
+
+### 16.2 Architecture Summary
+
+```
+basjoo/
+├── backend/                    # FastAPI 后端 (96 .py files)
+│   ├── api/v1/                 # API 路由层
+│   │   ├── endpoints.py        # 主聊天/配置 API
+│   │   ├── kb_document_endpoints.py  # 知识库文档 API
+│   │   ├── schemas.py          # Pydantic 模型
+│   │   └── sse_utils.py        # SSE 流式工具
+│   ├── services/               # 业务逻辑层
+│   │   ├── llm_service.py      # LLM 抽象 (889 行, 支持 OpenAI/DeepSeek/Anthropic/Gemini/Mock)
+│   │   ├── kb_retrieval_service.py   # RAG 检索 (134 行)
+│   │   ├── kb_document_processor.py  # 文档处理: parse→chunk→embed→Qdrant (258 行)
+│   │   ├── kb_service.py       # 知识库管理 (442 行)
+│   │   ├── qdrant_service.py   # Qdrant 向量操作 (155 行)
+│   │   ├── document_parser.py  # 文档解析+chunking+embedding (232 行)
+│   │   ├── url_safety.py       # SSRF 防护
+│   │   └── auth_service.py     # JWT 认证
+│   ├── models.py               # SQLAlchemy 模型
+│   ├── tests/                  # 35+ 测试文件
+│   └── main.py                 # FastAPI 入口
+├── frontend-nextjs/            # Next.js 14 前端 (109 .ts/.tsx files)
+│   ├── app/                    # App Router 路由
+│   ├── src/views/              # 页面组件
+│   │   ├── Dashboard.tsx       # 仪表盘
+│   │   ├── Playground.tsx      # AI 调试台
+│   │   ├── Sessions.tsx        # 会话管理 (含人工接管)
+│   │   ├── URLManagement.tsx   # URL 知识管理
+│   │   ├── FileUploadManagement.tsx  # 文件知识管理
+│   │   ├── KnowledgeBaseSetup.tsx    # 知识库配置
+│   │   ├── AgentSettings.tsx   # Agent 设置
+│   │   └── AdminUsers.tsx      # 用户管理
+│   └── src/services/api.ts     # API 客户端 + SSE 解析
+├── widget/                     # 可嵌入聊天组件
+│   └── src/BasjooWidget.tsx    # 自包含 Widget (2064 行)
+├── scrapling-service/          # Web 内容抓取微服务
+├── tests/e2e/                  # Playwright E2E 测试 (16 specs)
+├── docker-compose.yml          # Docker 编排 (dev/prod profiles)
+└── nginx/                      # 反向代理配置
+```
+
+### 16.3 RAG Deep Audit
+
+| 维度 | 实现 | 代码位置 | 评分 |
+|---|---|---|---|
+| **文档导入** | PDF, TXT, CSV, Markdown, DOCX, XLSX + URL 爬取 | `kb_document_endpoints.py`, `document_parser.py` | ⭐⭐⭐⭐⭐ |
+| **Chunking** | `chunk_text()`, recursive splitting, 可配置 chunk_size/chunk_overlap | `document_parser.py` | ⭐⭐⭐⭐ |
+| **Embedding** | OpenAI 兼容 API (Jina, SiliconFlow, 自定义), 独立于 chat provider | `kb_document_processor.py:42-62` | ⭐⭐⭐⭐ |
+| **Vector DB** | Qdrant, per-tenant collection 隔离, batch upsert | `qdrant_service.py` | ⭐⭐⭐⭐⭐ |
+| **Retrieval** | 向量相似度搜索 + threshold 过滤 + top_k 截断 | `kb_retrieval_service.py:25-134` | ⭐⭐⭐⭐ |
+| **Citation** | 检索结果含 source_type, source_url, source_title, filename | `kb_retrieval_service.py:119-125` | ⭐⭐⭐⭐ |
+| **No-answer Fallback** | similarity_threshold 默认 0.6, agent 可配置, 低于阈值不返回 | `kb_retrieval_service.py:100-107` | ⭐⭐⭐ |
+| **RAG Eval** | ❌ 无专门 RAG eval harness, 但有 `test_chat_kb_retrieval.py` 验证检索集成 | — | ⭐⭐ |
+| **Hybrid Search** | Qdrant 支持 hybrid_search, 需在 search_settings 中启用 | `qdrant_service.py` | ⭐⭐⭐ |
+
+**RAG 流程**:
+```
+文档上传 → document_parser.parse_with_retry() → chunk_text()
+→ embed_texts() [Jina/SiliconFlow API] → Qdrant batch_upsert_points()
+                                          ↓
+用户查询 → embed_texts([query]) → Qdrant search_kb()
+→ threshold 过滤 → top_k 截断 → 返回 [{text, doc_id, score, source}]
+```
+
+**关键发现**:
+- RAG 管道完整且清晰: parse → chunk → embed → store → retrieve → filter
+- 多租户隔离: per-tenant Qdrant collection + payload filter
+- 无 RAG eval 框架: 缺少 precision/recall/hallucination 量化评估
+- similarity_threshold 默认值较高 (0.6), 可能导致低相关性内容被过滤
+- 无 dynamic fallback: 低于阈值时静默返回空, 没有 "我不确定" 提示
+
+### 16.4 Memory Deep Audit
+
+| 维度 | 实现 | 评分 |
+|---|---|---|
+| **Conversation History** | ✅ PostgreSQL/SQLite 持久化, ChatSession + ChatMessage 模型 | ⭐⭐⭐⭐ |
+| **Multi-turn Context** | ✅ SSE streaming + session persistence, 支持连续对话 | ⭐⭐⭐⭐ |
+| **Customer Profile** | ✅ Visitor info (country, city), visitor_id 持久化 | ⭐⭐⭐ |
+| **Ticket State** | ✅ Session 状态: active, taken_over, closed | ⭐⭐⭐⭐ |
+| **Memory Continuity Test** | ❌ 无专门的多轮上下文连续性测试 | ⭐⭐ |
+| **Session Timeout** | ✅ 30 分钟不活动自动关闭 (APScheduler) | ⭐⭐⭐⭐ |
+
+**Memory 模型**:
+- `ChatSession`: 会话记录, 含 visitor_id, status, message_count
+- `ChatMessage`: 消息记录, 含 role, content, sources (JSON)
+- Widget 使用 localStorage 持久化 visitor_id 和 session_id
+- 人工接管通过 WebSocket 推送消息
+
+**关键发现**:
+- Memory 是基础的会话持久化, 不是高级的 customer context memory
+- 无 customer profile 聚合 (如购买历史、偏好)
+- 无跨会话记忆 (新会话不记得之前的对话)
+- 无 memory continuity test 验证多轮上下文是否正确传递
+
+### 16.5 Harness / Test Deep Audit
+
+| 类型 | 文件数 | 覆盖范围 | 评分 |
+|---|---|---|---|
+| **Unit Tests** | 10+ | models, auth, llm_service, edge_cases, migrations | ⭐⭐⭐⭐ |
+| **Integration Tests** | 5+ | kb_retrieval, chat_kb, file_upload_kb, kb_data_layer | ⭐⭐⭐⭐ |
+| **API Contract Tests** | 5+ | agents_api, v1_endpoints, auth_service, agent_membership | ⭐⭐⭐⭐ |
+| **Security Tests** | 3+ | security_robustness, rate_limit, url_safety | ⭐⭐⭐⭐⭐ |
+| **Performance Tests** | 3+ | stress_load, extreme_stress, production_simulation | ⭐⭐⭐⭐ |
+| **E2E Tests** | 16 specs | Playwright: auth, chat, KB, sessions, widget | ⭐⭐⭐ |
+| **Frontend Tests** | 1+ | Vitest: URLManagement.test.tsx | ⭐⭐ |
+| **CI** | ❓ 未发现 .github/workflows | — | ⭐ |
+
+**测试基础设施亮点**:
+- `conftest.py` 提供隔离的 SQLite 测试数据库 (`.pytest_dbs/`)
+- `client` / `public_client` / `support_client` / `readonly_client` fixture 支持多角色测试
+- LLM 调用通过 `MockLLMService` monkeypatch, 不需要真实 API Key
+- E2E 测试报告详细记录了 BUG-001 到 BUG-007
+
+**E2E 测试问题** (来自 E2E_TEST_REPORT.md):
+- 6/16 测试失败, 主要原因:
+  - BUG-001/002: QA batch_import/list 端点不存在
+  - BUG-003: 根路由重定向到 agent selector, E2E 导航失败
+  - BUG-004/005/006: UI 选择器不匹配
+- 这些问题是 E2E 测试与当前架构不同步, 不是核心功能缺陷
+
+### 16.6 Frontend UX Audit
+
+| 维度 | 评分 | 说明 |
+|---|---|---|
+| **像真实客服后台** | ⭐⭐⭐⭐ | Dashboard + Agent Panel 设计专业, 有 Admin/User 角色 |
+| **会话管理** | ⭐⭐⭐⭐ | Sessions 页面支持状态过滤 (active/taken_over/closed) |
+| **知识库管理** | ⭐⭐⭐⭐⭐ | URL + 文件上传, Qdrant 索引, chunk 参数可配置 |
+| **Agent 配置** | ⭐⭐⭐⭐ | Playground 调试, 模型/provider/temperature 配置 |
+| **人工接管** | ⭐⭐⭐⭐ | WebSocket 推送, 支持接管后发送消息 |
+| **评估面板** | ⭐ | ❌ 无 bad case / eval 面板 |
+| **AI Demo 感** | ⭐⭐⭐ | 有一定 demo 感, 但接近产品级 |
+| **作品集展示** | ⭐⭐⭐⭐ | Widget 可嵌入, 有截图, 有中英文文档 |
+
+**前端路由结构**:
+```
+/ → Agent Selector (Agents.tsx)
+/login → Login
+/register → Register
+/agents/[agentId]/dashboard → Dashboard
+/agents/[agentId]/playground → Playground
+/agents/[agentId]/sessions → Sessions
+/agents/[agentId]/urls → URL Management
+/agents/[agentId]/files → File Upload
+/agents/[agentId]/settings → Agent Settings
+/users → Admin Users
+```
+
+**关键发现**:
+- 前端路由需要 agent context, 根路由重定向到 agent selector
+- 有 i18n 支持 (en-US, zh-CN)
+- Widget 是自包含的 TypeScript 组件, 可独立嵌入
+- 无 bad case 收集/标注/分析面板
+
+### 16.7 Local Setup Risk
+
+| 风险项 | 级别 | 说明 |
+|---|---|---|
+| **Docker Desktop 依赖** | 低 | Windows 需要 Docker Desktop, WSL2 |
+| **API Key 需求** | 低 | 不填写也能启动, AI 功能不可用但不影响测试 |
+| **端口冲突** | 低 | 默认端口 3000/8000/6333/5432/6379 |
+| **Windows 兼容性** | 低-中 | 主要通过 Docker 运行, 本地开发需要 Python 3.11+ 和 Node.js 18+ |
+| **依赖下载量** | 中 | 后端 ~55 个 pip 包, 前端 Next.js + Playwright |
+| **缓存位置** | 低 | Docker volumes 在 Docker Desktop 管理, 不影响 C 盘 |
+
+### 16.8 License Risk
+
+**MIT License** — 无风险 ✅
+
+```
+MIT License
+Copyright (c) 2026 haoyiyin
+```
+
+- ✅ 可以自由使用、修改、分发
+- ✅ 可以用于商业项目
+- ✅ 可以作为作品集展示
+- ✅ 可以闭源二开
+- ✅ 可以 fork 后修改并公开
+- ⚠️ 需要保留原始版权声明 (在 fork 中)
+
+---
+
+## 17. Phase 1 Enhancement Plan
+
+### 🎯 Recommended: RAG Evaluation Harness with Demo Data
+
+**任务名称**: RAG Evaluation Harness + Seed Demo Data
+
+**Why this task**:
+1. **填补核心空白** — Basjoo 有完整的 RAG 管道, 但没有任何 RAG 质量评估框架
+2. **不破坏原项目** — 纯新增 `tests/rag_eval/` 和 `scripts/seed_demo.py`, 不修改核心代码
+3. **不依赖真实 API Key** — 可用 MockLLMService 跑通框架, 少量真实调用验证
+4. **短期可完成** — 1-2 周可出 MVP
+5. **体现核心能力** — RAG eval 是 AI Agent 工程化的核心技能
+6. **作品集亮点** — "Built RAG evaluation harness for open-source customer support platform"
+
+**当前问题**:
+- Basjoo 的 RAG 检索有 `test_chat_kb_retrieval.py` 验证集成, 但没有量化评估
+- 无法回答: "RAG 回答的准确率是多少? 幻觉率是多少? 检索精度是多少?"
+- 新用户启动后是空白页面, 需要手动配置 agent/上传文档才能体验
+
+**修改范围**:
+```
+新增 (不修改任何已有文件):
+  tests/rag_eval/
+    ├── conftest.py                 # RAG eval 测试配置
+    ├── test_retrieval_precision.py # 检索精度: precision@k, recall@k, MRR
+    ├── test_answer_faithfulness.py # 回答忠实度: answer 是否基于 retrieved context
+    ├── test_hallucination.py       # 幻觉检测: answer 是否包含未检索到的信息
+    ├── test_no_answer_fallback.py  # 无答案场景: 低相关性时是否正确返回空
+    ├── golden_qa_pairs.json        # 测试数据集: 问答对 + expected sources
+    └── report_generator.py         # 评估报告生成 (JSON + Markdown)
+
+  scripts/
+    ├── seed_demo.py                # Demo 数据种子脚本
+    └── demo_data/
+        ├── agents.json             # 3 个预配置 agent (不同场景)
+        ├── knowledge/              # 示例知识库文档
+        │   ├── product_faq.md      # 产品 FAQ
+        │   ├── return_policy.md    # 退换货政策
+        │   └── troubleshooting.md  # 故障排除
+        └── conversations.json      # 预设对话示例
+```
+
+**实现思路**:
+1. 利用已有的 `MockLLMService` 和 `conftest.py` fixture 搭建测试框架
+2. 创建 `golden_qa_pairs.json` 包含测试问答对和预期检索来源
+3. 实现 retrieval quality tests: 给定 query, 验证 retrieved chunks 是否包含 expected sources
+4. 实现 answer faithfulness tests: 给定 query + retrieved context, 验证 answer 是否忠实于 context
+5. 实现 hallucination tests: 验证 answer 不包含 retrieved context 之外的事实性声明
+6. 实现 no-answer fallback tests: 验证低相关性查询返回空结果
+7. 创建 report_generator 汇总评估指标
+8. 创建 seed_demo.py 一键填充 demo 数据
+
+**验收标准**:
+1. `pytest tests/rag_eval/ -v` 全部通过 (mock mode)
+2. 生成 RAG eval 报告 (`rag_eval_report.json` + `rag_eval_report.md`)
+3. 报告包含: precision@k, recall@k, MRR, faithfulness score, hallucination rate, no-answer accuracy
+4. `python scripts/seed_demo.py` 可一键运行, 填充 demo agent + knowledge + conversations
+5. 不修改任何原有代码文件
+6. 有 README 说明如何运行
+
+**风险**:
+| 风险 | 级别 | 缓解 |
+|---|---|---|
+| Mock mode 无法验证真实 RAG 质量 | 低 | 框架先跑通, 后续用真实 API 验证 |
+| golden_qa_pairs 数据量不足 | 低 | 先做 10-20 对, 后续扩展 |
+| 与现有测试框架集成 | 低 | 复用 conftest.py fixture |
+
+**是否需要 fork**: ✅ 是 (见 Git Strategy)
+**是否需要真实 API Key**: 否 (mock mode 可跑通框架)
+**是否适合作品集**: ⭐⭐⭐⭐⭐ 非常适合
+
+---
+
+## 18. Git Strategy for Secondary Development
+
+### 推荐方案: Fork + Branch
+
+**方案 A: Fork 原项目, 在 fork 分支上做二开** ✅ 推荐
+
+```
+1. 在 GitHub fork haoyiyin/basjoo → Strange-Men/basjoo
+2. clone fork 到 selected/basjoo:
+   git clone https://github.com/Strange-Men/basjoo.git selected/basjoo
+3. 设置 remote:
+   cd selected/basjoo
+   git remote add upstream https://github.com/haoyiyin/basjoo.git
+4. 创建二开分支:
+   git checkout -b phase1-rag-eval-harness
+5. 在分支上开发, 完成后 PR 到自己的 fork main
+```
+
+**Remote 命名**:
+- `origin` → `https://github.com/Strange-Men/basjoo` (你的 fork)
+- `upstream` → `https://github.com/haoyiyin/basjoo` (原项目)
+
+**Branch 命名**:
+- `phase1-rag-eval-harness` — Phase 1 RAG 评估框架
+- `phase1-seed-demo` — Phase 1 Demo 数据 (可合并到同一分支)
+- 后续: `phase2-memory-continuity`, `phase3-human-handoff-rules`
+
+**为什么不提交 candidates/selected 到外层仓库**:
+- CustomerOpsAgent_2 外层仓库只管理审查文档和二开规划
+- candidates/ 和 selected/ 包含外部项目源码, 不属于本项目
+- 避免 license 混乱 (不同项目不同 license)
+- 避免仓库膨胀 (Basjoo 7.2MB, TGO 更大)
+
+**CustomerOpsAgent_2 外层仓库用途**:
+- 记录选型审查文档 (OPEN_SOURCE_AUDIT.md)
+- 记录工作区说明 (README_WORKSPACE.md)
+- 记录二开计划和进度
+- 不包含任何候选项目源码
+
+**为什么不选方案 B (本地二开, 不推远程)**:
+- 无法展示给面试官/他人
+- 没有 Git 历史记录
+- 不适合作品集展示
+- 无法协作
+
+---
+
+*Report updated: 2026-06-19*
+*Deep audit by: Claude Code*
 *Workspace: D:\Claude_workfile\CustomerOpsAgent_2*
