@@ -57,30 +57,35 @@
 
 **v1.5 已完成**：Phase 2 Condition Resolution（2026-06-20）
 
-**审查结论**：WAITING FOR USER DECISION
+**v1.6 已完成**：Phase 2 Environment Setup（2026-06-20）
 
-**v1.5 环境检查结果**：
+**用户决策**：
+- Qdrant 方案：Docker Desktop + 本地 Qdrant
+- Embedding 方案：SiliconFlow
+- 时间上限：1 周
+- Phase 2 最小目标：真实 Qdrant retrieval eval
+
+**v1.6 环境检查结果**：
 - Docker：❌ 未安装（可通过 winget 安装 Docker Desktop）
 - Docker Compose：❌ 未安装
 - WSL：❌ 未安装
 - Windows：11 Home China Build 26200 ✅ 支持 WSL2
 - winget：v1.28.240 ✅ 可用
+- SiliconFlow API Key 方案：✅ 已明确（Agent DB 加密存储 + .env 环境变量）
+- .env 安全：✅ .gitignore 已配置
 
-**Qdrant 方案**：
-- A: Docker Desktop（推荐 ⭐⭐⭐⭐）— 最兼容，需要手动安装
-- B: Qdrant Cloud（⭐⭐⭐）— 最简单，无需本地安装
-- C: 冻结项目（⭐⭐）— 保留 Phase 1 成果
+**当前状态**：WAITING FOR USER ACTION
+- 需要安装 Docker Desktop
+- 需要设置 SiliconFlow API Key
 
-**Embedding 方案**：
-- A: Jina（⭐⭐⭐⭐）— 原生支持，国内可能需要代理
-- B: SiliconFlow（⭐⭐⭐⭐）— 国内网络友好，原生支持
-- C: Mock（⭐⭐）— 不能证明真实 retrieval 效果
+**下一步**：
+1. 用户安装 Docker Desktop（可能需要重启）
+2. 启动 Qdrant 并验证 health check
+3. 用户设置 SiliconFlow API Key
+4. 验证连通性
+5. 所有条件满足后 → 进入 v2.0-real-qdrant-eval-adapter
 
-**下一步取决于用户决策**：
-- 如果用户选择 Qdrant + Embedding 方案 → 进入 v2.0-real-qdrant-eval-adapter
-- 如果用户选择冻结 → 回到 CodePilot 主线
-
-详见 `PHASE2_CONDITION_DECISION.md` 和 `PHASE2_READINESS_AUDIT.md`。
+详见 `PHASE2_ENV_SETUP.md`。
 
 ---
 
@@ -161,8 +166,8 @@ v2.0-real-qdrant-eval-adapter
 |---|---|---|---|
 | v1.4-phase2-readiness-audit | 2026-06-20 | 审查、评估、Go/No-Go 决策 | ✅ 完成 |
 | v1.5-phase2-condition-resolution | 2026-06-20 | 环境检查、方案比较、条件确认 | ✅ 完成 |
-| v2.0-real-qdrant-eval-adapter | 1 周上限 | 如果条件满足，实现真实 RAG 集成 | ⬜ 等待用户决策 |
-| 冻结 | 立即 | 如果条件不满足，冻结项目 | ⬜ 等待用户决策 |
+| v1.6-phase2-environment-setup | 2026-06-20 | Docker/Qdrant/SiliconFlow 环境准备 | ✅ 完成 |
+| v2.0-real-qdrant-eval-adapter | 1 周上限 | 如果条件满足，实现真实 RAG 集成 | ⬜ 等待环境就绪 |
 
 ---
 

@@ -223,7 +223,7 @@ CustomerOpsAgent_2/
 
 ## 当前状态
 
-**当前阶段**：v1.5-phase2-condition-resolution（Phase 2 条件确认完成，等待用户决策）
+**当前阶段**：v1.6-phase2-environment-setup（Phase 2 环境准备完成，等待安装 Docker Desktop + 设置 SiliconFlow API Key）
 
 **已完成**：
 - ✅ v0.1-audit：选型审查完成
@@ -239,18 +239,19 @@ CustomerOpsAgent_2/
 - ✅ v1.3-phase1-complete：Phase 1 最终验收完成
 - ✅ v1.4-phase2-readiness-audit：Phase 2 准入审查完成
 - ✅ v1.5-phase2-condition-resolution：Phase 2 条件确认完成
+- ✅ v1.6-phase2-environment-setup：Phase 2 环境准备完成
 
-**v1.5 审查结论**：WAITING FOR USER DECISION
-- Docker 未安装（可通过 winget 安装 Docker Desktop）
-- WSL 未安装（Docker Desktop 安装时自动配置）
-- Qdrant 方案：Docker Desktop（推荐）/ Qdrant Cloud / 冻结
-- Embedding 方案：Jina / SiliconFlow（推荐）/ Mock
-- 1 周时间上限
-- 详见 `PHASE2_CONDITION_DECISION.md`
+**v1.6 用户决策**：
+- Qdrant 方案：Docker Desktop + 本地 Qdrant
+- Embedding 方案：SiliconFlow
+- 时间上限：1 周
+- Phase 2 最小目标：真实 Qdrant retrieval eval
+- 详见 `PHASE2_ENV_SETUP.md`
 
-**后续建议**：
-- 如果用户选择 Qdrant + Embedding 方案 → v2.0-real-qdrant-eval-adapter
-- 如果用户选择冻结 → 回到 CodePilot 主线
+**当前阻塞**：
+- Docker Desktop 未安装（需要用户手动安装）
+- SiliconFlow API Key 未申请（需要用户手动设置）
+- 详见 `PHASE2_ENV_SETUP.md`
 
 **工程边界重置（2026-06-20）**：
 - 项目曾出现简历包装漂移，现已重置回工程主线

@@ -3,7 +3,7 @@
 > **Created**: 2026-06-20
 > **Version**: v1.5-phase2-condition-resolution
 > **Purpose**: Phase 2 条件确认，不是功能开发
-> **Status**: Awaiting User Decision
+> **Status**: User Decision Made — WAITING FOR ENVIRONMENT SETUP
 
 ---
 
@@ -174,61 +174,39 @@ C: Mock | 无需获取 | 零 | ✅ 无需网络 | ✅ 已集成 | ⭐⭐
 
 ---
 
-## 6. Recommended Decision
+## 6. User Decision（v1.5 已确认，v1.6 已记录）
 
 ```
-WAITING FOR USER DECISION
+USER DECISION MADE (2026-06-20)
 ```
 
-**原因**：
-- Docker 未安装，需要用户手动决定是否安装
-- Qdrant Cloud 需要用户手动注册账号
-- Embedding API Key 需要用户手动申请
-- 以上均无法由自动化工具完成
+### 6.1 Qdrant 方案
 
-**如果用户选择安装 Docker Desktop**：
-- 可通过 `winget install Docker.DockerDesktop` 安装
-- 需要重启电脑
-- 安装后即可用 docker compose 启动 Qdrant
-- 这是兼容性最好的方案
+- [x] **A. 安装 Docker Desktop** — 最兼容，需要手动安装 + 重启
 
-**如果用户选择 Qdrant Cloud**：
-- 无需本地安装
-- 需要注册账号、创建集群、获取 API Key
-- 需要稳定网络
+### 6.2 Embedding Provider
 
-**如果用户选择 SiliconFlow**：
-- 国内网络友好
-- 原生支持
-- 免费额度足够
+- [x] **B. SiliconFlow** — 国内网络友好，原生支持
 
----
+### 6.3 时间投入
 
-## 7. User Decision Needed
+- [x] **A. 愿意投入 1 周** — 在 v2.0 范围内完成 real Qdrant eval adapter
 
-请决定以下事项：
+### 6.4 API Key 安全策略
 
-### 7.1 Qdrant 方案选择
+- [x] **A. 确认** — 使用 .env 文件，加入 .gitignore，不提交到仓库
 
-- [ ] **A. 安装 Docker Desktop** — 最兼容，需要手动安装 + 重启
-- [ ] **B. 注册 Qdrant Cloud** — 最简单，无需本地安装，需要稳定网络
-- [ ] **C. 冻结项目** — 不继续投入，保留 Phase 1 成果
+### 6.5 当前阻塞项
 
-### 7.2 Embedding Provider 选择
+| 阻塞项 | 状态 | 下一步 |
+|---|---|---|
+| Docker Desktop | ❌ 未安装 | 用户执行 `winget install -e --id Docker.DockerDesktop` |
+| WSL2 | ❌ 未安装 | Docker Desktop 安装时自动配置 |
+| Qdrant | ❌ 需要 Docker | Docker 安装后启动 Qdrant |
+| SiliconFlow API Key | ❌ 未申请 | 用户注册 https://siliconflow.cn/ 获取 Key |
+| .env 文件 | ⚠️ 待创建 | 用户手动创建并设置 Key |
 
-- [ ] **A. Jina** — 原生支持，免费额度 1M tokens/月，国内可能需要代理
-- [ ] **B. SiliconFlow** — 国内网络友好，原生支持，免费/极低成本
-- [ ] **C. 继续 Mock** — 不接真实 API，但不能证明真实 retrieval 效果
-
-### 7.3 时间投入确认
-
-- [ ] **A. 愿意投入 1 周** — 在 v2.0 范围内完成 real Qdrant eval adapter
-- [ ] **B. 冻结项目** — 不继续投入，回到 CodePilot / Portfolio 主线
-
-### 7.4 API Key 安全策略
-
-- [ ] **A. 确认** — 使用 .env 文件，加入 .gitignore，不提交到仓库
-- [ ] **B. 有其他顾虑** — 需要讨论
+详见 `PHASE2_ENV_SETUP.md`。
 
 ---
 
@@ -298,6 +276,6 @@ v2.0-real-qdrant-eval-adapter
 ---
 
 *Document created: 2026-06-20*
-*Version: v1.5-phase2-condition-resolution*
-*Decision: WAITING FOR USER DECISION*
-*Next step: User selects Qdrant + Embedding + Time commitment*
+*Version: v1.5-phase2-condition-resolution (updated v1.6)*
+*Decision: USER DECISION MADE — Docker Desktop + SiliconFlow + 1 week*
+*Next step: Install Docker Desktop + set up SiliconFlow API Key*
