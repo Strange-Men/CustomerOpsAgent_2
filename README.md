@@ -91,23 +91,23 @@
 ## 如何运行
 
 ```powershell
-# 进入 backend 目录
-cd selected/basjoo\backend
+# 从本仓库根目录进入 backend 目录（代码位于 selected\basjoo，GitHub 上请查看 Strange-Men/basjoo 的 phase1-rag-eval-harness 分支）
+cd selected\basjoo\backend
 
 # 运行 RAG eval 测试（37 个测试）
-.\venv\Scripts\python.exe -m pytest tests/rag_eval/ -v
+.\venv\Scripts\python.exe -m pytest tests\rag_eval -v
 
 # 运行评估 runner（mock 模式，15 个 eval cases）
-.\venv\Scripts\python.exe scripts/run_rag_eval.py --mock
+.\venv\Scripts\python.exe scripts\run_rag_eval.py --mock
 
 # 验证 demo 数据格式
-.\venv\Scripts\python.exe scripts/seed_demo_data.py --validate-only
+.\venv\Scripts\python.exe scripts\seed_demo_data.py --validate-only
 
 # 预览 demo 数据摘要
-.\venv\Scripts\python.exe scripts/seed_demo_data.py --dry-run
+.\venv\Scripts\python.exe scripts\seed_demo_data.py --dry-run
 
 # 生成 mock 知识库 fixture
-.\venv\Scripts\python.exe scripts/seed_demo_data.py --mock
+.\venv\Scripts\python.exe scripts\seed_demo_data.py --mock
 ```
 
 ---
