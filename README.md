@@ -6,6 +6,17 @@
 
 ---
 
+## 如果你是 HR / 面试官
+
+建议优先查看：
+
+1. **本仓库 README.md** — 项目全貌和成果概览
+2. **[CAREER_PACKAGE.md](./CAREER_PACKAGE.md)** — 求职包装、简历写法、面试话术
+3. **[basjoo 二开代码仓库 ENHANCEMENT_SUMMARY.zh-CN.md](https://github.com/Strange-Men/basjoo/blob/phase1-rag-eval-harness/ENHANCEMENT_SUMMARY.zh-CN.md)** — 中文增强说明
+4. **[backend/reports/rag_eval_report.md](https://github.com/Strange-Men/basjoo/blob/phase1-rag-eval-harness/backend/reports/rag_eval_report.md)** — 评估报告
+
+---
+
 ## 为什么这个仓库看起来不放源码？
 
 你可能注意到了：这个仓库（CustomerOpsAgent_2）里没有 Python 代码、没有前端代码、没有 `backend/` 目录。
