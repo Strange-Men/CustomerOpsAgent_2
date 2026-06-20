@@ -6,12 +6,23 @@
 
 ---
 
+## 当前工程状态
+
+本项目当前完成的是 **Phase 1：Mock-friendly RAG Evaluation Harness Enhancement**。
+它不是完整 AI 客服系统，也不是线上生产级 RAG 评估。当前成果主要用于验证评估框架、测试基线、Demo Data 和报告生成能力。
+
+后续如果继续开发，将先进入 v1.4 Phase 2 Readiness Audit，而不是直接继续做简历包装或盲目接入真实服务。
+
+详细边界定义见 [ENGINEERING_BOUNDARY.md](./ENGINEERING_BOUNDARY.md)，后续工程计划见 [NEXT_ENGINEERING_PLAN.md](./NEXT_ENGINEERING_PLAN.md)。
+
+---
+
 ## 如果你是 HR / 面试官
 
 建议优先查看：
 
 1. **本仓库 README.md** — 项目全貌和成果概览
-2. **[CAREER_PACKAGE.md](./CAREER_PACKAGE.md)** — 求职包装、简历写法、面试话术
+2. **[CAREER_PACKAGE.md](./CAREER_PACKAGE.md)** — 求职包装、简历写法、面试话术（Phase 1 完成后的附属材料，不是工程主线）
 3. **[basjoo 二开代码仓库 ENHANCEMENT_SUMMARY.zh-CN.md](https://github.com/Strange-Men/basjoo/blob/phase1-rag-eval-harness/ENHANCEMENT_SUMMARY.zh-CN.md)** — 中文增强说明
 4. **[backend/reports/rag_eval_report.md](https://github.com/Strange-Men/basjoo/blob/phase1-rag-eval-harness/backend/reports/rag_eval_report.md)** — 评估报告
 

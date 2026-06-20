@@ -113,6 +113,7 @@ v1.3-phase1-complete # Phase 1 完整验收 ✅
 3. **不要忽略 license** — 每个项目都有不同的开源协议
 4. **不要覆盖已有文件** — 操作前先确认
 5. **candidates 目录下的项目是独立的 git repo** — 外层 .gitignore 已排除其 .git 目录
+6. **开发中期不做简历包装** — 只有阶段闭环后才允许做阶段性求职材料
 
 ## 工作流
 
@@ -248,8 +249,14 @@ CustomerOpsAgent_2/
 **Phase 1 正式完成** ✅
 
 **后续建议**：
-- 暂不继续加功能，先用于简历/作品集整理
-- Phase 2（真实 RAG 集成）作为未来扩展方向
+- 暂不继续加功能，先进入 v1.4 Phase 2 Readiness Audit
+- Phase 2（真实 RAG 集成）作为未来扩展方向，需要先评估可行性
+
+**工程边界重置（2026-06-20）**：
+- 项目曾出现简历包装漂移，现已重置回工程主线
+- 后续不再继续包装，除非新阶段闭环
+- 下一步建议是 v1.4-phase2-readiness-audit 或冻结项目
+- 详见 `ENGINEERING_BOUNDARY.md` 和 `NEXT_ENGINEERING_PLAN.md`
 
 详见 `PHASE1_PLAN.md`。
 

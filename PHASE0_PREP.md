@@ -931,4 +931,6 @@ chore:      构建/工具变更
 *Setup verified: v0.2-setup-verified (2026-06-19)*
 *Product walkthrough: v0.2.5-product-walkthrough (2026-06-19)*
 *Phase 1 plan locked: v0.3-phase1-plan (2026-06-19)*
-*Next step: v1.0-rag-eval-harness — 实现 RAG eval harness*
+*Phase 1 completed: v1.3-phase1-complete (2026-06-20)*
+*Engineering boundary reset: 2026-06-20 — see ENGINEERING_BOUNDARY.md*
+*Next step: v1.4-phase2-readiness-audit 或冻结项目 — see NEXT_ENGINEERING_PLAN.md*

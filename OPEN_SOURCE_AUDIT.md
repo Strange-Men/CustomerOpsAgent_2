@@ -1300,6 +1300,7 @@ npm run dev
 *v1.1 implemented: v1.1-demo-data (2026-06-20)*
 *v1.2 implemented: v1.2-docs-and-report (2026-06-20)*
 *v1.3 implemented: v1.3-phase1-complete (2026-06-20)*
+*Engineering boundary reset: 2026-06-20 — see ENGINEERING_BOUNDARY.md*
 *Deep audit by: Claude Code*
 
 ---
