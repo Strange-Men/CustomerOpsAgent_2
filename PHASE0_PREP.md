@@ -41,7 +41,7 @@
 | **主分支** | main (commit 6939926) |
 | **开发分支** | phase1-rag-eval-harness (commit 4a40ae1) |
 | **Working Tree** | ✅ clean |
-| **Tag** | v0.1-fork-baseline ✅, v0.2-setup-verified ✅, v0.2.5-product-walkthrough ✅, v0.3-phase1-plan ✅, v1.0-rag-eval-harness ✅ |
+| **Tag** | v0.1-fork-baseline ✅, v0.2-setup-verified ✅, v0.2.5-product-walkthrough ✅, v0.3-phase1-plan ✅, v1.0-rag-eval-harness ✅, v1.1-demo-data ✅ |
 
 ---
 
@@ -235,8 +235,8 @@ D:\Claude_workfile\CustomerOpsAgent_2\
 | v0.1-fork-baseline | fork 后原始基线 | ✅ 已完成 (pushed) |
 | v0.2-setup-verified | 本地运行和测试验证完成 | ✅ 已完成 (pushed) |
 | v0.3-phase1-plan | Phase 1 计划锁定 | ✅ 已完成 |
-| v1.0-rag-eval-harness | 实现 RAG eval harness | ⬜ 待完成 |
-| v1.1-demo-data | 实现 demo seed | ⬜ 待完成 |
+| v1.0-rag-eval-harness | 实现 RAG eval harness | ✅ 已完成 (pushed) |
+| v1.1-demo-data | 实现 demo seed | ✅ 已完成 (pushed) |
 | v1.2-docs-and-report | 文档与评估报告完成 | ⬜ 待完成 |
 | v1.3-phase1-complete | Phase 1 完整验收 | ⬜ 待完成 |
 

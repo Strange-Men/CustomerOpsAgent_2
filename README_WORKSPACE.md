@@ -78,7 +78,7 @@ v1.3-phase1-complete # Phase 1 完整验收
 - 不允许在 v0 阶段写功能代码
 - v1 之后每个版本必须有可运行验收结果
 
-当前阶段：`v1.0-rag-eval-harness`（RAG eval harness 实现完成，tag 已推送到 origin）
+当前阶段：`v1.1-demo-data`（demo data 实现完成，tag 已推送到 origin）
 
 ## Git 规范
 
@@ -95,6 +95,7 @@ v1.3-phase1-complete # Phase 1 完整验收
 - `README_WORKSPACE.md`
 - `OPEN_SOURCE_AUDIT.md`
 - `PHASE0_PREP.md`
+- `PHASE1_PLAN.md`
 - `.gitignore`
 
 禁止提交：
@@ -126,6 +127,7 @@ v1.3-phase1-complete # Phase 1 完整验收
 9. Setup 验证完成 (v0.2-setup-verified) ✅
 10. 在 fork 分支 phase1-rag-eval-harness 上开始二开 ✅
 11. v1.0-rag-eval-harness：RAG eval harness 实现完成 ✅
+12. v1.1-demo-data：demo data 实现完成 ✅
 
 ## 选定项目
 
@@ -163,7 +165,7 @@ v1.3-phase1-complete # Phase 1 完整验收
 - upstream: https://github.com/haoyiyin/basjoo ✅
 - 当前分支: main (commit 6939926)
 - 开发分支: phase1-rag-eval-harness (commit 4a40ae1)
-- 版本: v0.1-fork-baseline ✅ → v0.2-setup-verified ✅ → v0.2.5-product-walkthrough ✅ → v0.3-phase1-plan ✅ → v1.0-rag-eval-harness ✅ → v1.3-phase1-complete
+- 版本: v0.1-fork-baseline ✅ → v0.2-setup-verified ✅ → v0.2.5-product-walkthrough ✅ → v0.3-phase1-plan ✅ → v1.0-rag-eval-harness ✅ → v1.1-demo-data ✅ → v1.3-phase1-complete
 
 ### 目录结构说明
 
@@ -198,10 +200,13 @@ CustomerOpsAgent_2/
 - ✅ 不依赖真实 API Key (mock mode)
 - ✅ 原有测试 baseline 不变：267 passed, 36 failed, 1 skipped
 
-### v1.1 待做 — Demo Data
+### v1.1 已完成 — Demo Data
 
-- ⬜ `scripts/demo_data/` — Demo 数据种子脚本
-- ⬜ `scripts/seed_demo_data.py` — 一键填充
+- ✅ `scripts/demo_data/` — Demo 数据 (agents, knowledge, questions, conversations, bad cases)
+- ✅ `scripts/seed_demo_data.py` — 支持 --validate-only / --dry-run / --mock
+- ✅ `tests/rag_eval/test_demo_data_integrity.py` — 14 integrity tests 全部通过
+- ✅ v1.0 tests/rag_eval/ 全部通过 (37 tests, 含 14 new)
+- ✅ 原有测试 baseline 不变：267 passed, 36 failed, 1 skipped
 
 详见 OPEN_SOURCE_AUDIT.md 和 PHASE1_PLAN.md。
 
@@ -217,7 +222,7 @@ CustomerOpsAgent_2/
 
 ## 当前状态
 
-**当前阶段**：v1.0-rag-eval-harness（RAG eval harness 实现完成）
+**当前阶段**：v1.1-demo-data（demo data 实现完成）
 
 **已完成**：
 - ✅ v0.1-audit：选型审查完成
@@ -228,16 +233,17 @@ CustomerOpsAgent_2/
 - ✅ v0.2.5-product-walkthrough：产品体验完成
 - ✅ v0.3-phase1-plan：Phase 1 计划锁定
 - ✅ v1.0-rag-eval-harness：RAG eval harness 实现完成
+- ✅ v1.1-demo-data：demo data 实现完成
 
-**v1.0 实现内容**：
-- 15 eval cases（正常命中、多文档检索、无答案 fallback、低相关度拒答、evidence/citation、幻觉风险，中英文）
-- 23 pytest tests 全部通过
-- eval runner 生成 JSON + Markdown 报告
+**v1.1 实现内容**：
+- SmartHome Support Demo 场景：2 agents, 3 knowledge docs, 15 questions, 3 conversations, 8 bad cases
+- seed_demo_data.py 支持 --validate-only / --dry-run / --mock 三种模式
+- 14 新增 integrity tests 全部通过
+- 37 rag_eval tests 全部通过 (23 original + 14 new)
 - 不需要真实 API Key、不需要 Qdrant、不需要 Docker
 - 原有测试 baseline 不变：267 passed, 36 failed, 1 skipped
 
 **下一步**：
-- ⬜ v1.1-demo-data：实现 demo data
 - ⬜ v1.2-docs-and-report：文档与评估报告
 - ⬜ v1.3-phase1-complete：Phase 1 完整验收
 
@@ -248,4 +254,4 @@ CustomerOpsAgent_2/
 ---
 
 *Created: 2026-06-19*
-*Last updated: 2026-06-19 (v1.0-rag-eval-harness implemented)*
+*Last updated: 2026-06-20 (v1.1-demo-data implemented)*

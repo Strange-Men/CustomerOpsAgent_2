@@ -1083,8 +1083,8 @@ Copyright (c) 2026 haoyiyin
 - v0.1-fork-baseline：fork 后原始基线
 - v0.2-setup-verified：本地运行和测试验证完成
 - v0.3-phase1-plan：Phase 1 计划锁定
-- v1.0-rag-eval-harness：RAG eval harness 实现完成
-- v1.1-demo-data：demo data 完成
+- v1.0-rag-eval-harness：RAG eval harness 实现完成 ✅
+- v1.1-demo-data：demo data 完成 ✅
 - v1.2-docs-and-report：文档与评估报告完成
 - v1.3-phase1-complete：Phase 1 完整验收
 
@@ -1355,3 +1355,47 @@ Successfully implemented RAG Evaluation Harness MVP — the first code contribut
 - ❌ No heavy eval frameworks
 - ❌ No production database modifications
 *Workspace: D:\Claude_workfile\CustomerOpsAgent_2*
+
+---
+
+## 23. v1.1-demo-data Implementation Record
+
+> **Date**: 2026-06-20
+> **Branch**: `phase1-rag-eval-harness`
+> **Commit**: `c4834a2`
+> **Tag**: `v1.1-demo-data` ✅
+
+### 23.1 Implementation Summary
+
+Successfully implemented reusable demo data for the SmartHome Support scenario — the second code contribution to the Basjoo fork.
+
+**Key constraint respected**: No modifications to any existing Basjoo core code. v1.0 fixtures preserved untouched.
+
+### 23.2 Files Added (11 files, ~1600 lines)
+
+| Category | Files |
+|---|---|
+| **Seed script** | `scripts/seed_demo_data.py` (--validate-only, --dry-run, --mock) |
+| **Demo agents** | `scripts/demo_data/agents.json` (2 agents) |
+| **Knowledge base** | `scripts/demo_data/knowledge/` (3 markdown docs, ~8KB total) |
+| **Demo questions** | `scripts/demo_data/demo_questions.json` (15 questions) |
+| **Conversations** | `scripts/demo_data/conversations.json` (3 multi-turn scenarios) |
+| **Evidence mapping** | `scripts/demo_data/expected_evidence.json` (15 entries) |
+| **Bad cases** | `scripts/demo_data/bad_cases.json` (8 adversarial cases) |
+| **Integrity tests** | `tests/rag_eval/test_demo_data_integrity.py` (14 tests) |
+| **Expanded KB** | `tests/rag_eval/fixtures/demo_knowledge_base_full.json` (45 chunks) |
+
+### 23.3 Test Results
+
+**pytest tests/rag_eval/**: 37/37 passed (0.22s)
+- 14 new demo data integrity tests: all passed
+- 23 original v1.0 tests: all passed (unchanged)
+
+**Regression**: 267 passed, 36 failed, 1 skipped — identical to v1.0 baseline
+
+### 23.4 Design Decisions
+
+1. **Preserved v1.0 fixtures**: `--mock` generates a separate `demo_knowledge_base_full.json` rather than overwriting `demo_knowledge_base.json`, ensuring 100% backward compatibility
+2. **No DB write**: `--write-db` is defined but not implemented — safe dry-run only
+3. **SmartHome scenario**: Realistic but lightweight customer support theme covering warranty, returns, troubleshooting, shipping
+4. **Cross-validation**: Test verifies all question sources reference existing knowledge files, all evidence entries exist, all conversations reference valid agents

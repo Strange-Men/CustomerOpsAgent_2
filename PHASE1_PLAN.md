@@ -993,3 +993,94 @@ Hallucination:    0 cases
 - ❌ Real API key integration
 - ❌ Docker / Qdrant dependency
 - ❌ Heavy eval frameworks (RAGAS, DeepEval, LangChain)
+
+---
+
+## 20. v1.1 Implementation Results
+
+> **Implemented**: 2026-06-20
+> **Branch**: `phase1-rag-eval-harness`
+> **Commit**: `c4834a2`
+> **Tag**: `v1.1-demo-data` ✅ pushed
+
+### 20.1 New Files
+
+| File | Description |
+|---|---|
+| `backend/scripts/seed_demo_data.py` | Demo data seeder with --validate-only, --dry-run, --mock modes |
+| `backend/scripts/demo_data/agents.json` | 2 demo agents (SmartHome Support, Return & Warranty) |
+| `backend/scripts/demo_data/knowledge/product_faq.md` | Product FAQ (warranty, shipping, registration, battery) |
+| `backend/scripts/demo_data/knowledge/return_policy.md` | Return & refund policy (7-day return, exchange, defective) |
+| `backend/scripts/demo_data/knowledge/troubleshooting.md` | Troubleshooting guide (power, reset, Wi-Fi, camera, lock) |
+| `backend/scripts/demo_data/demo_questions.json` | 15 demo questions (EN + ZH, 7 categories) |
+| `backend/scripts/demo_data/conversations.json` | 3 multi-turn conversation scenarios |
+| `backend/scripts/demo_data/expected_evidence.json` | Source attribution mapping for each question |
+| `backend/scripts/demo_data/bad_cases.json` | 8 adversarial test cases (hallucination, policy fabrication, etc.) |
+| `backend/tests/rag_eval/test_demo_data_integrity.py` | 14 integrity tests for demo data cross-references |
+| `backend/tests/rag_eval/fixtures/demo_knowledge_base_full.json` | Expanded KB fixture (3 docs, 45 chunks) |
+
+### 20.2 Demo Data Content
+
+**SmartHome Support Demo** scenario with:
+
+- **2 Agents**: General support + Return/Warranty specialist
+- **3 Knowledge docs**: product FAQ (2.3KB), return policy (2.3KB), troubleshooting (3.3KB)
+- **15 Questions**: 11 answerable + 4 unanswerable, covering warranty, returns, shipping, troubleshooting, unrelated
+- **3 Conversations**: normal inquiry, escalation, no-answer
+- **8 Bad Cases**: hallucination traps, policy fabrication, cross-doc confusion, mixed language
+
+### 20.3 Test Results
+
+**RAG eval harness (37 tests)**:
+```
+tests/rag_eval/ — 37 passed in 0.22s
+  - 14 new demo data integrity tests (all passed)
+  - 23 original v1.0 tests (all passed, unchanged)
+```
+
+**Eval runner**:
+```
+Total cases:      15
+Passed:           15
+Failed:           0
+Precision@3:      0.567
+Recall@3:         0.978
+Precision@5:      0.527
+Recall@5:         1.000
+MRR:              0.600
+No-Answer Acc:    100.0%
+Citation Acc:     88.9%
+Hallucination:    0 cases
+```
+
+**Regression check (existing tests)**:
+```
+267 passed, 36 failed, 1 skipped — matches v1.0 baseline exactly
+```
+
+### 20.4 seed_demo_data.py Modes
+
+| Mode | Reads | Writes | Use Case |
+|---|---|---|---|
+| `--validate-only` | demo_data/*.json | Nothing | CI validation, pre-commit check |
+| `--dry-run` | demo_data/*.json | Nothing | Preview before seeding |
+| `--mock` | demo_data/*.json, knowledge/*.md | `fixtures/demo_knowledge_base_full.json` | Generate expanded KB fixture |
+
+**Note**: `--write-db` is defined but NOT implemented in v1.1 (no real DB write).
+
+### 20.5 Design Decision: Preserving v1.0 Fixtures
+
+The `--mock` mode generates a **separate** `demo_knowledge_base_full.json` file rather than overwriting the original `demo_knowledge_base.json`. This ensures:
+- v1.0 tests remain 100% compatible (same fixtures, same results)
+- The richer v1.1 demo data is available for future use
+- No risk of breaking existing test expectations
+
+### 20.6 Non-Goals Respected
+
+- ❌ No UI changes
+- ❌ No core architecture changes
+- ❌ No real API key integration
+- ❌ No Docker / Qdrant dependency
+- ❌ No production database write
+- ❌ No heavy dependencies added
+- ❌ No original tests broken
