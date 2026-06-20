@@ -141,17 +141,23 @@ Phase 1 已闭环，CAREER_PACKAGE.md 作为 Phase 1 的附属材料已存在。
 
 ## 7. Recommended Next Engineering Step
 
-**推荐**：先做 Phase 2 Readiness Audit，而不是马上写真实 Qdrant 代码。
+**v1.4 已完成**（2026-06-20）：Phase 2 Readiness Audit
 
-**原因**：
-- 真实 Qdrant / Embedding 会引入环境、API Key、成本、稳定性问题
-- 需要先确认 Docker 不可用时的替代方案
-- 需要确认 Windows 本地如何跑 Qdrant
-- 需要确认是否用本地 Qdrant、远程 Qdrant 还是 mock-only
-- 需要确认真实 API Key 是否值得投入
-- 需要确认投入产出比是否合理
+**审查结论**：CONDITIONAL GO
 
-**具体下一步**：v1.4-phase2-readiness-audit（审查，不是开发）
+**关键发现**：
+- Docker 未安装，无法用 docker compose 启动 Qdrant
+- WSL 状态不明
+- Qdrant Cloud 免费层是最简替代方案
+- Embedding API Key（Jina/SiliconFlow）有免费额度
+- 代码改动量小：只需扩展 2 个脚本
+- 1 周时间上限
+
+**下一步**：
+- 如果 Qdrant + Embedding API Key 条件满足 → v2.0-real-qdrant-eval-adapter
+- 如果条件不满足 → 冻结项目，回到 CodePilot 主线
+
+详见 `PHASE2_READINESS_AUDIT.md`。
 
 ---
 

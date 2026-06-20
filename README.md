@@ -13,6 +13,8 @@
 
 后续如果继续开发，将先进入 v1.4 Phase 2 Readiness Audit，而不是直接继续做简历包装或盲目接入真实服务。
 
+**v1.4 审查结论（2026-06-20）**：CONDITIONAL GO — 如果 Qdrant 可用 + Embedding API Key 可用，则进入 v2.0 真实 RAG 评估；否则冻结项目。详见 [PHASE2_READINESS_AUDIT.md](./PHASE2_READINESS_AUDIT.md)。
+
 详细边界定义见 [ENGINEERING_BOUNDARY.md](./ENGINEERING_BOUNDARY.md)，后续工程计划见 [NEXT_ENGINEERING_PLAN.md](./NEXT_ENGINEERING_PLAN.md)。
 
 ---

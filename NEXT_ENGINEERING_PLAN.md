@@ -16,6 +16,8 @@
 - baseline 无新增失败
 - 所有评估基于 mock 组件，不涉及真实 Qdrant / Embedding / LLM
 - CAREER_PACKAGE.md 已存在，但不是工程主线
+- **v1.4-phase2-readiness-audit 已完成（2026-06-20）**
+- **Go/No-Go 结论：CONDITIONAL GO**
 
 ### 仓库状态
 
@@ -51,48 +53,44 @@
 
 ## 3. Recommended Next Stage
 
-**推荐下一阶段为**：
+**v1.4 已完成**：Phase 2 Readiness Audit（2026-06-20）
 
-```
-v1.4-phase2-readiness-audit
-```
+**审查结论**：CONDITIONAL GO
 
-**注意**：这不是 Phase 2 功能开发，而是 Phase 2 准入检查。
+**下一步取决于条件是否满足**：
 
-**目标**：评估是否值得进入 Phase 2，以及如何进入 Phase 2。
+- 如果 Qdrant 可用 + Embedding API Key 可用 → 进入 v2.0-real-qdrant-eval-adapter
+- 如果条件不满足 → 冻结项目，回到 CodePilot 主线
+
+详见 `PHASE2_READINESS_AUDIT.md`。
 
 ---
 
 ## 4. v1.4-phase2-readiness-audit Scope
 
-### 允许做
+> **Status**: ✅ 已完成（2026-06-20）
+> **输出物**: `PHASE2_READINESS_AUDIT.md`
+> **结论**: CONDITIONAL GO
 
-- 检查当前 Basjoo 的真实 RAG 依赖（Qdrant、Embedding API、LLM API）
-- 检查 Qdrant 启动方式（Docker / 本地二进制 / 云服务）
-- 检查 Docker 不可用时的替代方案
-- 检查是否能用本地 Qdrant、远程 Qdrant 还是 mock-only
-- 检查 Embedding API Key 是否必需（Jina / SiliconFlow / OpenAI）
-- 检查真实 eval runner 改造点（需要改哪些文件、改多少）
-- 检查 Windows 本地运行 Qdrant 的可行性
-- 检查成本（API 调用费用、Qdrant 部署成本）
-- 输出是否进入 Phase 2 的 Go / No-Go 结论
+### 审查完成内容
 
-### 不允许做
+- ✅ 检查当前 Basjoo 的真实 RAG 依赖（Qdrant、Embedding API、LLM API）
+- ✅ 检查 Qdrant 启动方式（Docker / 本地二进制 / 云服务）
+- ✅ 检查 Docker 不可用时的替代方案
+- ✅ 检查是否能用本地 Qdrant、远程 Qdrant 还是 mock-only
+- ✅ 检查 Embedding API Key 是否必需（Jina / SiliconFlow / OpenAI）
+- ✅ 检查真实 eval runner 改造点（需要改哪些文件、改多少）
+- ✅ 检查 Windows 本地运行 Qdrant 的可行性
+- ✅ 检查成本（API 调用费用、Qdrant 部署成本）
+- ✅ 输出 Go / No-Go 结论：CONDITIONAL GO
 
-- 不写真实 Qdrant adapter
-- 不接真实 API Key
-- 不写新功能
-- 不部署
-- 不改 UI
-- 不继续求职包装
-- 不修改任何 Basjoo 源码
+### 关键发现
 
-### 输出物
-
-- 一份 Readiness Audit 报告（外层文档）
-- Go / No-Go 结论
-- 如果 Go：Phase 2 的具体工程计划
-- 如果 No-Go：冻结方案
+- Docker 未安装，无法用 docker compose 启动 Qdrant
+- WSL 状态不明
+- Python 3.11.5 / Node v24.15.0 / npm 11.12.1 均可用
+- Qdrant Cloud 免费层是最简替代方案
+- 代码改动量小：只需扩展 run_rag_eval.py 和 seed_demo_data.py
 
 ---
 
@@ -141,30 +139,34 @@ v2.0-real-qdrant-eval-adapter
 
 ## 7. Timeline
 
-| 阶段 | 时间 | 内容 |
-|---|---|---|
-| v1.4-phase2-readiness-audit | 1-2 天 | 审查、评估、Go/No-Go 决策 |
-| v2.0-real-qdrant-eval-adapter | 1-2 周 | 如果 Go，实现真实 RAG 集成 |
-| 冻结 | 立即 | 如果 No-Go，冻结项目 |
+| 阶段 | 时间 | 内容 | 状态 |
+|---|---|---|---|
+| v1.4-phase2-readiness-audit | 2026-06-20 | 审查、评估、Go/No-Go 决策 | ✅ 完成 |
+| v2.0-real-qdrant-eval-adapter | 1 周上限 | 如果条件满足，实现真实 RAG 集成 | ⬜ 待决定 |
+| 冻结 | 立即 | 如果条件不满足，冻结项目 | ⬜ 待决定 |
 
 ---
 
 ## 8. Decision Criteria
 
-### Go 条件
+### v1.4 审查结论：CONDITIONAL GO
 
-- Windows 本地可以运行 Qdrant（Docker 或其他方式）
-- Embedding API Key 可以获取（免费额度或低成本）
-- 改造工作量可控（不超过 1 周）
-- 投入产出比合理
+**条件清单**：
 
-### No-Go 条件
+| 序号 | 条件 | 当前状态 | 必须满足 |
+|---|---|---|---|
+| 1 | Qdrant 可用（Docker 或 Qdrant Cloud） | ❌ Docker 未安装 | ✅ 是 |
+| 2 | Embedding API Key 可用 | ❌ 未申请 | ✅ 是 |
+| 3 | Windows 本地运行方案确认 | ⚠️ 需要验证 Qdrant Cloud | ✅ 是 |
+| 4 | 成本可接受 | ✅ 免费额度足够 | ✅ 是 |
+| 5 | 改造工作量可控（≤1 周） | ✅ 只需扩展 2 个脚本 | ✅ 是 |
+| 6 | 有明确的时间上限 | ✅ 1 周 | ✅ 是 |
 
-- Windows 本地无法运行 Qdrant
-- API Key 成本过高
-- 改造工作量过大
-- 投入产出比不合理
-- 有更重要的项目需要投入
+### 如果条件不满足 → NO-GO
+
+- 冻结 Basjoo 项目
+- 回到 CodePilot 主线
+- 保留 Phase 1 作为阶段性完成成果
 
 ---
 
