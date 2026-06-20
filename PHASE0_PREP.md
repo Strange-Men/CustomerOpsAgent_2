@@ -41,7 +41,7 @@
 | **主分支** | main (commit 6939926) |
 | **开发分支** | phase1-rag-eval-harness (commit 4a40ae1) |
 | **Working Tree** | ✅ clean |
-| **Tag** | v0.1-fork-baseline ✅, v0.2-setup-verified ✅, v0.2.5-product-walkthrough ✅, v0.3-phase1-plan ✅, v1.0-rag-eval-harness ✅, v1.1-demo-data ✅ |
+| **Tag** | v0.1-fork-baseline ✅, v0.2-setup-verified ✅, v0.2.5-product-walkthrough ✅, v0.3-phase1-plan ✅, v1.0-rag-eval-harness ✅, v1.1-demo-data ✅, v1.2-docs-and-report ✅, v1.3-phase1-complete ✅ |
 
 ---
 

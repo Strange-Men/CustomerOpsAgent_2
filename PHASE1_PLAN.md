@@ -1201,18 +1201,88 @@ Hallucination:    0 cases
 
 ---
 
-## 22. Next Step: v1.3-phase1-complete
+## 22. v1.3 Implementation Results
 
-**Status**: Ready to proceed
+> **Implemented**: 2026-06-20
+> **Branch**: `phase1-rag-eval-harness`
+> **Commit**: `3325ef0`
+> **Tag**: `v1.3-phase1-complete` ✅ pushed
 
-**Requirements for v1.3**:
-- [x] v1.0: RAG eval harness implemented
-- [x] v1.1: Demo data implemented
+### 22.1 What Was Done
+
+- ✅ 外层 README.md 改为中文主 README，面向中国 HR / 面试官
+- ✅ basjoo 新增 `ENHANCEMENT_SUMMARY.zh-CN.md`（中文增强说明）
+- ✅ basjoo `ENHANCEMENT_SUMMARY.md` 顶部添加中文链接
+- ✅ basjoo `backend/docs/portfolio-summary.md` 改为中文为主
+- ✅ 所有验证测试通过（37 pytest、15 eval cases、seed_demo_data 三种模式）
+- ✅ 无新功能、无 UI、无架构重构
+- ✅ v1.3-phase1-complete tag 创建并推送
+
+### 22.2 New/Updated Files (basjoo)
+
+| File | Action | Description |
+|---|---|---|
+| `ENHANCEMENT_SUMMARY.zh-CN.md` | New | 中文增强说明，面向 HR / 面试官 |
+| `ENHANCEMENT_SUMMARY.md` | Updated | 顶部添加中文说明链接 |
+| `backend/docs/portfolio-summary.md` | Updated | 改为中文为主，含面试话术和简历 bullet |
+| `backend/reports/rag_eval_report.json` | Updated | 重新生成的评估报告 |
+| `backend/reports/rag_eval_report.md` | Updated | 重新生成的评估报告 |
+
+### 22.3 Updated Files (outer repo)
+
+| File | Action | Description |
+|---|---|---|
+| `README.md` | Updated | 改为中文主 README，面向中国 HR |
+| `PHASE1_PLAN.md` | Updated | 添加 v1.3 实现结果 |
+| `PHASE0_PREP.md` | Updated | 更新版本状态 |
+| `README_WORKSPACE.md` | Updated | 更新当前状态 |
+| `OPEN_SOURCE_AUDIT.md` | Updated | 更新版本记录 |
+
+### 22.4 Test Results (unchanged)
+
+**RAG eval harness (37 tests)**:
+```
+tests/rag_eval/ — 37 passed in 0.27s
+```
+
+**Eval runner**:
+```
+Total cases:      15
+Passed:           15
+Failed:           0
+Precision@3:      0.567
+Recall@3:         0.978
+No-Answer Acc:    100.0%
+Citation Acc:     88.9%
+Hallucination:    0 cases
+```
+
+**Demo data seeder**:
+```
+--validate-only: PASS
+--dry-run: PASS
+--mock: PASS
+```
+
+### 22.5 Phase 1 Status
+
+**Phase 1 正式完成** ✅
+
+所有 v1.0 → v1.3 的交付物已全部完成并通过验证。
+
+---
+
+## 23. Phase 1 Complete Summary
+
+**Status**: ✅ Phase 1 Complete
+
+**All deliverables**:
+- [x] v1.0: RAG eval harness (37 tests, 15 eval cases)
+- [x] v1.1: SmartHome demo data (2 agents, 3 docs, 15 questions, 3 conversations, 8 bad cases)
 - [x] v1.2: Documentation and reports polished
-- [ ] Final review of all deliverables
-- [ ] Tag v1.3-phase1-complete
+- [x] v1.3: Chinese documentation, final verification, tag created
 
-**After v1.3**:
-- Phase 2 planning (real RAG integration)
-- Real Qdrant + Embedding API integration
-- Production-ready evaluation
+**After Phase 1**:
+- 暂不继续加功能，先用于简历/作品集整理
+- Phase 2（真实 RAG 集成）作为未来扩展方向
+- 需要时：启动 Qdrant + 配置 Embedding API Key + 替换 Mock 组件

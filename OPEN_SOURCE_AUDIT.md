@@ -1291,12 +1291,15 @@ npm run dev
 
 ---
 
-*Report updated: 2026-06-19*
+*Report updated: 2026-06-20*
 *Phase 0 preparation confirmed*
 *Fork baseline: v0.1-fork-baseline (2026-06-19)*
 *Setup verified: v0.2-setup-verified (2026-06-19)*
 *Phase 1 plan locked: v0.3-phase1-plan (2026-06-19)*
 *v1.0 implemented: v1.0-rag-eval-harness (2026-06-19)*
+*v1.1 implemented: v1.1-demo-data (2026-06-20)*
+*v1.2 implemented: v1.2-docs-and-report (2026-06-20)*
+*v1.3 implemented: v1.3-phase1-complete (2026-06-20)*
 *Deep audit by: Claude Code*
 
 ---

@@ -69,7 +69,7 @@ v0.3-phase1-plan     # Phase 1 计划锁定
 v1.0-rag-eval-harness # RAG eval harness 实现完成
 v1.1-demo-data       # demo data 完成
 v1.2-docs-and-report # 文档与评估报告完成
-v1.3-phase1-complete # Phase 1 完整验收
+v1.3-phase1-complete # Phase 1 完整验收 ✅
 ```
 
 **规则**:
@@ -78,7 +78,7 @@ v1.3-phase1-complete # Phase 1 完整验收
 - 不允许在 v0 阶段写功能代码
 - v1 之后每个版本必须有可运行验收结果
 
-当前阶段：`v1.2-docs-and-report`（文档与报告优化完成，tag 已推送到 origin）
+当前阶段：`v1.3-phase1-complete`（Phase 1 最终验收完成，tag 已推送到 origin）
 
 ## Git 规范
 
@@ -165,7 +165,7 @@ v1.3-phase1-complete # Phase 1 完整验收
 - upstream: https://github.com/haoyiyin/basjoo ✅
 - 当前分支: main (commit 6939926)
 - 开发分支: phase1-rag-eval-harness (commit 4a40ae1)
-- 版本: v0.1-fork-baseline ✅ → v0.2-setup-verified ✅ → v0.2.5-product-walkthrough ✅ → v0.3-phase1-plan ✅ → v1.0-rag-eval-harness ✅ → v1.1-demo-data ✅ → v1.3-phase1-complete
+- 版本: v0.1-fork-baseline ✅ → v0.2-setup-verified ✅ → v0.2.5-product-walkthrough ✅ → v0.3-phase1-plan ✅ → v1.0-rag-eval-harness ✅ → v1.1-demo-data ✅ → v1.2-docs-and-report ✅ → v1.3-phase1-complete ✅
 
 ### 目录结构说明
 
@@ -222,7 +222,7 @@ CustomerOpsAgent_2/
 
 ## 当前状态
 
-**当前阶段**：v1.2-docs-and-report（文档与报告优化完成）
+**当前阶段**：v1.3-phase1-complete（Phase 1 最终验收完成）
 
 **已完成**：
 - ✅ v0.1-audit：选型审查完成
@@ -235,23 +235,21 @@ CustomerOpsAgent_2/
 - ✅ v1.0-rag-eval-harness：RAG eval harness 实现完成
 - ✅ v1.1-demo-data：demo data 实现完成
 - ✅ v1.2-docs-and-report：文档与报告优化完成
+- ✅ v1.3-phase1-complete：Phase 1 最终验收完成
 
-**v1.2 实现内容**：
-- 新增 ENHANCEMENT_SUMMARY.md：增强概述、文件地图、运行说明、测试结果
-- 更新 backend/docs/rag-evaluation.md：正式使用文档，含架构图、指标说明、扩展指南
-- 新增 backend/docs/portfolio-summary.md：作品集/面试指南，含技术亮点、面试话术、简历 bullet
-- 更新 backend/reports/rag_eval_report.md：正式评估报告，含执行摘要、指标表格、场景覆盖
-- 新增 backend/reports/README.md：报告文档，说明如何生成和解读
-- 更新 PHASE1_PLAN.md：添加 v1.2 实现结果
-- 37 rag_eval tests 全部通过
-- 15 eval cases 全部通过
-- seed_demo_data.py 三种模式通过
-- 原有测试 baseline 不变：267 passed, 36 failed, 1 skipped
+**v1.3 实现内容**：
+- 外层 README.md 改为中文主 README，面向中国 HR / 面试官
+- basjoo 新增 ENHANCEMENT_SUMMARY.zh-CN.md（中文增强说明）
+- basjoo ENHANCEMENT_SUMMARY.md 顶部添加中文说明链接
+- basjoo backend/docs/portfolio-summary.md 改为中文为主
+- 所有验证测试通过（37 pytest、15 eval cases、seed_demo_data 三种模式）
+- v1.3-phase1-complete tag 创建并推送
 
-**下一步**：
-- ⬜ v1.3-phase1-complete：Phase 1 完整验收
+**Phase 1 正式完成** ✅
 
-**Phase 1 任务**：RAG Evaluation Harness + Demo Data
+**后续建议**：
+- 暂不继续加功能，先用于简历/作品集整理
+- Phase 2（真实 RAG 集成）作为未来扩展方向
 
 详见 `PHASE1_PLAN.md`。
 
