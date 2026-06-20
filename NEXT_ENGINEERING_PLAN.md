@@ -74,16 +74,27 @@
 - SiliconFlow API Key 方案：✅ 已明确（Agent DB 加密存储 + .env 环境变量）
 - .env 安全：✅ .gitignore 已配置
 
-**当前状态**：WAITING FOR USER ACTION
-- 需要安装 Docker Desktop
-- 需要设置 SiliconFlow API Key
+**v1.6.1 环境验证结果（2026-06-20）**：
+- Docker：❌ 未安装（`docker: command not found`）
+- Qdrant：❌ BLOCKED（依赖 Docker）
+- .env：✅ 存在且被 gitignore
+- SILICONFLOW_API_KEY：❌ 未配置
+- EMBEDDING_PROVIDER：❌ 未配置
+- 结论：NOT READY FOR v2.0
+
+**当前状态**：NOT READY FOR v2.0
+- Docker Desktop 未安装
+- SiliconFlow API Key 未配置
 
 **下一步**：
-1. 用户安装 Docker Desktop（可能需要重启）
+1. 用户安装 Docker Desktop（`winget install -e --id Docker.DockerDesktop`，可能需要重启）
 2. 启动 Qdrant 并验证 health check
-3. 用户设置 SiliconFlow API Key
-4. 验证连通性
-5. 所有条件满足后 → 进入 v2.0-real-qdrant-eval-adapter
+3. 用户注册 SiliconFlow 获取 API Key
+4. 在 .env 中配置 SILICONFLOW_API_KEY 和 EMBEDDING_PROVIDER
+5. 验证连通性
+6. 所有条件满足后 → 进入 v2.0-real-qdrant-eval-adapter
+
+详见 `PHASE2_ENV_VERIFICATION.md`。
 
 详见 `PHASE2_ENV_SETUP.md`。
 

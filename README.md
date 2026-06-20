@@ -13,7 +13,7 @@
 
 后续如果继续开发，将先进入 v1.4 Phase 2 Readiness Audit，而不是直接继续做简历包装或盲目接入真实服务。
 
-**v1.6 环境准备（2026-06-20）**：用户已决策 — Docker Desktop + SiliconFlow + 1 周时间上限。环境准备完成，等待安装 Docker Desktop 和设置 SiliconFlow API Key。详见 [PHASE2_ENV_SETUP.md](./PHASE2_ENV_SETUP.md)。
+**v1.6.1 环境验证（2026-06-20）**：环境验证完成，结论为 NOT READY FOR v2.0。Docker Desktop 未安装，SiliconFlow API Key 未配置。详见 [PHASE2_ENV_VERIFICATION.md](./PHASE2_ENV_VERIFICATION.md)。
 
 详细边界定义见 [ENGINEERING_BOUNDARY.md](./ENGINEERING_BOUNDARY.md)，后续工程计划见 [NEXT_ENGINEERING_PLAN.md](./NEXT_ENGINEERING_PLAN.md)。
 
@@ -225,6 +225,7 @@ CustomerOpsAgent_2/              ← 本仓库（项目管理 / 文档）
 | v0.2-deep-audit | ✅ | 深度审查完成 |
 | v0.3-phase0-prep | ✅ | Phase 0 准备完成 |
 | v1.6-phase2-environment-setup | ✅ | Phase 2 环境准备 |
+| v1.6.1-phase2-env-verification | ✅ | Phase 2 环境验证（NOT READY FOR v2.0） |
 
 ### 代码仓库（basjoo fork）
 
@@ -253,4 +254,4 @@ CustomerOpsAgent_2/              ← 本仓库（项目管理 / 文档）
 
 *基于 [Basjoo](https://github.com/haoyiyin/basjoo)（MIT License）进行二次开发*
 *创建日期：2026-06-19*
-*最后更新：2026-06-20 (v1.6-phase2-environment-setup)*
+*最后更新：2026-06-20 (v1.6.1-phase2-env-verification)*

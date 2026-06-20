@@ -3,7 +3,7 @@
 > **Created**: 2026-06-20
 > **Version**: v1.6-phase2-environment-setup
 > **Purpose**: Phase 2 环境准备与安全验证，不是功能开发
-> **Status**: WAITING FOR USER ACTION
+> **Status**: NOT READY FOR v2.0 (v1.6.1 验证结果)
 
 ---
 
@@ -121,11 +121,18 @@ curl http://localhost:6333/health
 curl http://localhost:6333
 ```
 
-### 4.4 当前状态
+### 4.4 当前状态（v1.6.1 验证）
 
 ```
-WAITING FOR USER ACTION — 需要先安装 Docker Desktop
+NOT READY — Docker Desktop 未安装，Qdrant 无法启动
 ```
+
+**v1.6.1 验证结果（2026-06-20）**：
+- Docker：❌ 未安装（`docker: command not found`）
+- Docker Compose：❌ 未安装
+- WSL：❌ 未安装（exit code 1）
+- Qdrant：❌ BLOCKED（依赖 Docker）
+- 详见 `PHASE2_ENV_VERIFICATION.md`
 
 ---
 
@@ -216,11 +223,19 @@ else:
 - 失败时只记录 HTTP 状态和错误类型
 - 成功时只记录维度和响应是否正常
 
-### 5.6 当前状态
+### 5.6 当前状态（v1.6.1 验证）
 
 ```
-WAITING FOR USER ACTION — 需要用户手动设置 API Key
+NOT READY — SILICONFLOW_API_KEY 未配置
 ```
+
+**v1.6.1 验证结果（2026-06-20）**：
+- .env 存在：✅
+- .env 被 gitignore：✅
+- QDRANT_URL：✅ 已配置
+- SILICONFLOW_API_KEY：❌ 未配置
+- EMBEDDING_PROVIDER：❌ 未配置
+- 详见 `PHASE2_ENV_VERIFICATION.md`
 
 ---
 
@@ -240,26 +255,28 @@ WAITING FOR USER ACTION — 需要用户手动设置 API Key
 
 ---
 
-## 7. Current Decision
+## 7. Current Decision（v1.6.1 验证结果）
 
 ```
-WAITING FOR USER ACTION
+NOT READY FOR v2.0
 ```
 
 **原因**：
-- Docker Desktop 未安装，需要用户手动安装
-- 安装后可能需要重启电脑
-- SiliconFlow API Key 需要用户手动申请和设置
-- 以上均无法由自动化工具完成
+- Docker Desktop 未安装（`docker: command not found`）
+- WSL 未安装
+- Qdrant 无法启动（依赖 Docker）
+- SILICONFLOW_API_KEY 未配置
+- EMBEDDING_PROVIDER 未配置
+
+**v1.6.1 验证结果**：详见 `PHASE2_ENV_VERIFICATION.md`
 
 **下一步**：
-1. 用户确认是否安装 Docker Desktop
-2. 安装 Docker Desktop（可能需要重启）
-3. 启动 Qdrant 并验证 health check
-4. 用户申请 SiliconFlow API Key
-5. 设置 .env 文件
-6. 验证 SiliconFlow 连通性
-7. 所有条件满足后 → 进入 v2.0-real-qdrant-eval-adapter
+1. 用户安装 Docker Desktop（`winget install -e --id Docker.DockerDesktop`，可能需要重启）
+2. 启动 Qdrant（`docker run -d --name basjoo-qdrant -p 127.0.0.1:6333:6333 -v qdrant-data:/qdrant/storage qdrant/qdrant:latest`）
+3. 验证 Qdrant health check（`curl http://localhost:6333/health`）
+4. 用户注册 SiliconFlow 获取 API Key
+5. 在 `selected/basjoo/.env` 中添加 `SILICONFLOW_API_KEY` 和 `EMBEDDING_PROVIDER=siliconflow`
+6. 所有条件满足后 → 进入 v2.0-real-qdrant-eval-adapter
 
 ---
 
@@ -280,5 +297,6 @@ WAITING FOR USER ACTION
 
 *Document created: 2026-06-20*
 *Version: v1.6-phase2-environment-setup*
-*Decision: WAITING FOR USER ACTION*
+*Decision: NOT READY FOR v2.0 (v1.6.1 验证结果)*
 *Next step: User installs Docker Desktop + sets up SiliconFlow API Key*
+*v1.6.1 verification: 2026-06-20*

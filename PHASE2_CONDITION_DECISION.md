@@ -3,7 +3,7 @@
 > **Created**: 2026-06-20
 > **Version**: v1.5-phase2-condition-resolution
 > **Purpose**: Phase 2 条件确认，不是功能开发
-> **Status**: User Decision Made — WAITING FOR ENVIRONMENT SETUP
+> **Status**: NOT READY FOR v2.0 (v1.6.1 验证结果)
 
 ---
 
@@ -196,17 +196,18 @@ USER DECISION MADE (2026-06-20)
 
 - [x] **A. 确认** — 使用 .env 文件，加入 .gitignore，不提交到仓库
 
-### 6.5 当前阻塞项
+### 6.5 当前阻塞项（v1.6.1 验证结果）
 
 | 阻塞项 | 状态 | 下一步 |
 |---|---|---|
 | Docker Desktop | ❌ 未安装 | 用户执行 `winget install -e --id Docker.DockerDesktop` |
 | WSL2 | ❌ 未安装 | Docker Desktop 安装时自动配置 |
 | Qdrant | ❌ 需要 Docker | Docker 安装后启动 Qdrant |
-| SiliconFlow API Key | ❌ 未申请 | 用户注册 https://siliconflow.cn/ 获取 Key |
-| .env 文件 | ⚠️ 待创建 | 用户手动创建并设置 Key |
+| SiliconFlow API Key | ❌ 未配置 | 用户注册 https://siliconflow.cn/ 获取 Key，添加到 .env |
+| EMBEDDING_PROVIDER | ❌ 未配置 | 在 .env 中添加 `EMBEDDING_PROVIDER=siliconflow` |
+| .env 文件 | ✅ 存在 | 已被 gitignore，但缺少 SILICONFLOW_API_KEY 和 EMBEDDING_PROVIDER |
 
-详见 `PHASE2_ENV_SETUP.md`。
+详见 `PHASE2_ENV_SETUP.md` 和 `PHASE2_ENV_VERIFICATION.md`。
 
 ---
 
@@ -277,5 +278,6 @@ v2.0-real-qdrant-eval-adapter
 
 *Document created: 2026-06-20*
 *Version: v1.5-phase2-condition-resolution (updated v1.6)*
-*Decision: USER DECISION MADE — Docker Desktop + SiliconFlow + 1 week*
+*Decision: NOT READY FOR v2.0 (v1.6.1 验证结果)*
 *Next step: Install Docker Desktop + set up SiliconFlow API Key*
+*v1.6.1 verification: 2026-06-20*
