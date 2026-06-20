@@ -340,11 +340,19 @@
 
 ## 8. Go / No-Go Decision
 
-### 结论
+### 结论（v1.4）
 
 ```
 CONDITIONAL GO：只有满足以下条件才进入 v2.0-real-qdrant-eval-adapter
 ```
+
+### v1.5 更新（2026-06-20）
+
+```
+WAITING FOR USER DECISION：环境检查完成，方案比较完成，等待用户选择
+```
+
+详见 `PHASE2_CONDITION_DECISION.md`。
 
 ### 条件清单
 

@@ -55,14 +55,32 @@
 
 **v1.4 已完成**：Phase 2 Readiness Audit（2026-06-20）
 
-**审查结论**：CONDITIONAL GO
+**v1.5 已完成**：Phase 2 Condition Resolution（2026-06-20）
 
-**下一步取决于条件是否满足**：
+**审查结论**：WAITING FOR USER DECISION
 
-- 如果 Qdrant 可用 + Embedding API Key 可用 → 进入 v2.0-real-qdrant-eval-adapter
-- 如果条件不满足 → 冻结项目，回到 CodePilot 主线
+**v1.5 环境检查结果**：
+- Docker：❌ 未安装（可通过 winget 安装 Docker Desktop）
+- Docker Compose：❌ 未安装
+- WSL：❌ 未安装
+- Windows：11 Home China Build 26200 ✅ 支持 WSL2
+- winget：v1.28.240 ✅ 可用
 
-详见 `PHASE2_READINESS_AUDIT.md`。
+**Qdrant 方案**：
+- A: Docker Desktop（推荐 ⭐⭐⭐⭐）— 最兼容，需要手动安装
+- B: Qdrant Cloud（⭐⭐⭐）— 最简单，无需本地安装
+- C: 冻结项目（⭐⭐）— 保留 Phase 1 成果
+
+**Embedding 方案**：
+- A: Jina（⭐⭐⭐⭐）— 原生支持，国内可能需要代理
+- B: SiliconFlow（⭐⭐⭐⭐）— 国内网络友好，原生支持
+- C: Mock（⭐⭐）— 不能证明真实 retrieval 效果
+
+**下一步取决于用户决策**：
+- 如果用户选择 Qdrant + Embedding 方案 → 进入 v2.0-real-qdrant-eval-adapter
+- 如果用户选择冻结 → 回到 CodePilot 主线
+
+详见 `PHASE2_CONDITION_DECISION.md` 和 `PHASE2_READINESS_AUDIT.md`。
 
 ---
 
@@ -142,8 +160,9 @@ v2.0-real-qdrant-eval-adapter
 | 阶段 | 时间 | 内容 | 状态 |
 |---|---|---|---|
 | v1.4-phase2-readiness-audit | 2026-06-20 | 审查、评估、Go/No-Go 决策 | ✅ 完成 |
-| v2.0-real-qdrant-eval-adapter | 1 周上限 | 如果条件满足，实现真实 RAG 集成 | ⬜ 待决定 |
-| 冻结 | 立即 | 如果条件不满足，冻结项目 | ⬜ 待决定 |
+| v1.5-phase2-condition-resolution | 2026-06-20 | 环境检查、方案比较、条件确认 | ✅ 完成 |
+| v2.0-real-qdrant-eval-adapter | 1 周上限 | 如果条件满足，实现真实 RAG 集成 | ⬜ 等待用户决策 |
+| 冻结 | 立即 | 如果条件不满足，冻结项目 | ⬜ 等待用户决策 |
 
 ---
 

@@ -223,7 +223,7 @@ CustomerOpsAgent_2/
 
 ## 当前状态
 
-**当前阶段**：v1.4-phase2-readiness-audit（Phase 2 准入审查完成）
+**当前阶段**：v1.5-phase2-condition-resolution（Phase 2 条件确认完成，等待用户决策）
 
 **已完成**：
 - ✅ v0.1-audit：选型审查完成
@@ -238,18 +238,19 @@ CustomerOpsAgent_2/
 - ✅ v1.2-docs-and-report：文档与报告优化完成
 - ✅ v1.3-phase1-complete：Phase 1 最终验收完成
 - ✅ v1.4-phase2-readiness-audit：Phase 2 准入审查完成
+- ✅ v1.5-phase2-condition-resolution：Phase 2 条件确认完成
 
-**v1.4 审查结论**：CONDITIONAL GO
-- Docker 未安装，Qdrant 部署需要替代方案
-- Qdrant Cloud 免费层是最简方案
-- Embedding API Key 有免费额度
-- 代码改动量小（扩展 2 个脚本）
+**v1.5 审查结论**：WAITING FOR USER DECISION
+- Docker 未安装（可通过 winget 安装 Docker Desktop）
+- WSL 未安装（Docker Desktop 安装时自动配置）
+- Qdrant 方案：Docker Desktop（推荐）/ Qdrant Cloud / 冻结
+- Embedding 方案：Jina / SiliconFlow（推荐）/ Mock
 - 1 周时间上限
-- 详见 `PHASE2_READINESS_AUDIT.md`
+- 详见 `PHASE2_CONDITION_DECISION.md`
 
 **后续建议**：
-- 如果 Qdrant + Embedding API Key 条件满足 → v2.0-real-qdrant-eval-adapter
-- 如果条件不满足 → 冻结项目，回到 CodePilot 主线
+- 如果用户选择 Qdrant + Embedding 方案 → v2.0-real-qdrant-eval-adapter
+- 如果用户选择冻结 → 回到 CodePilot 主线
 
 **工程边界重置（2026-06-20）**：
 - 项目曾出现简历包装漂移，现已重置回工程主线
