@@ -1084,3 +1084,135 @@ The `--mock` mode generates a **separate** `demo_knowledge_base_full.json` file 
 - ❌ No production database write
 - ❌ No heavy dependencies added
 - ❌ No original tests broken
+
+---
+
+## 21. v1.2 Implementation Results
+
+> **Implemented**: 2026-06-20
+> **Branch**: `phase1-rag-eval-harness`
+> **Commit**: `a9cd698`
+> **Tag**: `v1.2-docs-and-report` ✅ pushed
+
+### 21.1 New/Updated Files
+
+| File | Action | Description |
+|---|---|---|
+| `ENHANCEMENT_SUMMARY.md` | New | Enhancement overview, file map, how-to-run, results |
+| `backend/docs/rag-evaluation.md` | Updated | Formal usage documentation with architecture, metrics, examples |
+| `backend/docs/portfolio-summary.md` | New | Portfolio/interview guide with talking points and resume bullets |
+| `backend/reports/rag_eval_report.md` | Updated | Formal evaluation report with executive summary, metrics tables |
+| `backend/reports/README.md` | New | Report documentation (what, how to generate, how to interpret) |
+
+### 21.2 Documentation Improvements
+
+**ENHANCEMENT_SUMMARY.md**:
+- Enhancement overview
+- What was added (RAG eval harness, demo data, docs)
+- File map with descriptions
+- How to run (pytest, eval runner, demo seeder)
+- Test results with metrics
+- Baseline comparison
+- No-API-Key/No-Qdrant strategy explanation
+- Limitations and next steps
+
+**rag-evaluation.md**:
+- Purpose and architecture diagram
+- Mock RAG pipeline explanation
+- Eval case format with field descriptions
+- Metrics explanation with formulas
+- Running tests, eval runner, demo seeder
+- Report output format
+- Known limitations
+- Future real-Qdrant extension guide
+
+**rag_eval_report.md**:
+- Executive summary
+- Evaluation scope (what was/wasn't evaluated)
+- Dataset summary
+- Metrics tables with interpretation
+- Scenario coverage details
+- No-answer fallback results
+- Citation/evidence results
+- Hallucination risk results
+- Baseline safety check
+- Limitations
+- Next improvements
+
+**portfolio-summary.md**:
+- Project background and why Basjoo
+- What was done (3 phases)
+- Technical highlights (mock pipeline, metrics, reproducible testing, demo data)
+- Test results
+- Interview talking points
+- Resume bullets (Chinese + English + detailed)
+
+**reports/README.md**:
+- What the reports are
+- How to generate them
+- How to interpret them
+- Current results
+- Version history
+
+### 21.3 Test Results
+
+**RAG eval harness (37 tests)**:
+```
+tests/rag_eval/ — 37 passed in 0.32s
+```
+
+**Eval runner**:
+```
+Total cases:      15
+Passed:           15
+Failed:           0
+Precision@3:      0.567
+Recall@3:         0.978
+Precision@5:      0.527
+Recall@5:         1.000
+MRR:              0.600
+No-Answer Acc:    100.0%
+Citation Acc:     88.9%
+Hallucination:    0 cases
+```
+
+**Demo data seeder**:
+```
+--validate-only: PASS
+--dry-run: PASS
+--mock: PASS
+```
+
+**Regression check (existing tests)**:
+```
+267 passed, 36 failed, 1 skipped — matches v1.1 baseline exactly
+```
+
+### 21.4 Non-Goals Respected
+
+- ❌ No UI changes
+- ❌ No core architecture changes
+- ❌ No real API key integration
+- ❌ No Docker / Qdrant dependency
+- ❌ No production database write
+- ❌ No heavy dependencies added
+- ❌ No original tests broken
+- ❌ No new functionality added (docs-only)
+
+---
+
+## 22. Next Step: v1.3-phase1-complete
+
+**Status**: Ready to proceed
+
+**Requirements for v1.3**:
+- [x] v1.0: RAG eval harness implemented
+- [x] v1.1: Demo data implemented
+- [x] v1.2: Documentation and reports polished
+- [ ] Final review of all deliverables
+- [ ] Tag v1.3-phase1-complete
+
+**After v1.3**:
+- Phase 2 planning (real RAG integration)
+- Real Qdrant + Embedding API integration
+- Production-ready evaluation
