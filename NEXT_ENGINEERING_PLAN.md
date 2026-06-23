@@ -79,14 +79,19 @@
 - Basjoo 原生 SiliconFlow 支持：✅ 不需要修改核心源码
 - 结论：READY FOR v2.0
 
-**当前状态**：READY FOR v2.0
+**当前状态**：v2.0 COMPLETE
+
+**v2.0 完成内容（2026-06-23）**：
+1. ✅ `seed_demo_data.py --write-db` 写入 Qdrant（SiliconFlow embedding, 1024 dim）
+2. ✅ `run_rag_eval.py --real` 运行 5 个 real retrieval eval cases
+3. ✅ 生成 `rag_eval_real_report.json/md` 和 `rag_eval_mock_vs_real.md`
+4. ✅ 新增 7 个 config 测试（test_real_eval_config.py）
+5. ✅ 44 个 pytest 测试全部通过（37 原有 + 7 新增）
+6. ✅ Tag: v2.0-real-qdrant-eval-adapter
 
 **下一步**：
-1. 进入 v2.0-real-qdrant-eval-adapter
-2. 扩展 `seed_demo_data.py`：`--write-db` 模式写入 Agent DB
-3. 扩展 `run_rag_eval.py`：`--real` 模式使用真实 Qdrant + SiliconFlow
-4. 运行 3-5 个 real retrieval eval cases
-5. 生成 mock vs real 对比报告
+1. v2.1 — 扩展真实评估（全部 15 cases、LLM 回答评估）
+2. v3.0 — 完整 RAG 管道评估（LLM chat eval、幻觉检测）
 
 详见 `PHASE2_ENV_VERIFICATION.md`。
 

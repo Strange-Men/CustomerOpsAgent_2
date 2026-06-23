@@ -78,7 +78,7 @@ v1.3-phase1-complete # Phase 1 完整验收 ✅
 - 不允许在 v0 阶段写功能代码
 - v1 之后每个版本必须有可运行验收结果
 
-当前阶段：`v1.3-phase1-complete`（Phase 1 最终验收完成，tag 已推送到 origin）
+当前阶段：`v2.0-real-qdrant-eval-adapter`（真实 Qdrant 检索评估完成，tag 已推送到 origin）
 
 ## Git 规范
 
@@ -166,7 +166,7 @@ v1.3-phase1-complete # Phase 1 完整验收 ✅
 - upstream: https://github.com/haoyiyin/basjoo ✅
 - 当前分支: main (commit 6939926)
 - 开发分支: phase1-rag-eval-harness (commit 4a40ae1)
-- 版本: v0.1-fork-baseline ✅ → v0.2-setup-verified ✅ → v0.2.5-product-walkthrough ✅ → v0.3-phase1-plan ✅ → v1.0-rag-eval-harness ✅ → v1.1-demo-data ✅ → v1.2-docs-and-report ✅ → v1.3-phase1-complete ✅
+- 版本: v0.1-fork-baseline ✅ → v0.2-setup-verified ✅ → v0.2.5-product-walkthrough ✅ → v0.3-phase1-plan ✅ → v1.0-rag-eval-harness ✅ → v1.1-demo-data ✅ → v1.2-docs-and-report ✅ → v1.3-phase1-complete ✅ → v2.0-real-qdrant-eval-adapter ✅
 
 ### 目录结构说明
 
@@ -223,7 +223,7 @@ CustomerOpsAgent_2/
 
 ## 当前状态
 
-**当前阶段**：v1.6.2-phase2-env-final-verification（Phase 2 最终环境验证完成，READY FOR v2.0）
+**当前阶段**：v2.0-real-qdrant-eval-adapter（真实 Qdrant 检索评估完成）
 
 **已完成**：
 - ✅ v0.1-audit：选型审查完成
@@ -240,26 +240,15 @@ CustomerOpsAgent_2/
 - ✅ v1.4-phase2-readiness-audit：Phase 2 准入审查完成
 - ✅ v1.5-phase2-condition-resolution：Phase 2 条件确认完成
 - ✅ v1.6-phase2-environment-setup：Phase 2 环境准备完成
-- ✅ v1.6.2-phase2-env-final-verification：Phase 2 最终环境验证完成（READY FOR v2.0）
+- ✅ v1.6.2-phase2-env-final-verification：Phase 2 最终环境验证完成
+- ✅ v2.0-real-qdrant-eval-adapter：真实 Qdrant 检索评估完成
 
-**v1.6 用户决策**：
-- Qdrant 方案：Docker Desktop + 本地 Qdrant
-- Embedding 方案：SiliconFlow
-- 时间上限：1 周
-- Phase 2 最小目标：真实 Qdrant retrieval eval
-- 详见 `PHASE2_ENV_SETUP.md`
-
-**v1.6.2 最终环境验证结果**：
-- Docker：✅ v29.5.3
-- Qdrant：✅ basjoo-qdrant 运行中，v1.18.2
-- SiliconFlow：✅ API 连通，Qwen/Qwen3-Embedding-0.6B，维度 1024
-- Qdrant CRUD：✅ 创建/插入/查询/删除 全部通过
-- 结论：READY FOR v2.0
-- 详见 `PHASE2_ENV_VERIFICATION.md`
-
-**当前状态**：READY FOR v2.0
-- 所有环境条件已满足
-- 可以进入 v2.0-real-qdrant-eval-adapter
+**v2.0 完成内容（2026-06-23）**：
+- `seed_demo_data.py --write-db`：写入 Qdrant（SiliconFlow embedding, 1024 dim）
+- `run_rag_eval.py --real`：运行 5 个 real retrieval eval cases
+- 报告：`rag_eval_real_report.json/md`、`rag_eval_mock_vs_real.md`
+- 测试：44 个 pytest 全部通过（37 原有 + 7 新增）
+- Tag：v2.0-real-qdrant-eval-adapter
 
 **工程边界重置（2026-06-20）**：
 - 项目曾出现简历包装漂移，现已重置回工程主线

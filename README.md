@@ -49,26 +49,37 @@
 
 ## 当前结果
 
-> **重要说明**：以下指标来自 mock-friendly evaluation pipeline，不代表真实线上 Qdrant / Embedding / LLM 效果。当前价值是提供可复现的评估框架、测试基线和 demo 数据。
+### Mock 模式（Phase 1）
 
 | 指标 | 值 |
 |---|---|
-| `tests/rag_eval/` | **37 passed** |
+| `tests/rag_eval/` | **44 passed**（37 原有 + 7 新增） |
 | `run_rag_eval.py --mock` | **15 passed, 0 failed** |
 | No-Answer Accuracy | **100.0%** |
 | Citation Accuracy | **88.9%** |
 | Hallucination Risk | **0 cases** |
 | Baseline 回归测试 | **267 passed, 36 failed, 1 skipped，无新增失败** |
 
+### Real 模式（v2.0）
+
+| 指标 | 值 |
+|---|---|
+| `run_rag_eval.py --real` | **5 passed, 0 failed** |
+| Precision@3 | **0.733** |
+| Recall@3 | **1.000** |
+| MRR | **0.800** |
+| Hit Rate | **0.800** |
+| No-Answer Accuracy | **100.0%** |
+
 ---
 
 ## 当前工程边界
 
-- 当前完成的是 **Phase 1：Mock-friendly RAG Evaluation Harness Enhancement**
+- **Phase 1**：Mock-friendly RAG Evaluation Harness Enhancement ✅
+- **v2.0**：Real Qdrant Retrieval Evaluation Adapter ✅
 - 不是完整 AI 客服系统
-- 不是线上真实 Qdrant / Embedding / LLM 评估
+- 不是 LLM chat eval（只评估 retrieval，不评估回答生成）
 - 不是部署版 SaaS
-- Phase 2 环境已就绪（Docker Desktop v29.5.3, Qdrant v1.18.2, SiliconFlow API 连通），可以进入 v2.0
 
 详细边界定义见 [ENGINEERING_BOUNDARY.md](./ENGINEERING_BOUNDARY.md)，后续工程计划见 [NEXT_ENGINEERING_PLAN.md](./NEXT_ENGINEERING_PLAN.md)。
 
@@ -115,9 +126,9 @@ cd selected\basjoo\backend
 ## 当前阶段状态
 
 - **Phase 1**：completed
-- **Phase 2 readiness / environment setup**：completed (READY FOR v2.0)
-- **v2.0**：ready to start
-- **当前状态**：所有环境条件已满足，可以进入 v2.0-real-qdrant-eval-adapter
+- **Phase 2 readiness / environment setup**：completed
+- **v2.0**：completed（真实 Qdrant 检索评估）
+- **当前状态**：v2.0-real-qdrant-eval-adapter 已完成并推送
 
 ---
 
@@ -166,4 +177,4 @@ CustomerOpsAgent_2/              ← 本仓库（项目管理 / 文档）
 
 *基于 [Basjoo](https://github.com/haoyiyin/basjoo)（MIT License）进行二次开发*
 *创建日期：2026-06-19*
-*最后更新：2026-06-23 (v1.6.2-phase2-env-final-verification)*
+*最后更新：2026-06-23 (v2.0-real-qdrant-eval-adapter)*
