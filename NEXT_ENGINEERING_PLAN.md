@@ -112,11 +112,22 @@
 6. ✅ Real eval 变成 10 cases，全部通过
 7. ✅ 报告文件已更新：rag_eval_real_report.json/md、rag_eval_mock_vs_real.md
 
+**v2.1.2 完成内容（2026-06-23）**：
+1. ✅ 新增 `_compute_mismatch()` 函数，为每个 real eval case 计算 mismatch 分析
+2. ✅ 新增字段：`language`、`returned_sources_top3`、`matched_sources`、`missing_sources`、`unexpected_sources`、`mismatch_type`、`analysis_note`
+3. ✅ `mismatch_type` 枚举：none、missing_expected_source、unexpected_source_in_top3、low_rank_expected_source、no_answer_with_retrieval_noise、low_confidence_match
+4. ✅ 新增 6 个 pytest 测试（TestMismatchAnalysis），纯逻辑测试，不调用 API
+5. ✅ 50 个 pytest 测试全部通过
+6. ✅ Mock eval 继续 15 cases 全部通过
+7. ✅ Real eval 继续 10 cases 全部通过
+8. ✅ 报告新增 Mismatch Analysis 章节和 Real Retrieval Error Analysis 章节
+9. ✅ 关键发现：Precision@3=0.600 是 metric artifact（no-answer cases 拉低），实际 normal cases 为 1.000
+10. ✅ 关键发现：TC004 是唯一真实检索问题（return_policy.md 未进 top-5）
+
 **下一步**：
-1. v2.1.2 — 补充 bad case / mismatch 分析
-2. v2.1.3 — 更新报告格式和文档
-3. v2.1.4 — 质量审计和 freeze tag
-4. v3.0 — 完整 RAG 管道评估（LLM chat eval、幻觉检测）
+1. v2.1.3 — 报告格式和文档收尾
+2. v2.1.4 — 质量审计和 freeze tag
+3. v3.0 — 完整 RAG 管道评估（LLM chat eval、幻觉检测）
 
 详见 `PHASE2_ENV_VERIFICATION.md`。
 

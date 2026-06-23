@@ -78,7 +78,7 @@ v1.3-phase1-complete # Phase 1 完整验收 ✅
 - 不允许在 v0 阶段写功能代码
 - v1 之后每个版本必须有可运行验收结果
 
-当前阶段：`v2.0.1-quality-freeze`（v2.0 质量审计通过，已冻结）
+当前阶段：`v2.1.2`（real eval mismatch analysis 完成）
 
 **v2.0 版本 Tag**:
 - `v2.0-real-qdrant-eval-adapter` — 功能交付点（c74a3c4）
@@ -170,7 +170,7 @@ v1.3-phase1-complete # Phase 1 完整验收 ✅
 - upstream: https://github.com/haoyiyin/basjoo ✅
 - 当前分支: main (commit 6939926)
 - 开发分支: phase1-rag-eval-harness (commit 4a40ae1)
-- 版本: v0.1-fork-baseline ✅ → v0.2-setup-verified ✅ → v0.2.5-product-walkthrough ✅ → v0.3-phase1-plan ✅ → v1.0-rag-eval-harness ✅ → v1.1-demo-data ✅ → v1.2-docs-and-report ✅ → v1.3-phase1-complete ✅ → v2.0-real-qdrant-eval-adapter ✅ → v2.0.1-quality-freeze ✅ → v2.1.1-real-eval-case-expansion ✅
+- 版本: v0.1-fork-baseline ✅ → v0.2-setup-verified ✅ → v0.2.5-product-walkthrough ✅ → v0.3-phase1-plan ✅ → v1.0-rag-eval-harness ✅ → v1.1-demo-data ✅ → v1.2-docs-and-report ✅ → v1.3-phase1-complete ✅ → v2.0-real-qdrant-eval-adapter ✅ → v2.0.1-quality-freeze ✅ → v2.1.1-real-eval-case-expansion ✅ → v2.1.2-real-eval-mismatch-analysis ✅
 
 ### 目录结构说明
 
@@ -227,7 +227,7 @@ CustomerOpsAgent_2/
 
 ## 当前状态
 
-**当前阶段**：v2.1.1 completed（real eval cases 扩展完成）
+**当前阶段**：v2.1.2 completed（real eval mismatch analysis 完成）
 
 **已完成**：
 - ✅ v0.1-audit：选型审查完成
@@ -249,6 +249,7 @@ CustomerOpsAgent_2/
 - ✅ v2.0.1-quality-freeze：v2.0 质量审计通过，已冻结
 - ✅ v2.1 planning：v2.1 规划完成
 - ✅ v2.1.1：real eval cases 5 → 10 完成
+- ✅ v2.1.2：real eval mismatch analysis 完成
 
 **v2.0 完成内容（2026-06-23）**：
 - `seed_demo_data.py --write-db`：写入 Qdrant（SiliconFlow embedding, 1024 dim）
@@ -265,6 +266,18 @@ CustomerOpsAgent_2/
 - Mock eval 继续 15 cases 全部通过
 - Real eval 变成 10 cases，全部通过
 - 报告文件已更新
+
+**v2.1.2 完成内容（2026-06-23）**：
+- 新增 `_compute_mismatch()` 函数，为每个 real eval case 计算 mismatch 分析
+- 新增字段：language、returned_sources_top3、matched_sources、missing_sources、unexpected_sources、mismatch_type、analysis_note
+- mismatch_type 枚举：none、missing_expected_source、unexpected_source_in_top3、low_rank_expected_source、no_answer_with_retrieval_noise、low_confidence_match
+- 新增 6 个 pytest 测试（TestMismatchAnalysis），纯逻辑测试，不调用 API
+- 50 个 pytest 测试全部通过
+- Mock eval 继续 15 cases 全部通过
+- Real eval 继续 10 cases 全部通过
+- 报告新增 Mismatch Analysis 章节和 Real Retrieval Error Analysis 章节
+- 关键发现：Precision@3=0.600 是 metric artifact（no-answer cases 拉低），实际 normal cases 为 1.000
+- 关键发现：TC004 是唯一真实检索问题（return_policy.md 未进 top-5）
 
 **工程边界重置（2026-06-20）**：
 - 项目曾出现简历包装漂移，现已重置回工程主线
