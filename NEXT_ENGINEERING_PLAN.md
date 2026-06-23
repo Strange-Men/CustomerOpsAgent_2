@@ -79,7 +79,7 @@
 - Basjoo 原生 SiliconFlow 支持：✅ 不需要修改核心源码
 - 结论：READY FOR v2.0
 
-**当前状态**：v2.0 FROZEN
+**当前状态**：v2.0 FROZEN，v2.1 PLANNING
 
 **v2.0 完成内容（2026-06-23）**：
 1. ✅ `seed_demo_data.py --write-db` 写入 Qdrant（SiliconFlow embedding, 1024 dim）
@@ -96,9 +96,19 @@
 - 旧 tag `v2.0-real-qdrant-eval-adapter` 保留不动
 - 后续开发必须重新走小步迭代，不直接开大任务
 
+**v2.1 规划（2026-06-23）**：
+- 目标：Real retrieval eval cases 5 → 8-10
+- 推荐方案：10 个 cases，覆盖所有 6 种 scenario 类型
+- 新增 cases：TC004, TC007, TC008, TC011, TC012
+- 小步拆分：v2.1.1 → v2.1.2 → v2.1.3 → v2.1.4
+- 详见 `V2_1_PLAN.md`
+
 **下一步**：
-1. v2.1 — 扩展真实评估（全部 15 cases、LLM 回答评估）
-2. v3.0 — 完整 RAG 管道评估（LLM chat eval、幻觉检测）
+1. v2.1.1 — 扩展 real eval cases（5 → 10）
+2. v2.1.2 — 补充 bad case / mismatch 分析
+3. v2.1.3 — 更新报告格式和文档
+4. v2.1.4 — 质量审计和 freeze tag
+5. v3.0 — 完整 RAG 管道评估（LLM chat eval、幻觉检测）
 
 详见 `PHASE2_ENV_VERIFICATION.md`。
 

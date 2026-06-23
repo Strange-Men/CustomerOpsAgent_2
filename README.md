@@ -129,7 +129,8 @@ cd selected\basjoo\backend
 - **Phase 2 readiness / environment setup**：completed
 - **v2.0**：completed（真实 Qdrant 检索评估）
 - **v2.0.1**：frozen（质量审计通过，已冻结）
-- **当前状态**：v2.0.1-quality-freeze 已创建，v2.0 正式冻结
+- **v2.1**：planning（规划完成，准备进入开发）
+- **当前状态**：v2.1 planning 完成，下一步是 v2.1.1 小步开发
 
 ---
 

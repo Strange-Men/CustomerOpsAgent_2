@@ -227,7 +227,7 @@ CustomerOpsAgent_2/
 
 ## 当前状态
 
-**当前阶段**：v2.0.1-quality-freeze（v2.0 质量审计通过，已冻结）
+**当前阶段**：v2.1 planning（v2.1 规划完成，准备进入开发）
 
 **已完成**：
 - ✅ v0.1-audit：选型审查完成
@@ -247,6 +247,7 @@ CustomerOpsAgent_2/
 - ✅ v1.6.2-phase2-env-final-verification：Phase 2 最终环境验证完成
 - ✅ v2.0-real-qdrant-eval-adapter：真实 Qdrant 检索评估完成
 - ✅ v2.0.1-quality-freeze：v2.0 质量审计通过，已冻结
+- ✅ v2.1 planning：v2.1 规划完成
 
 **v2.0 完成内容（2026-06-23）**：
 - `seed_demo_data.py --write-db`：写入 Qdrant（SiliconFlow embedding, 1024 dim）
