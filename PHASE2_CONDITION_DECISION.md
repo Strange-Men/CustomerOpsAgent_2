@@ -3,7 +3,7 @@
 > **Created**: 2026-06-20
 > **Version**: v1.5-phase2-condition-resolution
 > **Purpose**: Phase 2 条件确认，不是功能开发
-> **Status**: NOT READY FOR v2.0 (v1.6.1 验证结果)
+> **Status**: READY FOR v2.0 (v1.6.2 验证结果)
 
 ---
 
@@ -28,13 +28,13 @@
 
 | 阻塞项 | 当前状态 | 影响 |
 |---|---|---|
-| Docker | ❌ 未安装 | 无法用 docker compose 启动 Qdrant |
-| Docker Compose | ❌ 未安装 | 同上 |
-| WSL | ❌ 未安装 | Docker Desktop 需要 WSL2 后端 |
-| Qdrant 运行方案 | ❓ 未确定 | 需要选择 Docker / Cloud / 本地二进制 |
-| Embedding API Key | ❌ 未申请 | 需要 Jina 或 SiliconFlow |
-| API Key 安全策略 | ⚠️ 已有方案 | .env + .gitignore，不提交 |
-| 时间成本 | ⚠️ 需设定上限 | 建议 1 周 |
+| Docker | ✅ v29.5.3 | Docker Desktop 已安装，daemon 可用 |
+| Docker Compose | ✅ v5.1.4 | 已安装 |
+| WSL | ✅ v2.7.8.0 (WSL2) | 已安装，docker-desktop Running |
+| Qdrant 运行方案 | ✅ Docker Desktop + 本地 Qdrant | basjoo-qdrant 容器运行中，v1.18.2 |
+| Embedding API Key | ✅ SiliconFlow API Key 已配置 | Qwen/Qwen3-Embedding-0.6B, 维度 1024 |
+| API Key 安全策略 | ✅ 已实施 | .env + .gitignore，不提交 |
+| 时间成本 | ✅ 已确定 | 1 周上限 |
 
 ---
 
@@ -196,16 +196,18 @@ USER DECISION MADE (2026-06-20)
 
 - [x] **A. 确认** — 使用 .env 文件，加入 .gitignore，不提交到仓库
 
-### 6.5 当前阻塞项（v1.6.1 验证结果）
+### 6.5 当前状态（v1.6.2 验证结果）
 
-| 阻塞项 | 状态 | 下一步 |
+| 条件 | 状态 | 说明 |
 |---|---|---|
-| Docker Desktop | ❌ 未安装 | 用户执行 `winget install -e --id Docker.DockerDesktop` |
-| WSL2 | ❌ 未安装 | Docker Desktop 安装时自动配置 |
-| Qdrant | ❌ 需要 Docker | Docker 安装后启动 Qdrant |
-| SiliconFlow API Key | ❌ 未配置 | 用户注册 https://siliconflow.cn/ 获取 Key，添加到 .env |
-| EMBEDDING_PROVIDER | ❌ 未配置 | 在 .env 中添加 `EMBEDDING_PROVIDER=siliconflow` |
-| .env 文件 | ✅ 存在 | 已被 gitignore，但缺少 SILICONFLOW_API_KEY 和 EMBEDDING_PROVIDER |
+| Docker Desktop | ✅ v29.5.3 | 已安装，daemon 可用 |
+| WSL2 | ✅ v2.7.8.0 | 已安装，docker-desktop Running |
+| Qdrant | ✅ v1.18.2 | basjoo-qdrant 容器运行中，API 可访问 |
+| SiliconFlow API Key | ✅ 已配置 | 不打印 |
+| EMBEDDING_PROVIDER | ✅ siliconflow | 已配置 |
+| .env 文件 | ✅ 存在且被 gitignore | 所有 5 个变量已配置 |
+| SiliconFlow 连通性 | ✅ HTTP 200 | Qwen/Qwen3-Embedding-0.6B, 维度 1024 |
+| Qdrant CRUD | ✅ 全部通过 | 创建/插入/查询/删除 |
 
 详见 `PHASE2_ENV_SETUP.md` 和 `PHASE2_ENV_VERIFICATION.md`。
 
@@ -277,7 +279,7 @@ v2.0-real-qdrant-eval-adapter
 ---
 
 *Document created: 2026-06-20*
-*Version: v1.5-phase2-condition-resolution (updated v1.6)*
-*Decision: NOT READY FOR v2.0 (v1.6.1 验证结果)*
-*Next step: Install Docker Desktop + set up SiliconFlow API Key*
-*v1.6.1 verification: 2026-06-20*
+*Updated: 2026-06-23*
+*Version: v1.6.2-phase2-env-final-verification*
+*Decision: READY FOR v2.0 (v1.6.2 验证结果)*
+*Next step: Enter v2.0-real-qdrant-eval-adapter*

@@ -68,7 +68,7 @@
 - 不是完整 AI 客服系统
 - 不是线上真实 Qdrant / Embedding / LLM 评估
 - 不是部署版 SaaS
-- Phase 2 仍在环境准备阶段（Docker Desktop 未安装，SiliconFlow API Key 未配置）
+- Phase 2 环境已就绪（Docker Desktop v29.5.3, Qdrant v1.18.2, SiliconFlow API 连通），可以进入 v2.0
 
 详细边界定义见 [ENGINEERING_BOUNDARY.md](./ENGINEERING_BOUNDARY.md)，后续工程计划见 [NEXT_ENGINEERING_PLAN.md](./NEXT_ENGINEERING_PLAN.md)。
 
@@ -115,9 +115,9 @@ cd selected\basjoo\backend
 ## 当前阶段状态
 
 - **Phase 1**：completed
-- **Phase 2 readiness / environment setup**：in progress
-- **v2.0**：尚未开始
-- **当前阻塞**：Docker Desktop 未安装，SiliconFlow API Key 未配置
+- **Phase 2 readiness / environment setup**：completed (READY FOR v2.0)
+- **v2.0**：ready to start
+- **当前状态**：所有环境条件已满足，可以进入 v2.0-real-qdrant-eval-adapter
 
 ---
 
@@ -128,7 +128,7 @@ cd selected\basjoo\backend
 - [PHASE2_READINESS_AUDIT.md](./PHASE2_READINESS_AUDIT.md) — Phase 2 就绪审计
 - [PHASE2_CONDITION_DECISION.md](./PHASE2_CONDITION_DECISION.md) — Phase 2 条件决策
 - [PHASE2_ENV_SETUP.md](./PHASE2_ENV_SETUP.md) — Phase 2 环境准备
-- [PHASE2_ENV_VERIFICATION.md](./PHASE2_ENV_VERIFICATION.md) — Phase 2 环境验证
+- [PHASE2_ENV_VERIFICATION.md](./PHASE2_ENV_VERIFICATION.md) — Phase 2 最终环境验证
 
 ---
 
@@ -166,4 +166,4 @@ CustomerOpsAgent_2/              ← 本仓库（项目管理 / 文档）
 
 *基于 [Basjoo](https://github.com/haoyiyin/basjoo)（MIT License）进行二次开发*
 *创建日期：2026-06-19*
-*最后更新：2026-06-20 (v1.6.1-phase2-env-verification)*
+*最后更新：2026-06-23 (v1.6.2-phase2-env-final-verification)*

@@ -65,34 +65,28 @@
 - 时间上限：1 周
 - Phase 2 最小目标：真实 Qdrant retrieval eval
 
-**v1.6 环境检查结果**：
-- Docker：❌ 未安装（可通过 winget 安装 Docker Desktop）
-- Docker Compose：❌ 未安装
-- WSL：❌ 未安装
-- Windows：11 Home China Build 26200 ✅ 支持 WSL2
-- winget：v1.28.240 ✅ 可用
-- SiliconFlow API Key 方案：✅ 已明确（Agent DB 加密存储 + .env 环境变量）
-- .env 安全：✅ .gitignore 已配置
+**v1.6.2 最终环境验证结果（2026-06-23）**：
+- Docker：✅ v29.5.3
+- Docker Compose：✅ v5.1.4
+- WSL：✅ v2.7.8.0 (WSL2)
+- Qdrant：✅ basjoo-qdrant 运行中，v1.18.2
+- Qdrant API：✅ /health OK, /collections OK
+- .env：✅ 存在且被 gitignore，所有 5 个变量已配置
+- SILICONFLOW_API_KEY：✅ 已配置
+- EMBEDDING_PROVIDER：✅ siliconflow
+- SiliconFlow 连通性：✅ HTTP 200, Qwen/Qwen3-Embedding-0.6B, 维度 1024
+- Qdrant CRUD：✅ 创建/插入/查询/删除 全部通过
+- Basjoo 原生 SiliconFlow 支持：✅ 不需要修改核心源码
+- 结论：READY FOR v2.0
 
-**v1.6.1 环境验证结果（2026-06-20）**：
-- Docker：❌ 未安装（`docker: command not found`）
-- Qdrant：❌ BLOCKED（依赖 Docker）
-- .env：✅ 存在且被 gitignore
-- SILICONFLOW_API_KEY：❌ 未配置
-- EMBEDDING_PROVIDER：❌ 未配置
-- 结论：NOT READY FOR v2.0
-
-**当前状态**：NOT READY FOR v2.0
-- Docker Desktop 未安装
-- SiliconFlow API Key 未配置
+**当前状态**：READY FOR v2.0
 
 **下一步**：
-1. 用户安装 Docker Desktop（`winget install -e --id Docker.DockerDesktop`，可能需要重启）
-2. 启动 Qdrant 并验证 health check
-3. 用户注册 SiliconFlow 获取 API Key
-4. 在 .env 中配置 SILICONFLOW_API_KEY 和 EMBEDDING_PROVIDER
-5. 验证连通性
-6. 所有条件满足后 → 进入 v2.0-real-qdrant-eval-adapter
+1. 进入 v2.0-real-qdrant-eval-adapter
+2. 扩展 `seed_demo_data.py`：`--write-db` 模式写入 Agent DB
+3. 扩展 `run_rag_eval.py`：`--real` 模式使用真实 Qdrant + SiliconFlow
+4. 运行 3-5 个 real retrieval eval cases
+5. 生成 mock vs real 对比报告
 
 详见 `PHASE2_ENV_VERIFICATION.md`。
 
@@ -178,7 +172,8 @@ v2.0-real-qdrant-eval-adapter
 | v1.4-phase2-readiness-audit | 2026-06-20 | 审查、评估、Go/No-Go 决策 | ✅ 完成 |
 | v1.5-phase2-condition-resolution | 2026-06-20 | 环境检查、方案比较、条件确认 | ✅ 完成 |
 | v1.6-phase2-environment-setup | 2026-06-20 | Docker/Qdrant/SiliconFlow 环境准备 | ✅ 完成 |
-| v2.0-real-qdrant-eval-adapter | 1 周上限 | 如果条件满足，实现真实 RAG 集成 | ⬜ 等待环境就绪 |
+| v1.6.2-phase2-env-final-verification | 2026-06-23 | 最终环境验证，全部通过 | ✅ 完成 |
+| v2.0-real-qdrant-eval-adapter | 1 周上限 | 实现真实 RAG 集成 | ⬜ READY |
 
 ---
 
@@ -190,9 +185,9 @@ v2.0-real-qdrant-eval-adapter
 
 | 序号 | 条件 | 当前状态 | 必须满足 |
 |---|---|---|---|
-| 1 | Qdrant 可用（Docker 或 Qdrant Cloud） | ❌ Docker 未安装 | ✅ 是 |
-| 2 | Embedding API Key 可用 | ❌ 未申请 | ✅ 是 |
-| 3 | Windows 本地运行方案确认 | ⚠️ 需要验证 Qdrant Cloud | ✅ 是 |
+| 1 | Qdrant 可用（Docker 或 Qdrant Cloud） | ✅ Docker Desktop + basjoo-qdrant | ✅ 是 |
+| 2 | Embedding API Key 可用 | ✅ SiliconFlow API Key 已配置 | ✅ 是 |
+| 3 | Windows 本地运行方案确认 | ✅ Docker Desktop + WSL2 | ✅ 是 |
 | 4 | 成本可接受 | ✅ 免费额度足够 | ✅ 是 |
 | 5 | 改造工作量可控（≤1 周） | ✅ 只需扩展 2 个脚本 | ✅ 是 |
 | 6 | 有明确的时间上限 | ✅ 1 周 | ✅ 是 |

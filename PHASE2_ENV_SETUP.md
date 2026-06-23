@@ -3,7 +3,7 @@
 > **Created**: 2026-06-20
 > **Version**: v1.6-phase2-environment-setup
 > **Purpose**: Phase 2 环境准备与安全验证，不是功能开发
-> **Status**: NOT READY FOR v2.0 (v1.6.1 验证结果)
+> **Status**: READY FOR v2.0 (v1.6.2 验证结果)
 
 ---
 
@@ -40,15 +40,14 @@
 
 ## 3. Docker / WSL Status
 
-### 3.1 检查结果（2026-06-20）
+### 3.1 检查结果（2026-06-23）
 
 | 工具 | 版本 | 状态 | 说明 |
 |---|---|---|---|
-| Docker | — | ❌ 未安装 | `docker: command not found` |
-| Docker Compose | — | ❌ 未安装 | `docker compose: command not found` |
-| WSL | — | ❌ 未安装 | 命令输出乱码，exit code 1 |
+| Docker | 29.5.3 | ✅ 已安装 | Docker Desktop, desktop-linux context |
+| Docker Compose | 5.1.4 | ✅ 已安装 | Docker Compose plugin |
+| WSL | 2.7.8.0 | ✅ 已安装 | WSL2, docker-desktop Running |
 | Windows | 11 Home China Build 26200 | ✅ | 支持 WSL2 和 Docker Desktop |
-| winget | v1.28.240 | ✅ | 可用于安装 Docker Desktop |
 
 ### 3.2 Docker Desktop 安装计划
 
@@ -121,17 +120,19 @@ curl http://localhost:6333/health
 curl http://localhost:6333
 ```
 
-### 4.4 当前状态（v1.6.1 验证）
+### 4.4 当前状态（v1.6.2 验证）
 
 ```
-NOT READY — Docker Desktop 未安装，Qdrant 无法启动
+READY — Qdrant 容器运行中，API 可访问
 ```
 
-**v1.6.1 验证结果（2026-06-20）**：
-- Docker：❌ 未安装（`docker: command not found`）
-- Docker Compose：❌ 未安装
-- WSL：❌ 未安装（exit code 1）
-- Qdrant：❌ BLOCKED（依赖 Docker）
+**v1.6.2 验证结果（2026-06-23）**：
+- Docker：✅ v29.5.3
+- Docker Compose：✅ v5.1.4
+- WSL：✅ v2.7.8.0 (WSL2)
+- Qdrant 容器：✅ basjoo-qdrant 运行中
+- Qdrant 版本：✅ v1.18.2
+- Qdrant API：✅ /health OK, /collections OK
 - 详见 `PHASE2_ENV_VERIFICATION.md`
 
 ---
@@ -223,18 +224,21 @@ else:
 - 失败时只记录 HTTP 状态和错误类型
 - 成功时只记录维度和响应是否正常
 
-### 5.6 当前状态（v1.6.1 验证）
+### 5.6 当前状态（v1.6.2 验证）
 
 ```
-NOT READY — SILICONFLOW_API_KEY 未配置
+READY — 所有环境变量已配置，SiliconFlow API 连通
 ```
 
-**v1.6.1 验证结果（2026-06-20）**：
+**v1.6.2 验证结果（2026-06-23）**：
 - .env 存在：✅
 - .env 被 gitignore：✅
-- QDRANT_URL：✅ 已配置
-- SILICONFLOW_API_KEY：❌ 未配置
-- EMBEDDING_PROVIDER：❌ 未配置
+- QDRANT_URL：✅ `http://localhost:6333`
+- EMBEDDING_PROVIDER：✅ `siliconflow`
+- SILICONFLOW_API_KEY：✅ 已配置（不打印）
+- SILICONFLOW_BASE_URL：✅ `https://api.siliconflow.cn/v1`
+- SILICONFLOW_EMBEDDING_MODEL：✅ `Qwen/Qwen3-Embedding-0.6B`
+- SiliconFlow 连通性：✅ HTTP 200, 维度 1024
 - 详见 `PHASE2_ENV_VERIFICATION.md`
 
 ---
@@ -245,38 +249,40 @@ NOT READY — SILICONFLOW_API_KEY 未配置
 
 | 序号 | 条件 | 当前状态 | 必须满足 |
 |---|---|---|---|
-| 1 | Docker Desktop 可用 | ❌ 未安装 | ✅ 是 |
-| 2 | Qdrant 可启动 | ❌ 需要 Docker | ✅ 是 |
-| 3 | Qdrant health check 通过 | ❌ 需要 Docker | ✅ 是 |
-| 4 | SiliconFlow API Key 方案明确 | ✅ 已明确 | ✅ 是 |
+| 1 | Docker Desktop 可用 | ✅ v29.5.3 | ✅ 是 |
+| 2 | Qdrant 可启动 | ✅ basjoo-qdrant 运行中 | ✅ 是 |
+| 3 | Qdrant health check 通过 | ✅ /health OK | ✅ 是 |
+| 4 | SiliconFlow API Key 已配置 | ✅ 已配置 | ✅ 是 |
 | 5 | .env 不会被提交 | ✅ .gitignore 已配置 | ✅ 是 |
 | 6 | 不需要修改核心架构 | ✅ 只扩展 2 个脚本 | ✅ 是 |
 | 7 | v2.0 范围限制为 3-5 个 real retrieval eval cases | ✅ 已确认 | ✅ 是 |
 
 ---
 
-## 7. Current Decision（v1.6.1 验证结果）
+## 7. Current Decision（v1.6.2 验证结果）
 
 ```
-NOT READY FOR v2.0
+READY FOR v2.0
 ```
 
-**原因**：
-- Docker Desktop 未安装（`docker: command not found`）
-- WSL 未安装
-- Qdrant 无法启动（依赖 Docker）
-- SILICONFLOW_API_KEY 未配置
-- EMBEDDING_PROVIDER 未配置
+**全部条件满足**：
+- Docker Desktop v29.5.3 可用
+- WSL2 v2.7.8.0 可用
+- Qdrant v1.18.2 容器运行中，API 可访问
+- SiliconFlow API Key 已配置
+- EMBEDDING_PROVIDER=siliconflow 已配置
+- SiliconFlow embedding 连通性测试通过（HTTP 200, 维度 1024）
+- Qdrant 临时 collection 测试通过（创建/插入/查询/删除）
+- Basjoo 原生支持 SiliconFlow，不需要修改核心源码
 
-**v1.6.1 验证结果**：详见 `PHASE2_ENV_VERIFICATION.md`
+**v1.6.2 验证结果**：详见 `PHASE2_ENV_VERIFICATION.md`
 
 **下一步**：
-1. 用户安装 Docker Desktop（`winget install -e --id Docker.DockerDesktop`，可能需要重启）
-2. 启动 Qdrant（`docker run -d --name basjoo-qdrant -p 127.0.0.1:6333:6333 -v qdrant-data:/qdrant/storage qdrant/qdrant:latest`）
-3. 验证 Qdrant health check（`curl http://localhost:6333/health`）
-4. 用户注册 SiliconFlow 获取 API Key
-5. 在 `selected/basjoo/.env` 中添加 `SILICONFLOW_API_KEY` 和 `EMBEDDING_PROVIDER=siliconflow`
-6. 所有条件满足后 → 进入 v2.0-real-qdrant-eval-adapter
+1. 进入 v2.0-real-qdrant-eval-adapter
+2. 扩展 `seed_demo_data.py`：`--write-db` 模式写入 Agent DB
+3. 扩展 `run_rag_eval.py`：`--real` 模式使用真实 Qdrant + SiliconFlow
+4. 运行 3-5 个 real retrieval eval cases
+5. 生成 mock vs real 对比报告
 
 ---
 
@@ -296,7 +302,7 @@ NOT READY FOR v2.0
 ---
 
 *Document created: 2026-06-20*
-*Version: v1.6-phase2-environment-setup*
-*Decision: NOT READY FOR v2.0 (v1.6.1 验证结果)*
-*Next step: User installs Docker Desktop + sets up SiliconFlow API Key*
-*v1.6.1 verification: 2026-06-20*
+*Updated: 2026-06-23*
+*Version: v1.6.2-phase2-env-final-verification*
+*Decision: READY FOR v2.0 (v1.6.2 验证结果)*
+*Next step: Enter v2.0-real-qdrant-eval-adapter*

@@ -223,7 +223,7 @@ CustomerOpsAgent_2/
 
 ## 当前状态
 
-**当前阶段**：v1.6.1-phase2-env-verification（Phase 2 环境验证完成，NOT READY FOR v2.0）
+**当前阶段**：v1.6.2-phase2-env-final-verification（Phase 2 最终环境验证完成，READY FOR v2.0）
 
 **已完成**：
 - ✅ v0.1-audit：选型审查完成
@@ -240,7 +240,7 @@ CustomerOpsAgent_2/
 - ✅ v1.4-phase2-readiness-audit：Phase 2 准入审查完成
 - ✅ v1.5-phase2-condition-resolution：Phase 2 条件确认完成
 - ✅ v1.6-phase2-environment-setup：Phase 2 环境准备完成
-- ✅ v1.6.1-phase2-env-verification：Phase 2 环境验证完成（NOT READY FOR v2.0）
+- ✅ v1.6.2-phase2-env-final-verification：Phase 2 最终环境验证完成（READY FOR v2.0）
 
 **v1.6 用户决策**：
 - Qdrant 方案：Docker Desktop + 本地 Qdrant
@@ -249,18 +249,17 @@ CustomerOpsAgent_2/
 - Phase 2 最小目标：真实 Qdrant retrieval eval
 - 详见 `PHASE2_ENV_SETUP.md`
 
-**v1.6.1 环境验证结果**：
-- Docker：❌ 未安装
-- Qdrant：❌ BLOCKED（依赖 Docker）
-- SILICONFLOW_API_KEY：❌ 未配置
-- EMBEDDING_PROVIDER：❌ 未配置
-- 结论：NOT READY FOR v2.0
+**v1.6.2 最终环境验证结果**：
+- Docker：✅ v29.5.3
+- Qdrant：✅ basjoo-qdrant 运行中，v1.18.2
+- SiliconFlow：✅ API 连通，Qwen/Qwen3-Embedding-0.6B，维度 1024
+- Qdrant CRUD：✅ 创建/插入/查询/删除 全部通过
+- 结论：READY FOR v2.0
 - 详见 `PHASE2_ENV_VERIFICATION.md`
 
-**当前阻塞**：
-- Docker Desktop 未安装（需要用户手动安装）
-- SiliconFlow API Key 未配置（需要用户手动设置）
-- 详见 `PHASE2_ENV_SETUP.md` 和 `PHASE2_ENV_VERIFICATION.md`
+**当前状态**：READY FOR v2.0
+- 所有环境条件已满足
+- 可以进入 v2.0-real-qdrant-eval-adapter
 
 **工程边界重置（2026-06-20）**：
 - 项目曾出现简历包装漂移，现已重置回工程主线
