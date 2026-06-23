@@ -79,7 +79,7 @@
 - Basjoo 原生 SiliconFlow 支持：✅ 不需要修改核心源码
 - 结论：READY FOR v2.0
 
-**当前状态**：v2.0 COMPLETE
+**当前状态**：v2.0 FROZEN
 
 **v2.0 完成内容（2026-06-23）**：
 1. ✅ `seed_demo_data.py --write-db` 写入 Qdrant（SiliconFlow embedding, 1024 dim）
@@ -87,7 +87,14 @@
 3. ✅ 生成 `rag_eval_real_report.json/md` 和 `rag_eval_mock_vs_real.md`
 4. ✅ 新增 7 个 config 测试（test_real_eval_config.py）
 5. ✅ 44 个 pytest 测试全部通过（37 原有 + 7 新增）
-6. ✅ Tag: v2.0-real-qdrant-eval-adapter
+6. ✅ Tag: v2.0-real-qdrant-eval-adapter（功能交付点）
+7. ✅ Tag: v2.0.1-quality-freeze（质量审计冻结点）
+
+**冻结状态**：
+- v2.0 已通过质量审计（V2.0 QUALITY PASS WITH MINOR NOTES）
+- 冻结 tag `v2.0.1-quality-freeze` 已创建并推送
+- 旧 tag `v2.0-real-qdrant-eval-adapter` 保留不动
+- 后续开发必须重新走小步迭代，不直接开大任务
 
 **下一步**：
 1. v2.1 — 扩展真实评估（全部 15 cases、LLM 回答评估）

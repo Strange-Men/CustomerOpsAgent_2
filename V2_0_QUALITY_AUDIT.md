@@ -181,6 +181,26 @@ V2.0 QUALITY PASS WITH MINOR NOTES
 
 **v2.0 is ready to freeze.** The tag `v2.0-real-qdrant-eval-adapter` at `c74a3c4` represents the functional deliverable. The branch may continue for minor housekeeping, but no new feature work should be added under the v2.0 label.
 
+---
+
+## 10. Freeze Tag
+
+**Date**: 2026-06-23
+**Action**: Created v2.0.1-quality-freeze tag
+
+| Item | Value |
+|---|---|
+| New tag | `v2.0.1-quality-freeze` |
+| Points to | `a53f608` (chore: update rag eval reports with latest test results) |
+| Old tag preserved | `v2.0-real-qdrant-eval-adapter` at `c74a3c4` |
+| Tag purpose | Freeze marker for v2.0 quality-audited state |
+
+**Note**: The new tag includes commit `e67de88` (chore: track previously untracked rag_eval test files) which was the minor note from the audit. Both tags are preserved; the old tag remains at its original position.
+
+**Result**: v2.0 is now formally frozen. No new features under v2.0 label.
+
+---
+
 For v2.1 planning, consider:
 - Full 15-case real retrieval eval
 - LLM answer generation evaluation

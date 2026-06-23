@@ -78,7 +78,11 @@ v1.3-phase1-complete # Phase 1 完整验收 ✅
 - 不允许在 v0 阶段写功能代码
 - v1 之后每个版本必须有可运行验收结果
 
-当前阶段：`v2.0-real-qdrant-eval-adapter`（真实 Qdrant 检索评估完成，tag 已推送到 origin）
+当前阶段：`v2.0.1-quality-freeze`（v2.0 质量审计通过，已冻结）
+
+**v2.0 版本 Tag**:
+- `v2.0-real-qdrant-eval-adapter` — 功能交付点（c74a3c4）
+- `v2.0.1-quality-freeze` — 质量审计冻结点（a53f608）
 
 ## Git 规范
 
@@ -166,7 +170,7 @@ v1.3-phase1-complete # Phase 1 完整验收 ✅
 - upstream: https://github.com/haoyiyin/basjoo ✅
 - 当前分支: main (commit 6939926)
 - 开发分支: phase1-rag-eval-harness (commit 4a40ae1)
-- 版本: v0.1-fork-baseline ✅ → v0.2-setup-verified ✅ → v0.2.5-product-walkthrough ✅ → v0.3-phase1-plan ✅ → v1.0-rag-eval-harness ✅ → v1.1-demo-data ✅ → v1.2-docs-and-report ✅ → v1.3-phase1-complete ✅ → v2.0-real-qdrant-eval-adapter ✅
+- 版本: v0.1-fork-baseline ✅ → v0.2-setup-verified ✅ → v0.2.5-product-walkthrough ✅ → v0.3-phase1-plan ✅ → v1.0-rag-eval-harness ✅ → v1.1-demo-data ✅ → v1.2-docs-and-report ✅ → v1.3-phase1-complete ✅ → v2.0-real-qdrant-eval-adapter ✅ → v2.0.1-quality-freeze ✅
 
 ### 目录结构说明
 
@@ -223,7 +227,7 @@ CustomerOpsAgent_2/
 
 ## 当前状态
 
-**当前阶段**：v2.0-real-qdrant-eval-adapter（真实 Qdrant 检索评估完成）
+**当前阶段**：v2.0.1-quality-freeze（v2.0 质量审计通过，已冻结）
 
 **已完成**：
 - ✅ v0.1-audit：选型审查完成
@@ -242,13 +246,15 @@ CustomerOpsAgent_2/
 - ✅ v1.6-phase2-environment-setup：Phase 2 环境准备完成
 - ✅ v1.6.2-phase2-env-final-verification：Phase 2 最终环境验证完成
 - ✅ v2.0-real-qdrant-eval-adapter：真实 Qdrant 检索评估完成
+- ✅ v2.0.1-quality-freeze：v2.0 质量审计通过，已冻结
 
 **v2.0 完成内容（2026-06-23）**：
 - `seed_demo_data.py --write-db`：写入 Qdrant（SiliconFlow embedding, 1024 dim）
 - `run_rag_eval.py --real`：运行 5 个 real retrieval eval cases
 - 报告：`rag_eval_real_report.json/md`、`rag_eval_mock_vs_real.md`
 - 测试：44 个 pytest 全部通过（37 原有 + 7 新增）
-- Tag：v2.0-real-qdrant-eval-adapter
+- Tag：v2.0-real-qdrant-eval-adapter（功能交付点）
+- Tag：v2.0.1-quality-freeze（质量审计冻结点）
 
 **工程边界重置（2026-06-20）**：
 - 项目曾出现简历包装漂移，现已重置回工程主线

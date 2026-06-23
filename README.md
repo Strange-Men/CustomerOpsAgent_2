@@ -128,7 +128,8 @@ cd selected\basjoo\backend
 - **Phase 1**：completed
 - **Phase 2 readiness / environment setup**：completed
 - **v2.0**：completed（真实 Qdrant 检索评估）
-- **当前状态**：v2.0-real-qdrant-eval-adapter 已完成并推送
+- **v2.0.1**：frozen（质量审计通过，已冻结）
+- **当前状态**：v2.0.1-quality-freeze 已创建，v2.0 正式冻结
 
 ---
 
@@ -177,4 +178,4 @@ CustomerOpsAgent_2/              ← 本仓库（项目管理 / 文档）
 
 *基于 [Basjoo](https://github.com/haoyiyin/basjoo)（MIT License）进行二次开发*
 *创建日期：2026-06-19*
-*最后更新：2026-06-23 (v2.0-real-qdrant-eval-adapter)*
+*最后更新：2026-06-23 (v2.0.1-quality-freeze)*
