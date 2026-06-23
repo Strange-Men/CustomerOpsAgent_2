@@ -170,7 +170,7 @@ v1.3-phase1-complete # Phase 1 完整验收 ✅
 - upstream: https://github.com/haoyiyin/basjoo ✅
 - 当前分支: main (commit 6939926)
 - 开发分支: phase1-rag-eval-harness (commit 4a40ae1)
-- 版本: v0.1-fork-baseline ✅ → v0.2-setup-verified ✅ → v0.2.5-product-walkthrough ✅ → v0.3-phase1-plan ✅ → v1.0-rag-eval-harness ✅ → v1.1-demo-data ✅ → v1.2-docs-and-report ✅ → v1.3-phase1-complete ✅ → v2.0-real-qdrant-eval-adapter ✅ → v2.0.1-quality-freeze ✅
+- 版本: v0.1-fork-baseline ✅ → v0.2-setup-verified ✅ → v0.2.5-product-walkthrough ✅ → v0.3-phase1-plan ✅ → v1.0-rag-eval-harness ✅ → v1.1-demo-data ✅ → v1.2-docs-and-report ✅ → v1.3-phase1-complete ✅ → v2.0-real-qdrant-eval-adapter ✅ → v2.0.1-quality-freeze ✅ → v2.1.1-real-eval-case-expansion ✅
 
 ### 目录结构说明
 
@@ -227,7 +227,7 @@ CustomerOpsAgent_2/
 
 ## 当前状态
 
-**当前阶段**：v2.1 planning（v2.1 规划完成，准备进入开发）
+**当前阶段**：v2.1.1 completed（real eval cases 扩展完成）
 
 **已完成**：
 - ✅ v0.1-audit：选型审查完成
@@ -248,6 +248,7 @@ CustomerOpsAgent_2/
 - ✅ v2.0-real-qdrant-eval-adapter：真实 Qdrant 检索评估完成
 - ✅ v2.0.1-quality-freeze：v2.0 质量审计通过，已冻结
 - ✅ v2.1 planning：v2.1 规划完成
+- ✅ v2.1.1：real eval cases 5 → 10 完成
 
 **v2.0 完成内容（2026-06-23）**：
 - `seed_demo_data.py --write-db`：写入 Qdrant（SiliconFlow embedding, 1024 dim）
@@ -256,6 +257,14 @@ CustomerOpsAgent_2/
 - 测试：44 个 pytest 全部通过（37 原有 + 7 新增）
 - Tag：v2.0-real-qdrant-eval-adapter（功能交付点）
 - Tag：v2.0.1-quality-freeze（质量审计冻结点）
+
+**v2.1.1 完成内容（2026-06-23）**：
+- Real eval cases 从 5 个扩展到 10 个
+- 新增覆盖：multi_doc_retrieval、no_answer_fallback ZH、low_relevance_reject、evidence_citation ZH、hallucination_risk
+- 44 个 pytest 测试全部通过
+- Mock eval 继续 15 cases 全部通过
+- Real eval 变成 10 cases，全部通过
+- 报告文件已更新
 
 **工程边界重置（2026-06-20）**：
 - 项目曾出现简历包装漂移，现已重置回工程主线

@@ -79,7 +79,7 @@
 - Basjoo 原生 SiliconFlow 支持：✅ 不需要修改核心源码
 - 结论：READY FOR v2.0
 
-**当前状态**：v2.0 FROZEN，v2.1 PLANNING
+**当前状态**：v2.0 FROZEN，v2.1.1 COMPLETED
 
 **v2.0 完成内容（2026-06-23）**：
 1. ✅ `seed_demo_data.py --write-db` 写入 Qdrant（SiliconFlow embedding, 1024 dim）
@@ -103,12 +103,20 @@
 - 小步拆分：v2.1.1 → v2.1.2 → v2.1.3 → v2.1.4
 - 详见 `V2_1_PLAN.md`
 
+**v2.1.1 完成内容（2026-06-23）**：
+1. ✅ Real eval cases 从 5 个扩展到 10 个
+2. ✅ 新增覆盖：multi_doc_retrieval、no_answer_fallback ZH、low_relevance_reject、evidence_citation ZH、hallucination_risk
+3. ✅ 修改文件：`run_rag_eval.py`（REAL_EVAL_CASE_IDS）、`test_real_eval_config.py`（断言更新）
+4. ✅ 44 个 pytest 测试全部通过
+5. ✅ Mock eval 继续 15 cases 全部通过
+6. ✅ Real eval 变成 10 cases，全部通过
+7. ✅ 报告文件已更新：rag_eval_real_report.json/md、rag_eval_mock_vs_real.md
+
 **下一步**：
-1. v2.1.1 — 扩展 real eval cases（5 → 10）
-2. v2.1.2 — 补充 bad case / mismatch 分析
-3. v2.1.3 — 更新报告格式和文档
-4. v2.1.4 — 质量审计和 freeze tag
-5. v3.0 — 完整 RAG 管道评估（LLM chat eval、幻觉检测）
+1. v2.1.2 — 补充 bad case / mismatch 分析
+2. v2.1.3 — 更新报告格式和文档
+3. v2.1.4 — 质量审计和 freeze tag
+4. v3.0 — 完整 RAG 管道评估（LLM chat eval、幻觉检测）
 
 详见 `PHASE2_ENV_VERIFICATION.md`。
 
