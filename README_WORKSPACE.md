@@ -1,10 +1,12 @@
-# CustomerOpsAgent_2｜Open-source AI Customer Support Agent Enhancement
+# CustomerOpsAgent_2｜跨境电商客服 Agent 与 RAG 质量评估增强
 
 ## 目的
 
-本工作区用于筛选、审查、并最终对开源 AI 客服 Agent 项目进行二次开发。
+本工作区用于对开源 AI 客服系统 Basjoo 进行二次开发，面向跨境电商客服场景补充知识库、RAG 检索、自动回复工作流与质量评估能力。
 
 **不从 0 自研**，只做开源项目的增强和定制。
+
+> 最终产物定义与完整路线图见 [FINAL_PRODUCT_ROADMAP.md](./FINAL_PRODUCT_ROADMAP.md)
 
 ## 目录结构
 
@@ -78,7 +80,7 @@ v1.3-phase1-complete # Phase 1 完整验收 ✅
 - 不允许在 v0 阶段写功能代码
 - v1 之后每个版本必须有可运行验收结果
 
-当前阶段：`v2.1.4`（v2.1 质量审计和冻结完成）
+当前阶段：`v2.2.0`（最终产物与路线图锁定）
 
 **v2.0 版本 Tag**:
 - `v2.0-real-qdrant-eval-adapter` — 功能交付点（c74a3c4）
@@ -230,7 +232,7 @@ CustomerOpsAgent_2/
 
 ## 当前状态
 
-**当前阶段**：v2.1.4 completed（v2.1 质量审计和冻结完成）
+**当前阶段**：v2.2.0 planning（最终产物与路线图锁定）
 
 **已完成**：
 - ✅ v0.1-audit：选型审查完成
@@ -304,4 +306,4 @@ CustomerOpsAgent_2/
 ---
 
 *Created: 2026-06-19*
-*Last updated: 2026-06-23 (v2.1.4-quality-audit-and-freeze)*
+*Last updated: 2026-06-23 (v2.2.0-final-product-roadmap-lock)*

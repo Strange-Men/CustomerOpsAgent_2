@@ -2,8 +2,9 @@
 
 > **Created**: 2026-06-23
 > **Purpose**: 规划 v2.1 阶段，扩展 real retrieval eval cases
-> **Status**: Planning
+> **Status**: Completed & Frozen (v2.1.4-quality-freeze)
 > **Frozen Baseline**: v2.0.1-quality-freeze
+> **Next**: v2.2.0 Cross-border E-commerce Scenarioization（见 [FINAL_PRODUCT_ROADMAP.md](./FINAL_PRODUCT_ROADMAP.md)）
 
 ---
 

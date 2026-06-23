@@ -1,8 +1,12 @@
-# CustomerOpsAgent_2｜Basjoo 开源 AI 客服系统 RAG 评估增强
+# CustomerOpsAgent_2｜跨境电商客服 Agent 与 RAG 质量评估增强
 
 ## 项目定位
 
-这是一个基于开源 AI 客服系统 [Basjoo](https://github.com/haoyiyin/basjoo)（MIT License）的二次开发与工程增强项目。项目重点是为现有 AI 客服系统补充 **RAG Evaluation Harness**、**Demo Data**、**Mock 可复现评估**和**评估报告**能力。
+这是一个基于开源 AI 客服系统 [Basjoo](https://github.com/haoyiyin/basjoo)（MIT License）的二次开发项目，面向跨境电商客服场景补充知识库、RAG 检索、自动回复工作流与质量评估能力。
+
+**不是单纯 RAG Evaluation Harness**，也不是从 0 自研完整客服系统。当前已完成的是质量评估底座（v1.x/v2.0/v2.1），是最终客服 Agent 的质量评估与回归测试模块。
+
+> 最终产物定义与完整路线图见 [FINAL_PRODUCT_ROADMAP.md](./FINAL_PRODUCT_ROADMAP.md)
 
 ---
 
@@ -77,11 +81,11 @@
 
 - **Phase 1**：Mock-friendly RAG Evaluation Harness Enhancement ✅
 - **v2.0**：Real Qdrant Retrieval Evaluation Adapter ✅
-- 不是完整 AI 客服系统
-- 不是 LLM chat eval（只评估 retrieval，不评估回答生成）
-- 不是部署版 SaaS
+- **v2.1**：Real eval expansion + mismatch analysis ✅
+- 当前完成的是质量评估底座，不是最终产品全部
+- 下一阶段：v2.2 Cross-border E-commerce Scenarioization
 
-详细边界定义见 [ENGINEERING_BOUNDARY.md](./ENGINEERING_BOUNDARY.md)，后续工程计划见 [NEXT_ENGINEERING_PLAN.md](./NEXT_ENGINEERING_PLAN.md)。
+详细边界定义见 [ENGINEERING_BOUNDARY.md](./ENGINEERING_BOUNDARY.md)，最终产物路线图见 [FINAL_PRODUCT_ROADMAP.md](./FINAL_PRODUCT_ROADMAP.md)，后续工程计划见 [NEXT_ENGINEERING_PLAN.md](./NEXT_ENGINEERING_PLAN.md)。
 
 ---
 
@@ -139,6 +143,7 @@ cd selected\basjoo\backend
 
 ## 文档入口
 
+- [FINAL_PRODUCT_ROADMAP.md](./FINAL_PRODUCT_ROADMAP.md) — 最终产物定义与路线图锁定
 - [ENGINEERING_BOUNDARY.md](./ENGINEERING_BOUNDARY.md) — 工程边界定义
 - [NEXT_ENGINEERING_PLAN.md](./NEXT_ENGINEERING_PLAN.md) — 后续工程计划
 - [PHASE2_READINESS_AUDIT.md](./PHASE2_READINESS_AUDIT.md) — Phase 2 就绪审计
@@ -154,6 +159,7 @@ cd selected\basjoo\backend
 CustomerOpsAgent_2/              ← 本仓库（项目管理 / 文档）
 ├── README.md                    ← 你正在看的文件
 ├── README_WORKSPACE.md          # 工作区说明与命名规范
+├── FINAL_PRODUCT_ROADMAP.md     # 最终产物定义与路线图锁定
 ├── ENGINEERING_BOUNDARY.md      # 工程边界定义
 ├── NEXT_ENGINEERING_PLAN.md     # 后续工程计划
 ├── OPEN_SOURCE_AUDIT.md         # 开源项目选型审查报告
@@ -182,4 +188,4 @@ CustomerOpsAgent_2/              ← 本仓库（项目管理 / 文档）
 
 *基于 [Basjoo](https://github.com/haoyiyin/basjoo)（MIT License）进行二次开发*
 *创建日期：2026-06-19*
-*最后更新：2026-06-23 (v2.1.4-quality-audit-and-freeze)*
+*最后更新：2026-06-23 (v2.2.0-final-product-roadmap-lock)*

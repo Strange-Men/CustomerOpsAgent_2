@@ -3,6 +3,7 @@
 > **Created**: 2026-06-20
 > **Purpose**: 锁定后续开发路线，防止方向漂移
 > **Status**: Active
+> **Final Product**: 跨境电商客服 Agent 与 RAG 质量评估增强（见 [FINAL_PRODUCT_ROADMAP.md](./FINAL_PRODUCT_ROADMAP.md)）
 
 ---
 
@@ -151,7 +152,9 @@
 - 后续开发必须重新走小步迭代，不直接开大任务
 
 **下一步**：
-1. v3.0 — 完整 RAG 管道评估（LLM chat eval、幻觉检测）
+1. v2.2.0 — Cross-border E-commerce Scenarioization Planning（把 SmartHome demo data 改造成跨境电商客服场景数据）
+
+> 当前完成的 v1.x/v2.0/v2.1 是质量评估底座，不是最终产品全部。最终产物定义见 [FINAL_PRODUCT_ROADMAP.md](./FINAL_PRODUCT_ROADMAP.md)。
 
 详见 `PHASE2_ENV_VERIFICATION.md`。
 
