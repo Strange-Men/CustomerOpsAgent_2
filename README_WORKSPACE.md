@@ -227,7 +227,7 @@ CustomerOpsAgent_2/
 
 ## 当前状态
 
-**当前阶段**：v2.1.2 completed（real eval mismatch analysis 完成）
+**当前阶段**：v2.1.3 completed（报告格式和文档收尾完成）
 
 **已完成**：
 - ✅ v0.1-audit：选型审查完成
@@ -250,6 +250,7 @@ CustomerOpsAgent_2/
 - ✅ v2.1 planning：v2.1 规划完成
 - ✅ v2.1.1：real eval cases 5 → 10 完成
 - ✅ v2.1.2：real eval mismatch analysis 完成
+- ✅ v2.1.3：报告格式和文档收尾完成
 
 **v2.0 完成内容（2026-06-23）**：
 - `seed_demo_data.py --write-db`：写入 Qdrant（SiliconFlow embedding, 1024 dim）
@@ -279,6 +280,16 @@ CustomerOpsAgent_2/
 - 关键发现：Precision@3=0.600 是 metric artifact（no-answer cases 拉低），实际 normal cases 为 1.000
 - 关键发现：TC004 是唯一真实检索问题（return_policy.md 未进 top-5）
 
+**v2.1.3 完成内容（2026-06-23）**：
+- 报告格式和文档收尾
+- 更新版本历史：添加 v2.1.1/v2.1.2 变更记录
+- 添加指标解释：Precision@3=0.600 原因、Recall@3=0.950、MRR=0.600
+- 添加限制说明：retrieval eval only、no chat eval、no answer generation eval、no frontend、no deployment
+- 添加安全说明：.env 不提交、API Key 不写入文档
+- 移除求职包装内容
+- 50 个 pytest 测试全部通过
+- 修改文件：ENHANCEMENT_SUMMARY.md、ENHANCEMENT_SUMMARY.zh-CN.md、rag-evaluation.md、reports/README.md、rag_eval_real_report.md、rag_eval_mock_vs_real.md
+
 **工程边界重置（2026-06-20）**：
 - 项目曾出现简历包装漂移，现已重置回工程主线
 - 后续不再继续包装，除非新阶段闭环
@@ -289,4 +300,4 @@ CustomerOpsAgent_2/
 ---
 
 *Created: 2026-06-19*
-*Last updated: 2026-06-20 (v1.2-docs-and-report completed)*
+*Last updated: 2026-06-23 (v2.1.3-report-and-docs-polish)*

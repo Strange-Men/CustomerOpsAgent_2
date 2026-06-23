@@ -79,7 +79,7 @@
 - Basjoo 原生 SiliconFlow 支持：✅ 不需要修改核心源码
 - 结论：READY FOR v2.0
 
-**当前状态**：v2.0 FROZEN，v2.1.1 COMPLETED
+**当前状态**：v2.0 FROZEN，v2.1.3 COMPLETED
 
 **v2.0 完成内容（2026-06-23）**：
 1. ✅ `seed_demo_data.py --write-db` 写入 Qdrant（SiliconFlow embedding, 1024 dim）
@@ -124,9 +124,18 @@
 9. ✅ 关键发现：Precision@3=0.600 是 metric artifact（no-answer cases 拉低），实际 normal cases 为 1.000
 10. ✅ 关键发现：TC004 是唯一真实检索问题（return_policy.md 未进 top-5）
 
+**v2.1.3 完成内容（2026-06-23）**：
+1. ✅ 报告格式和文档收尾
+2. ✅ 更新版本历史：添加 v2.1.1/v2.1.2 变更记录
+3. ✅ 添加指标解释：Precision@3=0.600 原因、Recall@3=0.950、MRR=0.600
+4. ✅ 添加限制说明：retrieval eval only、no chat eval、no answer generation eval、no frontend、no deployment
+5. ✅ 添加安全说明：.env 不提交、API Key 不写入文档
+6. ✅ 移除求职包装内容
+7. ✅ 50 个 pytest 测试全部通过
+8. ✅ 修改文件：ENHANCEMENT_SUMMARY.md、ENHANCEMENT_SUMMARY.zh-CN.md、rag-evaluation.md、reports/README.md、rag_eval_real_report.md、rag_eval_mock_vs_real.md
+
 **下一步**：
-1. v2.1.3 — 报告格式和文档收尾
-2. v2.1.4 — 质量审计和 freeze tag
+1. v2.1.4 — 质量审计和 freeze tag
 3. v3.0 — 完整 RAG 管道评估（LLM chat eval、幻觉检测）
 
 详见 `PHASE2_ENV_VERIFICATION.md`。

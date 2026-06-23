@@ -129,8 +129,10 @@ cd selected\basjoo\backend
 - **Phase 2 readiness / environment setup**：completed
 - **v2.0**：completed（真实 Qdrant 检索评估）
 - **v2.0.1**：frozen（质量审计通过，已冻结）
-- **v2.1**：planning（规划完成，准备进入开发）
-- **当前状态**：v2.1 planning 完成，下一步是 v2.1.1 小步开发
+- **v2.1.1**：completed（real eval cases 5 → 10）
+- **v2.1.2**：completed（real eval mismatch analysis）
+- **v2.1.3**：completed（报告格式和文档收尾）
+- **当前状态**：v2.1.3 完成，下一步是 v2.1.4 质量审计和 freeze tag
 
 ---
 
@@ -179,4 +181,4 @@ CustomerOpsAgent_2/              ← 本仓库（项目管理 / 文档）
 
 *基于 [Basjoo](https://github.com/haoyiyin/basjoo)（MIT License）进行二次开发*
 *创建日期：2026-06-19*
-*最后更新：2026-06-23 (v2.0.1-quality-freeze)*
+*最后更新：2026-06-23 (v2.1.3-report-and-docs-polish)*
